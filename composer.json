@@ -1,0 +1,29 @@
+{
+    "name": "mariolucasdev/payhub",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Payhub\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Mário Lucas",
+            "email": "mariolucasdev@gmail.com"
+        }
+    ],
+    "require-dev": {
+        "pestphp/pest": "^3.5"
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    },
+    "require": {
+        "laravel/framework": "^11.32"
+    },
+    "scripts": {
+        "test": "vendor/bin/pest"
+    }
+}
