@@ -29,9 +29,5 @@ $payhub
     ->client($client)
     ->pix($pix);
 
-$payhub
-    ->client($client)
-    ->change($pix);
-
 // TODO: create feature to extend resources
 // TODO: command with stubs to create resources
