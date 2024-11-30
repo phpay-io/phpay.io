@@ -1,0 +1,23 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+KN='\033[0m'
+BBlue='\033[1;34m'
+Bred='\033[1;31m'
+
+REGEX_ISSUE_ID="[a-zA-Z0-9,\.\_\-]+-[0-9]+"
+
+BRANCH_NAME=$(git symbolic-ref --short HEAD)
+ISSUE_ID=$(echo "$BRANCH_NAME" | grep -o -E "$REGEX_ISSUE_ID")
+COMMIT_MESSAGE=$(cat "$1")
+
+if [ -z "$ISSUE_ID" ]; then
+	echo -e "{$Bred}Branch não está no padrão de deveria mestre... ${NC}"
+	exit 1
+fi
+
+if [[ $COMMIT_MESSAGE == $ISSUE_ID ]]; then
+	exit 0
+fi
+
+echo "$ISSUE_ID: $COMMIT_MESSAGE" > $1
