@@ -16,7 +16,7 @@ if [ -z "$ISSUE_ID" ]; then
 	exit 1
 fi
 
-if [[ "$COMMIT_MESSAGE" == "$ISSUE_ID" ]]; then
+if [[ $COMMIT_MESSAGE == $ISSUE_ID ]]; then
 	exit 0
 fi
 
