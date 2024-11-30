@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env sh
 
 KN='\033[0m'
 BBlue='\033[1;34m'
@@ -11,12 +11,14 @@ ISSUE_ID=$(echo "$BRANCH_NAME" | grep -o -E "$REGEX_ISSUE_ID")
 COMMIT_MESSAGE=$(cat "$1")
 
 if [ -z "$ISSUE_ID" ]; then
-    echo -e "${BRed}Branch name does not follow the expected pattern...${KN}"
+    echo "${BRed}Branch name does not follow the expected pattern...${KN}"
     exit 1
 fi
 
-if [[ "$COMMIT_MESSAGE" == "$ISSUE_ID"* ]]; then
-    exit 0
-fi
+case "$COMMIT_MESSAGE" in
+    "$ISSUE_ID"*)
+        exit 0
+        ;;
+esac
 
 echo "$ISSUE_ID: $COMMIT_MESSAGE" > "$1"
