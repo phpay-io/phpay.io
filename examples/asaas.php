@@ -5,8 +5,6 @@ use Payhub\Enums\Gateways;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-$payhub = new Payhub('$aact_YTU5YTE0M2M2N2I4MTliNzk0YTI5N2U5MzdjNWZmNDQ6OjAwMDAwMDAwMDAwMDAwOTQ5MzU6OiRhYWNoXzY0ZjVjOGZlLTljMDMtNDM0MS05MTQ3LWRjYTkxNDdmMzBkZA==');
-
 $client = [
     'name' => 'Mário Lucas',
     'cpf_cnpj' => '09102295466',
@@ -15,10 +13,25 @@ $client = [
 $pix = [
     'description' => 'Teste de pagamento',
     'amount' => 100.00,
-    'due_date' => '2024-11-17',
+    'due_date' => date('Y-m-d'),
 ];
 
-$payhub
+$credentials = [
+    'token' => '$aact_YTU5YTE0M2M2N2I4MTliNzk0YTI5N2U5MzdjNWZmNDQ6OjAwMDAwMDAwMDAwMDAwOTQ5MzU6OiRhYWNoXzY0ZjVjOGZlLTljMDMtNDM0MS05MTQ3LWRjYTkxNDdmMzBkZA==',
+];
+
+/* instance singleton */
+$payhub = (new Payhub())
     ->gateway(Gateways::ASAAS)
+    ->authorize($credentials, sandbox: true);
+
+$payhub
     ->client($client)
     ->pix($pix);
+
+$payhub
+    ->client($client)
+    ->change($pix);
+
+// TODO: create feature to extend resources
+// TODO: command with stubs to create resources

@@ -6,6 +6,12 @@ use stdClass;
 
 class AsaasClientRequest
 {
+    /**
+     * validate client
+     *
+     * @param array $client
+     * @return void
+     */
     public static function validate(array $client): void
     {
         if (! isset($client['name'])) {
@@ -17,6 +23,11 @@ class AsaasClientRequest
         }
     }
 
+    /**
+     * messages for validation
+     *
+     * @return stdClass
+     */
     public function messages(): stdClass
     {
         return (object) [

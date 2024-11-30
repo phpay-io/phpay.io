@@ -22,10 +22,8 @@ class Payhub
      *
      * @param string $token
      */
-    public function __construct(
-        private string $token,
-        private bool $production = false
-    ) {
+    public function __construct()
+    {
         $container = new Container();
 
         Facade::setFacadeApplication($container);
@@ -42,7 +40,7 @@ class Payhub
      *
      * @param Gateways $gateway
      */
-    public function gateway(Gateways $gateway): GatewayInterface|Exception
+    public static function gateway(Gateways $gateway): GatewayInterface|Exception
     {
         $class = "Payhub\\Gateways\\{$gateway->value}\\{$gateway->value}Gateway";
 
@@ -50,8 +48,8 @@ class Payhub
             return throw new \InvalidArgumentException('Gateway not found');
         }
 
-        $this->gateway = new $class($this->token, $this->production);
+        $gateway = new $class();
 
-        return $this->gateway;
+        return $gateway;
     }
 }

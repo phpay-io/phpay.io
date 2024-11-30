@@ -2,7 +2,6 @@
 
 namespace Payhub\Gateways\Asaas;
 
-use Illuminate\Http\Client\Factory;
 use Illuminate\Support\Facades\Http;
 use Payhub\Contracts\GatewayInterface;
 use Payhub\Exceptions\AsaasExceptions;
@@ -16,16 +15,17 @@ class AsaasGateway implements GatewayInterface
      */
     protected string $client;
 
-    /**
-     * AsaasGateway constructor.
-     */
-    public function __construct(
-        private string $token,
-        private bool $production
-    ) {
-        $baseUrl = $this->production ?
-                'https://api.asaas.com/v3' :
-                'https://sandbox.asaas.com/api/v3';
+    public function authorize(array $credentials, bool $sandbox = true): self
+    {
+        $baseUrl = $sandbox ?
+                'https://sandbox.asaas.com/api/v3' :
+                'https://api.asaas.com/v3';
+
+        extract($credentials);
+
+        if (! isset($token)) {
+            return (new AsaasExceptions())('As credenciais do asaas precisam de um parâmetro token.');
+        }
 
         Http::macro('asaas', function () use ($token, $baseUrl) {
             return Http::acceptJson()
@@ -36,6 +36,8 @@ class AsaasGateway implements GatewayInterface
                     'access_token' => $token,
                 ]);
         });
+
+        return $this;
     }
 
     /**
@@ -91,6 +93,8 @@ class AsaasGateway implements GatewayInterface
                     'dueDate' => $pix['due_date'],
                     'description' => $pix['description'],
                 ])->json();
+
+            print_r($pix);
 
             return $this;
         } catch (\Exception $e) {

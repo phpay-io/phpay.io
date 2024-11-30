@@ -25,7 +25,7 @@ class AsaasPixRequest
         }
     }
 
-    public function messages(): stdClass
+    public static function messages(): stdClass
     {
         return (object) [
             'description' => 'Asaas: Descrição do pagamento é obrigatório para o Asaas',
