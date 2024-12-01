@@ -67,12 +67,18 @@ $payhub->client($client)
 
 /**
  * restore cliente no asaas
- *
- * @param array $client <cpf_cnpj>
- * @return bool
  */
 $response = $payhub
     ->client()
     ->restore('cus_000006376400');
 
 // print_r($response);
+
+/**
+ * notifications cliente no asaas
+ */
+$response = $payhub
+    ->client()
+    ->notifications('cus_000006376400');
+
+print_r($response);

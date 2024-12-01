@@ -13,4 +13,5 @@ interface ClientInterface
     public function store(): string|AsaasExceptions;
     public function delete(): bool;
     public function restore(string $id): bool;
+    public function notifications(string $id): ?array;
 }
