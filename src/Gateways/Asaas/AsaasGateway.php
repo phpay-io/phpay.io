@@ -8,13 +8,14 @@ use Payhub\Exceptions\AsaasExceptions;
 use Payhub\Gateways\Asaas\Enums\{BillingType, ClientMethods};
 use Payhub\Gateways\Asaas\Requests\AsaasPixRequest;
 use Payhub\Gateways\Asaas\Resources\{Auth, Client};
+use Payhub\Gateways\Gateway;
 
-class AsaasGateway implements GatewayInterface
+class AsaasGateway extends Gateway implements GatewayInterface
 {
     /**
      * @var string
      */
-    private string $client;
+    private string $customerId;
 
     /**
      * @var array
@@ -22,46 +23,46 @@ class AsaasGateway implements GatewayInterface
     private array $payment;
 
     /**
-     * auth
+     * construct
      *
      * @param array $credentials
      * @param bool $sandbox
-     * @return $this
      */
-    public function auth(array $credentials, bool $sandbox = true): self
+    public function __construct(array $credentials, bool $sandbox = true)
     {
-        (new Auth())($credentials, $sandbox);
-
-        return $this;
+        new Auth($credentials, $sandbox);
     }
 
     /**
      * set client
      *
      * @param array $client
-     * @return self
+     * @return Client
      */
-    public function client(array $client, string $method = 'store'): self|AsaasExceptions
+    public function client(array $client = []): Client
     {
-        if (! ClientMethods::tryFrom($method)) {
-            return (new AsaasExceptions())('Method not found');
-        }
-
-        if (! method_exists(Client::class, $method)) {
-            return (new AsaasExceptions())('Method not found');
-        }
-
-        try {
-            $this->client = (new Client())::$method($client);
-        } catch (\Exception $e) {
-            return (new AsaasExceptions())($e->getMessage());
-        }
-
-        return $this;
+        return new Client($client, $this);
     }
+    // {
+    //     if (! ClientMethods::tryFrom($method)) {
+    //         return (new AsaasExceptions())('Method not found');
+    //     }
+
+    //     if (! method_exists(Client::class, $method)) {
+    //         return (new AsaasExceptions())('Method not found');
+    //     }
+
+    //     try {
+    //         $this->customerId = (new Client())::$method($client);
+    //     } catch (\Exception $e) {
+    //         return (new AsaasExceptions())($e->getMessage());
+    //     }
+
+    //     return $this;
+    // }
 
     /**
-     * set pix
+     * generate pix
      *
      * @param array $pix
      */
@@ -74,16 +75,18 @@ class AsaasGateway implements GatewayInterface
 
             $payment = Http::asaas()
                 ->post('/payments', [
-                    'customer' => $this->client,
+                    'customer' => $this->customerId,
                     'billingType' => BillingType::PIX->value,
                     'value' => $amount,
                     'dueDate' => $due_date,
                     'description' => $description,
                 ])->json();
 
-            print_r($payment);
-
             $this->payment = $payment;
+
+            echo 'Pix gerado com sucesso' . PHP_EOL;
+            echo 'Pix: ' . $this->payment['id'] . PHP_EOL;
+
         } catch (\Exception $e) {
             return (new AsaasExceptions())($e->getMessage());
         }

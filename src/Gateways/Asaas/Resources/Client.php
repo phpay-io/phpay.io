@@ -5,21 +5,63 @@ namespace Payhub\Gateways\Asaas\Resources;
 use Illuminate\Support\Facades\Http;
 use Payhub\Exceptions\AsaasExceptions;
 use Payhub\Gateways\Asaas\Requests\AsaasClientRequest;
+use Payhub\Gateways\Asaas\Resources\Interfaces\ClientInterface;
+use Payhub\Gateways\Gateway;
 
-final class Client
+final class Client implements ClientInterface
 {
+    /**
+     * @var array
+     */
+    protected array $client;
+
+    /**
+     * @var array
+     */
+    protected array $filters = [];
+
+    /**
+     * @var Gateway
+     */
+    protected Gateway $gateway;
+
+    /**
+     * construct
+     *
+     * @param array $client
+     * @param Gateway $gateway
+     */
+    public function __construct(array $client, Gateway $gateway)
+    {
+        $this->client = $client;
+        $this->gateway = $gateway;
+    }
+
+    /**
+     * get all clients
+     *
+     * @return array
+     */
+    public function all(): array
+    {
+        $client = Http::asaas()
+            ->get(env('ASSAS_CLIENTS') . '/?' . http_build_query($this->filters))
+            ->json();
+
+        return $client;
+    }
+
     /**
      * store client
      *
-     * @param array $client
      * @return $this
      */
-    public static function store(array $client): string
+    public function store(): string
     {
-        AsaasClientRequest::validate($client);
+        AsaasClientRequest::validate($this->client);
 
         try {
-            extract($client);
+            extract($this->client);
 
             $client = self::find($cpf_cnpj);
 
@@ -59,28 +101,45 @@ final class Client
     /**
      * delete client
      *
-     * @param array $client
-     * @return string
+     * @return bool
      */
-    public static function delete(array $client): string
+    public function delete(): bool
     {
         try {
-            $client = self::find($client['cpf_cnpj']);
+            $client = self::find($this->client['cpf_cnpj']);
 
             if (empty($client)) {
-                return 'Client not found';
+                return false;
             }
 
             $client = Http::asaas()
                 ->delete(env('ASSAS_CLIENTS') . '/' . $client[0]['id'])
                 ->json();
 
-            echo 'Client deleted';
+            if ($client['deleted']) {
+                return true;
+            }
 
-            return $client['id'];
-
+            return false;
         } catch (\Exception $e) {
-            return (new AsaasExceptions())($e->getMessage());
+            (new AsaasExceptions())($e->getMessage());
+
+            return false;
         }
+    }
+
+    /**
+     * set filters
+     * to ready about filters, see
+     * https://docs.asaas.com/reference/listar-clientes
+     *
+     * @param array $filter
+     * @return $this
+     */
+    public function with(array $filter): self
+    {
+        $this->filters = $filter;
+
+        return $this;
     }
 }

@@ -5,7 +5,7 @@ namespace Payhub\Gateways\Asaas\Resources;
 use Illuminate\Support\Facades\Http;
 use Payhub\Exceptions\AsaasExceptions;
 
-class Auth
+final class Auth
 {
     /**
      * Auth constructor.
@@ -13,7 +13,7 @@ class Auth
      * @param array $credentials
      * @param bool $sandbox
      */
-    public function __invoke(array $credentials, bool $sandbox): void
+    public function __construct(array $credentials, bool $sandbox)
     {
         $baseUrl = $sandbox ?
             env('ASAAS_URL_SANDBOX') :

@@ -2,11 +2,9 @@
 
 namespace Payhub\Contracts;
 
-use Exception;
-
 interface GatewayInterface
 {
-    public function auth(array $credentials, bool $sandbox = true): object;
+    public function __construct(array $credentials, bool $sandbox = true);
     public function client(array $client): object;
     public function pix(array $pix): object;
 }

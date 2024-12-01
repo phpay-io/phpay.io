@@ -1,8 +1,7 @@
 <?php
 
 use Payhub\Payhub;
-use Payhub\Enums\Gateways;
-use Payhub\Gateways\Asaas\Enums\ClientMethods;
+use Payhub\Gateways\Asaas\AsaasGateway;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -21,19 +20,52 @@ $credentials = [
     'token' => '$aact_YTU5YTE0M2M2N2I4MTliNzk0YTI5N2U5MzdjNWZmNDQ6OjAwMDAwMDAwMDAwMDAwOTQ5MzU6OiRhYWNoXzY0ZjVjOGZlLTljMDMtNDM0MS05MTQ3LWRjYTkxNDdmMzBkZA==',
 ];
 
-/* instance singleton */
-$payhub = (new Payhub())
-    ->gateway(Gateways::ASAAS)
-    ->auth($credentials, sandbox: true);
+/**
+ * initialize payhub
+ *
+ * @param array $credentials <token>
+ * @param bool $sandbox
+ *
+ * @return AsaasGateway
+ */
+$payhub = Payhub::asaas(
+    $credentials,
+    sandbox: true
+);
 
-/* cadastrar client no asaas */
-$payhub
+/**
+ *  store asaas cliente
+ *
+ * @param array $client <name, cpf_cnpj>
+ * @return string cliente id asaas
+ */
+$response = $payhub
     ->client($client)
-    ->pix($pix);
+    ->store();
 
-/* excluir cliente */
-// $payhub
-//     ->client($client, method: 'delete');
+/**
+ *  list all clients with filters
+ *
+ * @return array clients
+ */
+$response = $payhub
+    ->client()
+    ->with(['cpfCnpj' => '09102295466',])
+    ->all();
+
+/**
+ * delete cliente no asaas
+ *
+ * @param array $client <cpf_cnpj>
+ * @return bool
+ */
+$payhub->client($client)
+    ->delete();
+
+
+/* editar cliente no asaas */
+// $payhub->client($client, method: 'update');
+
 
 /* localizar cliente no asaas pelo documento */
 // $payhub

@@ -8,29 +8,43 @@ use Illuminate\Container\Container;
 use Illuminate\Http\Client\Factory;
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\Facades\Http;
-use Payhub\Contracts\GatewayInterface;
-use Payhub\Enums\Gateways;
+use Payhub\Gateways\Asaas\AsaasGateway;
+use Payhub\Gateways\Gateway;
 
 class Payhub
 {
     /**
-     * @var GatewayInterface
+     * @var Gateway
      */
-    protected GatewayInterface $gateway;
+    protected Gateway $gateway;
 
     /**
-     * Payhub constructor.
-     *
-     * @param string $token
+     * @var array
      */
-    public function __construct()
+    protected array $client;
+
+    /**
+     * construct
+     *
+     * @param Gateway $gateway
+     */
+    public function __construct(Gateway $gateway)
+    {
+        $this->gateway = $gateway;
+    }
+
+    /**
+     * boot laravel facade
+     *
+     * @return AsaasGateway
+     */
+    private static function boot()
     {
         $container = new Container();
 
         Facade::setFacadeApplication($container);
 
         $container->singleton('http', function () {
-
             return new Factory();
         });
 
@@ -41,20 +55,27 @@ class Payhub
     }
 
     /**
-     * load Gateway class
+     * call asaas gateway
      *
-     * @param Gateways $gateway
+     * @return AsaasGateway
      */
-    public static function gateway(Gateways $gateway): GatewayInterface|Exception
+    public static function asaas(array $credentials, $sandbox = true): self
     {
-        $class = "Payhub\\Gateways\\{$gateway->value}\\{$gateway->value}Gateway";
+        self::boot();
 
-        if (! class_exists($class)) {
-            return throw new \InvalidArgumentException('Gateway not found');
-        }
+        return new self(new AsaasGateway($credentials, $sandbox));
+    }
 
-        $gateway = new $class();
+    /**
+     * call gateway
+     *
+     * @param array $client
+     * @return object
+     */
+    public function client(array $client = []): object
+    {
+        $this->client = $client;
 
-        return $gateway;
+        return $this->gateway->client($client);
     }
 }
