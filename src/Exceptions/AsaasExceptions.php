@@ -4,7 +4,7 @@ namespace Payhub\Exceptions;
 
 use Exception;
 
-class AsaasExceptions
+final class AsaasExceptions
 {
     /**
      * AsaasExceptions invokable.

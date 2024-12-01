@@ -5,100 +5,92 @@ namespace Payhub\Gateways\Asaas;
 use Illuminate\Support\Facades\Http;
 use Payhub\Contracts\GatewayInterface;
 use Payhub\Exceptions\AsaasExceptions;
-use Payhub\Gateways\Asaas\Requests\AsaasClientRequest;
+use Payhub\Gateways\Asaas\Enums\{BillingType, ClientMethods};
 use Payhub\Gateways\Asaas\Requests\AsaasPixRequest;
+use Payhub\Gateways\Asaas\Resources\{Auth, Client};
+use Payhub\Gateways\Gateway;
 
-class AsaasGateway implements GatewayInterface
+class AsaasGateway extends Gateway implements GatewayInterface
 {
     /**
      * @var string
      */
-    protected string $client;
+    private string $customerId;
 
-    public function authorize(array $credentials, bool $sandbox = true): self
+    /**
+     * @var array
+     */
+    private array $payment;
+
+    /**
+     * construct
+     *
+     * @param string $token
+     * @param bool $sandbox
+     */
+    public function __construct(string $token, bool $sandbox = true)
     {
-        $baseUrl = $sandbox ?
-                'https://sandbox.asaas.com/api/v3' :
-                'https://api.asaas.com/v3';
-
-        extract($credentials);
-
-        if (! isset($token)) {
-            return (new AsaasExceptions())('As credenciais do asaas precisam de um parâmetro token.');
-        }
-
-        Http::macro('asaas', function () use ($token, $baseUrl) {
-            return Http::acceptJson()
-                ->baseUrl($baseUrl)
-                ->withHeaders([
-                    'content-type' => 'application/json',
-                    'user-agent' => 'payhub',
-                    'access_token' => $token,
-                ]);
-        });
-
-        return $this;
+        new Auth($token, $sandbox);
     }
 
     /**
      * set client
      *
      * @param array $client
+     * @return Client
      */
-    public function client(array $client): self
+    public function client(array $client = []): Client
     {
-        AsaasClientRequest::validate($client);
-
-        try {
-            $clientExists = (object) Http::asaas()
-                ->get('/customers', [
-                    'cpfCnpj' => $client['cpf_cnpj'],
-                ])->json();
-
-            if (empty($clientExists->data)) {
-                $client = Http::asaas()
-                    ->post('/customers', [
-                        'name' => $client['name'],
-                        'cpfCnpj' => $client['cpf_cnpj'],
-                    ])->json();
-
-                $this->client = $client['id'];
-
-                return $this;
-            }
-
-            $this->client = $clientExists->data[0]['id'];
-
-            return $this;
-        } catch (\Exception $e) {
-            return (new AsaasExceptions())($e->getMessage());
-        }
+        return new Client($client, $this);
     }
+    // {
+    //     if (! ClientMethods::tryFrom($method)) {
+    //         return (new AsaasExceptions())('Method not found');
+    //     }
+
+    //     if (! method_exists(Client::class, $method)) {
+    //         return (new AsaasExceptions())('Method not found');
+    //     }
+
+    //     try {
+    //         $this->customerId = (new Client())::$method($client);
+    //     } catch (\Exception $e) {
+    //         return (new AsaasExceptions())($e->getMessage());
+    //     }
+
+    //     return $this;
+    // }
 
     /**
-     * set pix
+     * generate pix
      *
      * @param array $pix
      */
-    public function pix(array $pix): self
+    public function pix(array $pix): self|AsaasExceptions
     {
         try {
             AsaasPixRequest::validate($pix);
 
-            $pix = Http::asaas()
+            extract($pix);
+
+            $payment = Http::asaas()
                 ->post('/payments', [
-                    'customer' => $this->client,
-                    'billingType' => 'BOLETO',
-                    'value' => $pix['amount'],
-                    'dueDate' => $pix['due_date'],
-                    'description' => $pix['description'],
+                    'customer' => $this->customerId,
+                    'billingType' => BillingType::PIX->value,
+                    'value' => $amount,
+                    'dueDate' => $due_date,
+                    'description' => $description,
                 ])->json();
 
-            print_r($pix);
+            $this->payment = $payment;
 
-            return $this;
+            echo 'Pix gerado com sucesso' . PHP_EOL;
+            echo 'Pix: ' . $this->payment['id'] . PHP_EOL;
+
         } catch (\Exception $e) {
             return (new AsaasExceptions())($e->getMessage());
         }
+
+        return $this;
     }
 }
