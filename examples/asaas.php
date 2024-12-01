@@ -23,11 +23,9 @@ $credentials = [
 /* instance singleton */
 $payhub = (new Payhub())
     ->gateway(Gateways::ASAAS)
-    ->authorize($credentials, sandbox: true);
-
-$payhub
-    ->client($client)
-    ->pix($pix);
+    ->auth($credentials, sandbox: true)
+    ->client()
+    ->store($client);
 
 // TODO: create feature to extend resources
 // TODO: command with stubs to create resources

@@ -5,37 +5,27 @@ namespace Payhub\Gateways\Asaas;
 use Illuminate\Support\Facades\Http;
 use Payhub\Contracts\GatewayInterface;
 use Payhub\Exceptions\AsaasExceptions;
-use Payhub\Gateways\Asaas\Requests\AsaasClientRequest;
 use Payhub\Gateways\Asaas\Requests\AsaasPixRequest;
+use Payhub\Gateways\Asaas\Resources\Auth;
+use Payhub\Gateways\Asaas\Resources\Client;
 
 class AsaasGateway implements GatewayInterface
 {
     /**
-     * @var string
+     * @var array
      */
-    protected string $client;
+    protected array $client;
 
-    public function authorize(array $credentials, bool $sandbox = true): self
+    /**
+     * auth
+     *
+     * @param array $credentials
+     * @param bool $sandbox
+     * @return $this
+     */
+    public function auth(array $credentials, bool $sandbox = true): self
     {
-        $baseUrl = $sandbox ?
-                'https://sandbox.asaas.com/api/v3' :
-                'https://api.asaas.com/v3';
-
-        extract($credentials);
-
-        if (! isset($token)) {
-            return (new AsaasExceptions())('As credenciais do asaas precisam de um parâmetro token.');
-        }
-
-        Http::macro('asaas', function () use ($token, $baseUrl) {
-            return Http::acceptJson()
-                ->baseUrl($baseUrl)
-                ->withHeaders([
-                    'content-type' => 'application/json',
-                    'user-agent' => 'payhub',
-                    'access_token' => $token,
-                ]);
-        });
+        (new Auth())($credentials, $sandbox);
 
         return $this;
     }
@@ -44,35 +34,11 @@ class AsaasGateway implements GatewayInterface
      * set client
      *
      * @param array $client
+     * @return Client
      */
-    public function client(array $client): self
+    public function client(): Client
     {
-        AsaasClientRequest::validate($client);
-
-        try {
-            $clientExists = (object) Http::asaas()
-                ->get('/customers', [
-                    'cpfCnpj' => $client['cpf_cnpj'],
-                ])->json();
-
-            if (empty($clientExists->data)) {
-                $client = Http::asaas()
-                    ->post('/customers', [
-                        'name' => $client['name'],
-                        'cpfCnpj' => $client['cpf_cnpj'],
-                    ])->json();
-
-                $this->client = $client['id'];
-
-                return $this;
-            }
-
-            $this->client = $clientExists->data[0]['id'];
-
-            return $this;
-        } catch (\Exception $e) {
-            return (new AsaasExceptions())($e->getMessage());
-        }
+        return new Client();
     }
 
     /**
