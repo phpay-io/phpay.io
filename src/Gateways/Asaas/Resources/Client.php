@@ -66,6 +66,37 @@ final class Client implements ClientInterface
     }
 
     /**
+     * check if client exists
+     *
+     * @param string $client
+     * @return array
+     */
+    public function find(string $cpfCnpj): array
+    {
+        $client = (object) Http::asaas()
+            ->get(env('ASSAS_CLIENTS'), [
+                'cpfCnpj' => $cpfCnpj,
+            ])->json();
+
+        return $client->data;
+    }
+
+    /**
+     * set filters
+     * to ready about filters, see
+     * https://docs.asaas.com/reference/listar-clientes
+     *
+     * @param array $filter
+     * @return $this
+     */
+    public function with(array $filter): self
+    {
+        $this->filters = $filter;
+
+        return $this;
+    }
+
+    /**
      * store client
      *
      * @return $this
@@ -101,22 +132,6 @@ final class Client implements ClientInterface
     }
 
     /**
-     * check if client exists
-     *
-     * @param string $client
-     * @return array
-     */
-    public static function find(string $cpfCnpj): array
-    {
-        $client = (object) Http::asaas()
-            ->get(env('ASSAS_CLIENTS'), [
-                'cpfCnpj' => $cpfCnpj,
-            ])->json();
-
-        return $client->data;
-    }
-
-    /**
      * delete client
      *
      * @return bool
@@ -124,7 +139,7 @@ final class Client implements ClientInterface
     public function delete(): bool
     {
         try {
-            $client = self::find($this->client['cpf_cnpj']);
+            $client = $this->find($this->client['cpf_cnpj']);
 
             if (empty($client)) {
                 return false;
@@ -147,17 +162,32 @@ final class Client implements ClientInterface
     }
 
     /**
-     * set filters
-     * to ready about filters, see
-     * https://docs.asaas.com/reference/listar-clientes
+     * restore client
      *
-     * @param array $filter
-     * @return $this
+     * @return bool
      */
-    public function with(array $filter): self
+    public function restore(): bool
     {
-        $this->filters = $filter;
+        try {
+            $client = $this->find($this->client['cpf_cnpj']);
 
-        return $this;
+            if (empty($client)) {
+                return false;
+            }
+
+            $client = Http::asaas()
+                ->post(env('ASSAS_CLIENTS') . '/' . $client[0]['id'] . '/restore')
+                ->json();
+
+            if ($client['restored']) {
+                return true;
+            }
+
+            return false;
+        } catch (\Exception $e) {
+            (new AsaasExceptions())($e->getMessage());
+
+            return false;
+        }
     }
 }

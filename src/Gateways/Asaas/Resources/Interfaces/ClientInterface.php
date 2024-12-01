@@ -8,7 +8,9 @@ interface ClientInterface
 {
     public function all(): array;
     public function get(): array;
-    public function with(array $filter): self;
+    public function find(string $cpfCnpj): array;
+    public function with(array $filters): self;
     public function store(): string|AsaasExceptions;
     public function delete(): bool;
+    public function restore(): bool;
 }

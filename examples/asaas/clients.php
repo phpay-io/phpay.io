@@ -7,8 +7,8 @@ require_once __DIR__ . '/../../vendor/autoload.php';
 require_once __DIR__ . '/credentials.php';
 
 $client = [
-    'name' => '', /* client name */
-    'cpf_cnpj' => '' /* valid cpf or cnpj */,
+    'name' => NAME,
+    'cpf_cnpj' => CPF_CNPJ
 ];
 
 /**
@@ -64,3 +64,12 @@ $response = $payhub
  */
 $payhub->client($client)
     ->delete();
+
+/**
+ * restore cliente no asaas
+ *
+ * @param array $client <cpf_cnpj>
+ * @return bool
+ */
+$payhub->client($client)
+    ->restore();
