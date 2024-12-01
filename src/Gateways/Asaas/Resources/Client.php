@@ -19,7 +19,6 @@ final class Client
         AsaasClientRequest::validate($client);
 
         try {
-
             extract($client);
 
             $client = self::find($cpf_cnpj);
@@ -58,7 +57,7 @@ final class Client
     }
 
     /**
-     * update client
+     * delete client
      *
      * @param array $client
      * @return string
