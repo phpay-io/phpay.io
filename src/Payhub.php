@@ -59,11 +59,11 @@ class Payhub
      *
      * @return AsaasGateway
      */
-    public static function asaas(array $credentials, $sandbox = true): self
+    public static function asaas(string $token, $sandbox = true): self
     {
         self::boot();
 
-        return new self(new AsaasGateway($credentials, $sandbox));
+        return new self(new AsaasGateway($token, $sandbox));
     }
 
     /**

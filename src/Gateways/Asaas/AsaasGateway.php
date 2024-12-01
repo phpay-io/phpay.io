@@ -25,12 +25,12 @@ class AsaasGateway extends Gateway implements GatewayInterface
     /**
      * construct
      *
-     * @param array $credentials
+     * @param string $token
      * @param bool $sandbox
      */
-    public function __construct(array $credentials, bool $sandbox = true)
+    public function __construct(string $token, bool $sandbox = true)
     {
-        new Auth($credentials, $sandbox);
+        new Auth($token, $sandbox);
     }
 
     /**

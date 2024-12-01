@@ -70,7 +70,7 @@ final class Client implements ClientInterface
      *
      * @return $this
      */
-    public function store(): string
+    public function store(): string|AsaasExceptions
     {
         AsaasClientRequest::validate($this->client);
 
@@ -88,6 +88,10 @@ final class Client implements ClientInterface
                     'name' => $name,
                     'cpfCnpj' => $cpf_cnpj,
                 ])->json();
+
+            if (isset($client['errors'])) {
+                return (new AsaasExceptions())($client['errors'][0]['description']);
+            }
 
             return $client['id'];
 

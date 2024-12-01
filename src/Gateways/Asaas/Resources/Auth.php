@@ -10,20 +10,14 @@ final class Auth
     /**
      * Auth constructor.
      *
-     * @param array $credentials
+     * @param string $token
      * @param bool $sandbox
      */
-    public function __construct(array $credentials, bool $sandbox)
+    public function __construct(string $token, bool $sandbox)
     {
         $baseUrl = $sandbox ?
             env('ASAAS_URL_SANDBOX') :
             env('ASAAS_URL');
-
-        extract($credentials);
-
-        if (! isset($token)) {
-            throw (new AsaasExceptions())('As credenciais do asaas precisam de um parâmetro token.');
-        }
 
         Http::macro('asaas', function () use ($token, $baseUrl) {
             return Http::acceptJson()
