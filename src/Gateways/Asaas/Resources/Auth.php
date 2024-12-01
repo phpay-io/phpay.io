@@ -16,8 +16,8 @@ class Auth
     public function __invoke(array $credentials, bool $sandbox): void
     {
         $baseUrl = $sandbox ?
-                'https://sandbox.asaas.com/api/v3' :
-                'https://api.asaas.com/v3';
+            env('ASAAS_URL_SANDBOX') :
+            env('ASAAS_URL');
 
         extract($credentials);
 

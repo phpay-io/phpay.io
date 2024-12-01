@@ -6,51 +6,80 @@ use Illuminate\Support\Facades\Http;
 use Payhub\Exceptions\AsaasExceptions;
 use Payhub\Gateways\Asaas\Requests\AsaasClientRequest;
 
-class Client
+final class Client
 {
-    /**
-     * @var string
-     */
-    public string $clientId;
-
-    /**
-     * Client constructor.
-     */
-    public function __construct()
-    {
-    }
-
     /**
      * store client
      *
      * @param array $client
      * @return $this
      */
-    public function store(array $client): self
+    public static function store(array $client): string
     {
         AsaasClientRequest::validate($client);
 
         try {
-            $clientExists = (object) Http::asaas()
-                ->get('/customers', [
-                    'cpfCnpj' => $client['cpf_cnpj'],
-                ])->json();
 
-            if (empty($clientExists->data)) {
-                $client = Http::asaas()
-                    ->post('/customers', [
-                        'name' => $client['name'],
-                        'cpfCnpj' => $client['cpf_cnpj'],
-                    ])->json();
+            extract($client);
 
-                $this->clientId = $client['id'];
+            $client = self::find($cpf_cnpj);
 
-                return $this;
+            if (! empty($client)) {
+                return  $client[0]['id'];
             }
 
-            $this->clientId = $clientExists->data[0]['id'];
+            $client = Http::asaas()
+                ->post(env('ASSAS_CLIENTS'), [
+                    'name' => $name,
+                    'cpfCnpj' => $cpf_cnpj,
+                ])->json();
 
-            return $this;
+            return $client['id'];
+
+        } catch (\Exception $e) {
+            return (new AsaasExceptions())($e->getMessage());
+        }
+    }
+
+    /**
+     * check if client exists
+     *
+     * @param string $client
+     * @return array
+     */
+    public static function find(string $cpfCnpj): array
+    {
+        $client = (object) Http::asaas()
+            ->get(env('ASSAS_CLIENTS'), [
+                'cpfCnpj' => $cpfCnpj,
+            ])->json();
+
+        return $client->data;
+    }
+
+    /**
+     * update client
+     *
+     * @param array $client
+     * @return string
+     */
+    public static function delete(array $client): string
+    {
+        try {
+            $client = self::find($client['cpf_cnpj']);
+
+            if (empty($client)) {
+                return 'Client not found';
+            }
+
+            $client = Http::asaas()
+                ->delete(env('ASSAS_CLIENTS') . '/' . $client[0]['id'])
+                ->json();
+
+            echo 'Client deleted';
+
+            return $client['id'];
+
         } catch (\Exception $e) {
             return (new AsaasExceptions())($e->getMessage());
         }

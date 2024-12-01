@@ -2,6 +2,7 @@
 
 use Payhub\Payhub;
 use Payhub\Enums\Gateways;
+use Payhub\Gateways\Asaas\Enums\ClientMethods;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -23,9 +24,22 @@ $credentials = [
 /* instance singleton */
 $payhub = (new Payhub())
     ->gateway(Gateways::ASAAS)
-    ->auth($credentials, sandbox: true)
-    ->client()
-    ->store($client);
+    ->auth($credentials, sandbox: true);
+
+/* cadastrar client no asaas */
+$payhub
+    ->client($client)
+    ->pix($pix);
+
+/* excluir cliente */
+// $payhub
+//     ->client($client, method: 'delete');
+
+/* localizar cliente no asaas pelo documento */
+// $payhub
+//     ->client()
+//     ->find('09102295466');
+
 
 // TODO: create feature to extend resources
 // TODO: command with stubs to create resources

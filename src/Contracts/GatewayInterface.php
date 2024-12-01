@@ -7,6 +7,6 @@ use Exception;
 interface GatewayInterface
 {
     public function auth(array $credentials, bool $sandbox = true): object;
-    public function client(): object;
-    public function pix(array $pix): self|Exception;
+    public function client(array $client): object;
+    public function pix(array $pix): object;
 }

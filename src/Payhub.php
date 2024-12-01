@@ -2,6 +2,7 @@
 
 namespace Payhub;
 
+use Dotenv\Dotenv;
 use Exception;
 use Illuminate\Container\Container;
 use Illuminate\Http\Client\Factory;
@@ -29,8 +30,12 @@ class Payhub
         Facade::setFacadeApplication($container);
 
         $container->singleton('http', function () {
+
             return new Factory();
         });
+
+        $dotenv = Dotenv::createImmutable(__DIR__);
+        $dotenv->load();
 
         class_alias(Http::class, 'Http');
     }

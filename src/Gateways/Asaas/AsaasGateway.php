@@ -5,16 +5,21 @@ namespace Payhub\Gateways\Asaas;
 use Illuminate\Support\Facades\Http;
 use Payhub\Contracts\GatewayInterface;
 use Payhub\Exceptions\AsaasExceptions;
+use Payhub\Gateways\Asaas\Enums\{BillingType, ClientMethods};
 use Payhub\Gateways\Asaas\Requests\AsaasPixRequest;
-use Payhub\Gateways\Asaas\Resources\Auth;
-use Payhub\Gateways\Asaas\Resources\Client;
+use Payhub\Gateways\Asaas\Resources\{Auth, Client};
 
 class AsaasGateway implements GatewayInterface
 {
     /**
+     * @var string
+     */
+    private string $client;
+
+    /**
      * @var array
      */
-    protected array $client;
+    private array $payment;
 
     /**
      * auth
@@ -34,11 +39,25 @@ class AsaasGateway implements GatewayInterface
      * set client
      *
      * @param array $client
-     * @return Client
+     * @return self
      */
-    public function client(): Client
+    public function client(array $client, string $method = 'store'): self|AsaasExceptions
     {
-        return new Client();
+        if (! ClientMethods::tryFrom($method)) {
+            return (new AsaasExceptions())('Method not found');
+        }
+
+        if (! method_exists(Client::class, $method)) {
+            return (new AsaasExceptions())('Method not found');
+        }
+
+        try {
+            $this->client = (new Client())::$method($client);
+        } catch (\Exception $e) {
+            return (new AsaasExceptions())($e->getMessage());
+        }
+
+        return $this;
     }
 
     /**
@@ -46,25 +65,29 @@ class AsaasGateway implements GatewayInterface
      *
      * @param array $pix
      */
-    public function pix(array $pix): self
+    public function pix(array $pix): self|AsaasExceptions
     {
         try {
             AsaasPixRequest::validate($pix);
 
-            $pix = Http::asaas()
+            extract($pix);
+
+            $payment = Http::asaas()
                 ->post('/payments', [
                     'customer' => $this->client,
-                    'billingType' => 'BOLETO',
-                    'value' => $pix['amount'],
-                    'dueDate' => $pix['due_date'],
-                    'description' => $pix['description'],
+                    'billingType' => BillingType::PIX->value,
+                    'value' => $amount,
+                    'dueDate' => $due_date,
+                    'description' => $description,
                 ])->json();
 
-            print_r($pix);
+            print_r($payment);
 
-            return $this;
+            $this->payment = $payment;
         } catch (\Exception $e) {
             return (new AsaasExceptions())($e->getMessage());
         }
+
+        return $this;
     }
 }
