@@ -12,5 +12,5 @@ interface ClientInterface
     public function with(array $filters): self;
     public function store(): string|AsaasExceptions;
     public function delete(): bool;
-    public function restore(): bool;
+    public function restore(string $id): bool;
 }

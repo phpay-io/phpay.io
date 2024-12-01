@@ -71,5 +71,8 @@ $payhub->client($client)
  * @param array $client <cpf_cnpj>
  * @return bool
  */
-$payhub->client($client)
-    ->restore();
+$response = $payhub
+    ->client()
+    ->restore('cus_000006376400');
+
+// print_r($response);

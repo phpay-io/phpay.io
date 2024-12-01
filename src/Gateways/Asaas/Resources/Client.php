@@ -164,24 +164,23 @@ final class Client implements ClientInterface
     /**
      * restore client
      *
+     * @param string $id
      * @return bool
      */
-    public function restore(): bool
+    public function restore(string $id): bool
     {
         try {
-            $client = $this->find($this->client['cpf_cnpj']);
-
-            if (empty($client)) {
-                return false;
-            }
-
             $client = Http::asaas()
-                ->post(env('ASSAS_CLIENTS') . '/' . $client[0]['id'] . '/restore')
+                ->post(str_replace('{id}', $id, env('ASSAS_CLIENTS_RESTORE')))
                 ->json();
 
-            if ($client['restored']) {
-                return true;
-            }
+            print_r($client);
+
+            die();
+
+            // if ($client['restored']) {
+            //     return true;
+            // }
 
             return false;
         } catch (\Exception $e) {
