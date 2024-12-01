@@ -52,6 +52,20 @@ final class Client implements ClientInterface
     }
 
     /**
+     * get client
+     *
+     * @return array
+     */
+    public function get(): array
+    {
+        $client = Http::asaas()
+            ->get(env('ASSAS_CLIENTS') . '/?' . http_build_query($this->filters))
+            ->json();
+
+        return $client['data'][0];
+    }
+
+    /**
      * store client
      *
      * @return $this

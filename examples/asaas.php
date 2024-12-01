@@ -39,7 +39,11 @@ $payhub = Payhub::asaas(
  * @param array $client <name, cpf_cnpj>
  * @return string cliente id asaas
  */
-$response = $payhub
+$payhub
+    ->client($client)
+    ->store();
+
+$payhub
     ->client($client)
     ->store();
 
@@ -52,6 +56,22 @@ $response = $payhub
     ->client()
     ->with(['cpfCnpj' => '09102295466',])
     ->all();
+
+print_r($response);
+
+/**
+ * get client by cpf_cnpj
+ *
+ * @param array $client <cpf_cnpj>
+ * @return array client
+ */
+$response = $payhub
+    ->client()
+    ->with(['cpfCnpj' => '09102295466'])
+    ->get();
+
+echo 'Cliente: ' . $response['name'] . PHP_EOL;
+print_r($response);
 
 /**
  * delete cliente no asaas
