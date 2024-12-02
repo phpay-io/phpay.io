@@ -1,17 +1,16 @@
 <?php
 
-namespace Payhub;
+namespace PHPay;
 
 use Dotenv\Dotenv;
-use Exception;
 use Illuminate\Container\Container;
 use Illuminate\Http\Client\Factory;
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\Facades\Http;
-use Payhub\Gateways\Asaas\AsaasGateway;
-use Payhub\Gateways\Gateway;
+use PHPay\Gateways\Asaas\AsaasGateway;
+use PHPay\Gateways\Gateway;
 
-class Payhub
+class PHPay
 {
     /**
      * @var Gateway

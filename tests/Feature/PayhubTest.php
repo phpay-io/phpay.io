@@ -1,10 +1,10 @@
 <?php
 
-use Payhub\Payhub;
+use PHPay\PHPay;
 
 test('instance payhub class', function () {
-    $payhub = new Payhub('token');
+    $payhub = new PHPay('token');
 
     expect($payhub)
-        ->toBeInstanceOf(Payhub::class);
+        ->toBeInstanceOf(PHPay::class);
 });

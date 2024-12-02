@@ -1,8 +1,8 @@
 <?php
 
-namespace Payhub\Gateways\Asaas\Resources\Interfaces;
+namespace PHPay\Gateways\Asaas\Resources\Interfaces;
 
-use Payhub\Exceptions\AsaasExceptions;
+use PHPay\Exceptions\AsaasExceptions;
 
 interface ClientInterface
 {

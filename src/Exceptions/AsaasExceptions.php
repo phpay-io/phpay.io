@@ -1,6 +1,6 @@
 <?php
 
-namespace Payhub\Exceptions;
+namespace PHPay\Exceptions;
 
 use Exception;
 

@@ -1,12 +1,12 @@
 <?php
 
-namespace Payhub\Gateways\Asaas\Resources;
+namespace PHPay\Gateways\Asaas\Resources;
 
 use Illuminate\Support\Facades\Http;
-use Payhub\Exceptions\AsaasExceptions;
-use Payhub\Gateways\Asaas\Requests\AsaasClientRequest;
-use Payhub\Gateways\Asaas\Resources\Interfaces\ClientInterface;
-use Payhub\Gateways\Gateway;
+use PHPay\Exceptions\AsaasExceptions;
+use PHPay\Gateways\Asaas\Requests\AsaasClientRequest;
+use PHPay\Gateways\Asaas\Resources\Interfaces\ClientInterface;
+use PHPay\Gateways\Gateway;
 
 final class Client implements ClientInterface
 {

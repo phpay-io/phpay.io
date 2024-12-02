@@ -1,6 +1,6 @@
 <?php
 
-namespace Payhub\Gateways\Asaas\Enums;
+namespace PHPay\Gateways\Asaas\Enums;
 
 enum ClientMethods: string
 {
