@@ -1,9 +1,9 @@
 {
-    "name": "mariolucasdev/payhub",
+    "name": "mariolucasdev/phpay",
     "type": "library",
     "autoload": {
         "psr-4": {
-            "Payhub\\": "src/"
+            "PHPay\\": "src/"
         }
     },
     "authors": [

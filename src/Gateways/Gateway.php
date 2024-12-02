@@ -1,6 +1,6 @@
 <?php
 
-namespace Payhub\Gateways;
+namespace PHPay\Gateways;
 
 abstract class Gateway
 {

@@ -1,7 +1,7 @@
 <?php
 
-use Payhub\Payhub;
-use Payhub\Gateways\Asaas\AsaasGateway;
+use PHPay\PHPay;
+use PHPay\Gateways\Asaas\AsaasGateway;
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 require_once __DIR__ . '/credentials.php';
@@ -12,14 +12,11 @@ $client = [
 ];
 
 /**
- * initialize payhub
- *
- * @param array $credentials <token>
- * @param bool $sandbox
+ * initialize phpay
  *
  * @return AsaasGateway
  */
-$payhub = Payhub::asaas(TOKEN_ASAAS_SANDBOX);
+$phpay = PHPay::asaas(TOKEN_ASAAS_SANDBOX);
 
 /**
  *  store asaas cliente
@@ -27,7 +24,7 @@ $payhub = Payhub::asaas(TOKEN_ASAAS_SANDBOX);
  * @param array $client <name, cpf_cnpj>
  * @return string cliente id asaas
  */
-$payhub
+$phpay
     ->client($client)
     ->store();
 
@@ -36,7 +33,7 @@ $payhub
  *
  * @return array clients
  */
-$response = $payhub
+$response = $phpay
     ->client()
     ->with(['cpfCnpj' => '09102295466',])
     ->all();
@@ -49,7 +46,7 @@ $response = $payhub
  * @param array $client <cpf_cnpj>
  * @return array client
  */
-$response = $payhub
+$response = $phpay
     ->client()
     ->with(['cpfCnpj' => '09102295466'])
     ->get();
@@ -62,17 +59,24 @@ $response = $payhub
  * @param array $client <cpf_cnpj>
  * @return bool
  */
-$payhub->client($client)
+$phpay
+    ->client($client)
     ->delete();
 
 /**
  * restore cliente no asaas
- *
- * @param array $client <cpf_cnpj>
- * @return bool
  */
-$response = $payhub
+$response = $phpay
     ->client()
     ->restore('cus_000006376400');
+
+// print_r($response);
+
+/**
+ * notifications cliente no asaas
+ */
+$response = $phpay
+    ->client()
+    ->notifications('cus_000006376400');
 
 // print_r($response);

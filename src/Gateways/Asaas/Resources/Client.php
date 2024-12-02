@@ -1,12 +1,12 @@
 <?php
 
-namespace Payhub\Gateways\Asaas\Resources;
+namespace PHPay\Gateways\Asaas\Resources;
 
 use Illuminate\Support\Facades\Http;
-use Payhub\Exceptions\AsaasExceptions;
-use Payhub\Gateways\Asaas\Requests\AsaasClientRequest;
-use Payhub\Gateways\Asaas\Resources\Interfaces\ClientInterface;
-use Payhub\Gateways\Gateway;
+use PHPay\Exceptions\AsaasExceptions;
+use PHPay\Gateways\Asaas\Requests\AsaasClientRequest;
+use PHPay\Gateways\Asaas\Resources\Interfaces\ClientInterface;
+use PHPay\Gateways\Gateway;
 
 final class Client implements ClientInterface
 {
@@ -174,13 +174,9 @@ final class Client implements ClientInterface
                 ->post(str_replace('{id}', $id, env('ASSAS_CLIENTS_RESTORE')))
                 ->json();
 
-            print_r($client);
-
-            die();
-
-            // if ($client['restored']) {
-            //     return true;
-            // }
+            if ($client) {
+                return true;
+            }
 
             return false;
         } catch (\Exception $e) {
@@ -188,5 +184,20 @@ final class Client implements ClientInterface
 
             return false;
         }
+    }
+
+    /**
+     * get client notifications
+     *
+     * @param string $id
+     * @return array
+     */
+    public function notifications(string $id): ?array
+    {
+        $notifications = Http::asaas()
+            ->get(str_replace('{id}', $id, env('ASSAS_CLIENTS_NOTIFICATIONS')))
+            ->json();
+
+        return $notifications;
     }
 }

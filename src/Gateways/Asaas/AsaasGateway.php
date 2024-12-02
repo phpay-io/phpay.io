@@ -1,14 +1,14 @@
 <?php
 
-namespace Payhub\Gateways\Asaas;
+namespace PHPay\Gateways\Asaas;
 
 use Illuminate\Support\Facades\Http;
-use Payhub\Contracts\GatewayInterface;
-use Payhub\Exceptions\AsaasExceptions;
-use Payhub\Gateways\Asaas\Enums\{BillingType, ClientMethods};
-use Payhub\Gateways\Asaas\Requests\AsaasPixRequest;
-use Payhub\Gateways\Asaas\Resources\{Auth, Client};
-use Payhub\Gateways\Gateway;
+use PHPay\Contracts\GatewayInterface;
+use PHPay\Exceptions\AsaasExceptions;
+use PHPay\Gateways\Asaas\Enums\{BillingType, ClientMethods};
+use PHPay\Gateways\Asaas\Requests\AsaasPixRequest;
+use PHPay\Gateways\Asaas\Resources\{Auth, Client};
+use PHPay\Gateways\Gateway;
 
 class AsaasGateway extends Gateway implements GatewayInterface
 {
@@ -43,23 +43,6 @@ class AsaasGateway extends Gateway implements GatewayInterface
     {
         return new Client($client, $this);
     }
-    // {
-    //     if (! ClientMethods::tryFrom($method)) {
-    //         return (new AsaasExceptions())('Method not found');
-    //     }
-
-    //     if (! method_exists(Client::class, $method)) {
-    //         return (new AsaasExceptions())('Method not found');
-    //     }
-
-    //     try {
-    //         $this->customerId = (new Client())::$method($client);
-    //     } catch (\Exception $e) {
-    //         return (new AsaasExceptions())($e->getMessage());
-    //     }
-
-    //     return $this;
-    // }
 
     /**
      * generate pix

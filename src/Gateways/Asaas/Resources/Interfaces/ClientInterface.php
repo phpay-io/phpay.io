@@ -1,8 +1,8 @@
 <?php
 
-namespace Payhub\Gateways\Asaas\Resources\Interfaces;
+namespace PHPay\Gateways\Asaas\Resources\Interfaces;
 
-use Payhub\Exceptions\AsaasExceptions;
+use PHPay\Exceptions\AsaasExceptions;
 
 interface ClientInterface
 {
@@ -13,4 +13,5 @@ interface ClientInterface
     public function store(): string|AsaasExceptions;
     public function delete(): bool;
     public function restore(string $id): bool;
+    public function notifications(string $id): ?array;
 }

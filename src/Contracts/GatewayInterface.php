@@ -1,6 +1,6 @@
 <?php
 
-namespace Payhub\Contracts;
+namespace PHPay\Contracts;
 
 interface GatewayInterface
 {

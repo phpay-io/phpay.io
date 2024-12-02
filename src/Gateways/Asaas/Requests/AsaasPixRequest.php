@@ -1,6 +1,6 @@
 <?php
 
-namespace Payhub\Gateways\Asaas\Requests;
+namespace PHPay\Gateways\Asaas\Requests;
 
 use stdClass;
 

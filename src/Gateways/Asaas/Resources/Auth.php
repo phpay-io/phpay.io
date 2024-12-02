@@ -1,9 +1,9 @@
 <?php
 
-namespace Payhub\Gateways\Asaas\Resources;
+namespace PHPay\Gateways\Asaas\Resources;
 
 use Illuminate\Support\Facades\Http;
-use Payhub\Exceptions\AsaasExceptions;
+use PHPay\Exceptions\AsaasExceptions;
 
 final class Auth
 {
