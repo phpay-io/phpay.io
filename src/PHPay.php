@@ -5,8 +5,7 @@ namespace PHPay;
 use Dotenv\Dotenv;
 use Illuminate\Container\Container;
 use Illuminate\Http\Client\Factory;
-use Illuminate\Support\Facades\Facade;
-use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\{Facade, Http};
 use PHPay\Gateways\Asaas\AsaasGateway;
 use PHPay\Gateways\Gateway;
 

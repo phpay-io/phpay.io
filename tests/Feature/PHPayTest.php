@@ -3,8 +3,10 @@
 use PHPay\PHPay;
 
 test('instance payhub class', function () {
-    $payhub = new PHPay('token');
+    $token = '';
 
-    expect($payhub)
+    $phpay = PHPay::asaas($token);
+
+    expect($phpay)
         ->toBeInstanceOf(PHPay::class);
 });

@@ -33,7 +33,7 @@ final class Client implements ClientInterface
      */
     public function __construct(array $client, Gateway $gateway)
     {
-        $this->client = $client;
+        $this->client  = $client;
         $this->gateway = $gateway;
     }
 
@@ -110,13 +110,13 @@ final class Client implements ClientInterface
 
             $client = self::find($cpf_cnpj);
 
-            if (! empty($client)) {
+            if (!empty($client)) {
                 return  $client[0]['id'];
             }
 
             $client = Http::asaas()
                 ->post(env('ASSAS_CLIENTS'), [
-                    'name' => $name,
+                    'name'    => $name,
                     'cpfCnpj' => $cpf_cnpj,
                 ])->json();
 

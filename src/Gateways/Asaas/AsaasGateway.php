@@ -5,7 +5,7 @@ namespace PHPay\Gateways\Asaas;
 use Illuminate\Support\Facades\Http;
 use PHPay\Contracts\GatewayInterface;
 use PHPay\Exceptions\AsaasExceptions;
-use PHPay\Gateways\Asaas\Enums\{BillingType, ClientMethods};
+use PHPay\Gateways\Asaas\Enums\{BillingType};
 use PHPay\Gateways\Asaas\Requests\AsaasPixRequest;
 use PHPay\Gateways\Asaas\Resources\{Auth, Client};
 use PHPay\Gateways\Gateway;
@@ -58,10 +58,10 @@ class AsaasGateway extends Gateway implements GatewayInterface
 
             $payment = Http::asaas()
                 ->post('/payments', [
-                    'customer' => $this->customerId,
+                    'customer'    => $this->customerId,
                     'billingType' => BillingType::PIX->value,
-                    'value' => $amount,
-                    'dueDate' => $due_date,
+                    'value'       => $amount,
+                    'dueDate'     => $due_date,
                     'description' => $description,
                 ])->json();
 

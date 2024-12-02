@@ -1,14 +1,15 @@
 <?php
 
-use PHPay\PHPay;
 use PHPay\Gateways\Asaas\AsaasGateway;
+use PHPay\PHPay;
 
 require_once __DIR__ . '/../../vendor/autoload.php';
+
 require_once __DIR__ . '/credentials.php';
 
 $client = [
-    'name' => NAME,
-    'cpf_cnpj' => CPF_CNPJ
+    'name'     => NAME,
+    'cpf_cnpj' => CPF_CNPJ,
 ];
 
 /**
@@ -35,7 +36,7 @@ $phpay
  */
 $response = $phpay
     ->client()
-    ->with(['cpfCnpj' => '09102295466',])
+    ->with(['cpfCnpj' => '09102295466', ])
     ->all();
 
 // print_r($response);
