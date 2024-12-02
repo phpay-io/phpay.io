@@ -3,7 +3,6 @@
 namespace PHPay\Gateways\Asaas\Resources;
 
 use Illuminate\Support\Facades\Http;
-use PHPay\Exceptions\AsaasExceptions;
 
 final class Auth
 {
@@ -24,7 +23,7 @@ final class Auth
                 ->baseUrl($baseUrl)
                 ->withHeaders([
                     'content-type' => 'application/json',
-                    'user-agent' => 'payhub',
+                    'user-agent'   => 'payhub',
                     'access_token' => $token,
                 ]);
         });
