@@ -8,7 +8,7 @@ use PHPay\Gateways\Asaas\Requests\AsaasClientRequest;
 use PHPay\Gateways\Asaas\Resources\Interfaces\ClientInterface;
 use PHPay\Gateways\Gateway;
 
-final class Client extends Resource implements ClientInterface
+final class Client implements ClientInterface
 {
     /**
      * @var array
