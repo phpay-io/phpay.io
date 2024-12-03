@@ -4,16 +4,22 @@ namespace PHPay\Gateways\Asaas\Resources;
 
 use Illuminate\Support\Facades\Http;
 use PHPay\Exceptions\AsaasExceptions;
+use PHPay\Gateways\Asaas\AsaasGateway;
 use PHPay\Gateways\Asaas\Requests\AsaasClientRequest;
 use PHPay\Gateways\Asaas\Resources\Interfaces\ClientInterface;
 use PHPay\Gateways\Gateway;
 
-final class Client implements ClientInterface
+final class Client extends Resource implements ClientInterface
 {
     /**
      * @var array
      */
-    protected array $client;
+    public array $clients;
+
+    /**
+     * @var array
+     */
+    public array $client;
 
     /**
      * @var array
@@ -42,13 +48,15 @@ final class Client implements ClientInterface
      *
      * @return array
      */
-    public function all(): array
+    public function all(): self
     {
         $client = Http::asaas()
             ->get(env('ASSAS_CLIENTS') . '/?' . http_build_query($this->filters))
             ->json();
 
-        return $client;
+        $this->clients = $client['data'];
+
+        return $this;
     }
 
     /**
@@ -97,11 +105,11 @@ final class Client implements ClientInterface
     }
 
     /**
-     * store client
+     * create client
      *
      * @return $this
      */
-    public function store(): string|AsaasExceptions
+    public function create(): self|AsaasExceptions
     {
         AsaasClientRequest::validate($this->client);
 
@@ -111,7 +119,9 @@ final class Client implements ClientInterface
             $client = self::find($cpf_cnpj);
 
             if (!empty($client)) {
-                return  $client[0]['id'];
+                $this->client = $client[0];
+
+                return $this;
             }
 
             $client = Http::asaas()
@@ -124,11 +134,13 @@ final class Client implements ClientInterface
                 return (new AsaasExceptions())($client['errors'][0]['description']);
             }
 
-            return $client['id'];
+            $this->client = $client;
 
         } catch (\Exception $e) {
             return (new AsaasExceptions())($e->getMessage());
         }
+
+        return $this;
     }
 
     /**

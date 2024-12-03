@@ -22,6 +22,11 @@ class PHPay
     protected array $client;
 
     /**
+     * @var array
+     */
+    protected array $invoice;
+
+    /**
      * construct
      *
      * @param Gateway $gateway
@@ -72,8 +77,17 @@ class PHPay
      */
     public function client(array $client = []): object
     {
-        $this->client = $client;
-
         return $this->gateway->client($client);
+    }
+
+    /**
+     * call invoice
+     *
+     * @param array $invoice
+     * @return object
+     */
+    public function invoice(array $invoice = []): object
+    {
+        return $this->gateway->invoice($invoice);
     }
 }

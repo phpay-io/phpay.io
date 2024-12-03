@@ -13,6 +13,6 @@ final class AsaasExceptions
      */
     public function __invoke(string $message): Exception
     {
-        return throw new Exception('Gateway Asaas: ' . $message);
+        return throw new Exception('ASAAS EXCEPTION: ' . $message);
     }
 }
