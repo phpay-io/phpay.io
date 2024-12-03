@@ -16,27 +16,27 @@ class AsaasInvoiceRequest
      */
     public static function validate(array $client, array $invoice): void
     {
-        if (! isset($client['id'])) {
+        if (!isset($client['id'])) {
             throw new \InvalidArgumentException(self::messages()->client->id);
         }
 
-        if (! isset($invoice['customer']) && !is_string($invoice['customer'])) {
+        if (!isset($invoice['customer']) && !is_string($invoice['customer'])) {
             throw new \InvalidArgumentException(self::messages()->invoice->customer);
         }
 
-        if (! isset($invoice['billingType'])) {
+        if (!isset($invoice['billingType'])) {
             throw new \InvalidArgumentException(self::messages()->invoice->billingType);
         }
 
-        if (! BillingType::tryFrom($invoice['billingType'])) {
+        if (!BillingType::tryFrom($invoice['billingType'])) {
             throw new \InvalidArgumentException(self::messages()->invoice->billingType);
         }
 
-        if (! isset($invoice['value']) && !is_numeric($invoice['value'])) {
+        if (!isset($invoice['value']) && !is_numeric($invoice['value'])) {
             throw new \InvalidArgumentException(self::messages()->invoice->value);
         }
 
-        if (! isset($invoice['dueDate']) && !is_string($invoice['dueDate'])) {
+        if (!isset($invoice['dueDate']) && !is_string($invoice['dueDate'])) {
             throw new \InvalidArgumentException(self::messages()->invoice->dueDate);
         }
     }
@@ -50,14 +50,14 @@ class AsaasInvoiceRequest
     {
         return (object) [
             'client' => (object) [
-                'id'     => 'Asaas: Para gerar uma cobrança é necessário um id de cliente do Asaas.',
+                'id' => 'Asaas: Para gerar uma cobrança é necessário um id de cliente do Asaas.',
             ],
             'invoice' => (object) [
-                'customer' => 'Asaas: O campo customer é obrigatório e deve ser do tipo string.',
+                'customer'    => 'Asaas: O campo customer é obrigatório e deve ser do tipo string.',
                 'billingType' => 'Asaas: O campo billingType é obrigatório, e tem como disponível as seguintes opções: UNDEFINED, BOLETO, CREDIT_CARD, PIX',
-                'value' => 'Asaas: O campo value é obrigatório e deve ser do tipo numérico.',
-                'dueDate' => 'Asaas: O campo dueDate é obrigatório e deve ser do tipo string.',
-            ]
+                'value'       => 'Asaas: O campo value é obrigatório e deve ser do tipo numérico.',
+                'dueDate'     => 'Asaas: O campo dueDate é obrigatório e deve ser do tipo string.',
+            ],
         ];
     }
 }
