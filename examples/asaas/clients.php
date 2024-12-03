@@ -25,9 +25,7 @@ $phpay = PHPay::asaas(TOKEN_ASAAS_SANDBOX);
  * @param array $client <name, cpf_cnpj>
  * @return string cliente id asaas
  */
-$phpay
-    ->client($client)
-    ->store();
+$phpay->client($client);
 
 /**
  *  list all clients with filters
@@ -39,7 +37,7 @@ $response = $phpay
     ->with(['cpfCnpj' => '09102295466', ])
     ->all();
 
-// print_r($response);
+print_r($response);
 
 /**
  * get client by cpf_cnpj
@@ -52,7 +50,7 @@ $response = $phpay
     ->with(['cpfCnpj' => '09102295466'])
     ->get();
 
-// print_r($response);
+print_r($response);
 
 /**
  * delete cliente no asaas
@@ -61,7 +59,7 @@ $response = $phpay
  * @return bool
  */
 $phpay
-    ->client($client)
+    ->client($client, false)
     ->delete();
 
 /**
@@ -71,7 +69,7 @@ $response = $phpay
     ->client()
     ->restore('cus_000006376400');
 
-// print_r($response);
+print_r($response);
 
 /**
  * notifications cliente no asaas
@@ -80,4 +78,4 @@ $response = $phpay
     ->client()
     ->notifications('cus_000006376400');
 
-// print_r($response);
+print_r($response);

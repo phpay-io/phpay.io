@@ -28,7 +28,7 @@ class AsaasClientRequest
      *
      * @return stdClass
      */
-    public function messages(): stdClass
+    public static function messages(): stdClass
     {
         return (object) [
             'name'     => 'Asaas: Nome do cliente é obrigatório para o Asaas',

@@ -7,20 +7,30 @@ use PHPay\Contracts\GatewayInterface;
 use PHPay\Exceptions\AsaasExceptions;
 use PHPay\Gateways\Asaas\Enums\{BillingType};
 use PHPay\Gateways\Asaas\Requests\AsaasPixRequest;
-use PHPay\Gateways\Asaas\Resources\{Auth, Client};
+use PHPay\Gateways\Asaas\Resources\{Auth, Client, Invoice};
 use PHPay\Gateways\Gateway;
 
 class AsaasGateway extends Gateway implements GatewayInterface
 {
     /**
-     * @var string
+     * @var array
      */
-    private string $customerId;
+    public array $client;
+
+    /**
+     * @var array
+     */
+    public array $invoice;
 
     /**
      * @var array
      */
     private array $payment;
+
+    /**
+     * @var object
+     */
+    public object $resource;
 
     /**
      * construct
@@ -37,11 +47,48 @@ class AsaasGateway extends Gateway implements GatewayInterface
      * set client
      *
      * @param array $client
-     * @return Client
+     * @return Client|self
      */
-    public function client(array $client = []): Client
-    {
-        return new Client($client, $this);
+    public function client(
+        array $client = [],
+        bool $createOnly = true
+    ): Client|self {
+        $clientInstance = new Client($client, $this);
+
+        if ($createOnly && !empty($client)) {
+            $this->client = $clientInstance->create()->client;
+
+            return $this;
+        }
+
+        return $clientInstance;
+    }
+
+    /**
+     * set invoice
+     *
+     * @param array $invoice
+     * @return Invoice|self
+     */
+    public function invoice(
+        array $invoice = [],
+        bool $createOnly = true
+    ): Invoice|self {
+        if (!isset($this->client['id'])) {
+            throw new \Exception('Para criar um fatura é necessário a criação de um cliente');
+        }
+
+        $invoice['customer'] = $this->client['id'];
+
+        $invoiceInstance = new Invoice($invoice, $this);
+
+        if ($createOnly && empty($invoice)) {
+            $this->invoice = $invoiceInstance->create()->invoice;
+
+            $this;
+        }
+
+        return $invoiceInstance;
     }
 
     /**
@@ -58,7 +105,7 @@ class AsaasGateway extends Gateway implements GatewayInterface
 
             $payment = Http::asaas()
                 ->post('/payments', [
-                    'customer'    => $this->customerId,
+                    'customer'    => $this->client['id'],
                     'billingType' => BillingType::PIX->value,
                     'value'       => $amount,
                     'dueDate'     => $due_date,
