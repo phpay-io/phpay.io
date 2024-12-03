@@ -74,7 +74,7 @@ class AsaasGateway extends Gateway implements GatewayInterface
         array $invoice = [],
         bool $createOnly = true
     ): Invoice|self {
-        if (! isset($this->client['id'])) {
+        if (!isset($this->client['id'])) {
             throw new \Exception('Para criar um fatura é necessário a criação de um cliente');
         }
 

@@ -4,7 +4,6 @@ namespace PHPay\Gateways\Asaas\Resources;
 
 use Illuminate\Support\Facades\Http;
 use PHPay\Exceptions\AsaasExceptions;
-use PHPay\Gateways\Asaas\AsaasGateway;
 use PHPay\Gateways\Asaas\Requests\AsaasClientRequest;
 use PHPay\Gateways\Asaas\Resources\Interfaces\ClientInterface;
 use PHPay\Gateways\Gateway;
