@@ -8,7 +8,7 @@ use PHPay\Gateways\Asaas\Requests\AsaasInvoiceRequest;
 use PHPay\Gateways\Asaas\Resources\Interfaces\InvoiceInterface;
 use PHPay\Gateways\Gateway;
 
-final class Invoice extends Resource implements InvoiceInterface
+final class Invoice implements InvoiceInterface
 {
     /**
     * @var array
