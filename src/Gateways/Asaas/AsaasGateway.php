@@ -76,13 +76,13 @@ class AsaasGateway extends Gateway implements GatewayInterface
     ): Invoice|self {
         $invoiceInstance = new Invoice($invoice, $this);
 
-        if ($createOnly && empty($invoice)) {
+        if (!empty($invoice)) {
             $this->invoice = $invoiceInstance->create()->invoice;
-
-            $this;
         }
 
-        return $invoiceInstance;
+        return $createOnly ?
+            $this :
+            $invoiceInstance;
     }
 
     /**

@@ -11,14 +11,19 @@ use PHPay\Gateways\Gateway;
 final class Invoice extends Resource implements InvoiceInterface
 {
     /**
+    * @var array
+    */
+    public array $client;
+
+    /**
      * @var array
      */
     public array $invoice;
 
     /**
-     * @var array
-     */
-    public array $client;
+    * @var array
+    */
+    public array $qrcode;
 
     /**
      * @var array
@@ -50,17 +55,31 @@ final class Invoice extends Resource implements InvoiceInterface
      */
     public function create(): self|AsaasExceptions
     {
+        $this->invoice['customer'] = $this->gateway->client['id'];
+
         AsaasInvoiceRequest::validate(
             $this->client,
             $this->invoice
         );
-
-        $this->invoice['customer'] = $this->client['id'];
 
         $this->invoice = Http::asaas()
             ->post(env('ASSAS_PAYMENTS'), $this->invoice)
             ->json();
 
         return $this;
+    }
+
+    /**
+     * get qr code from invoice
+     *
+     * @return array
+     */
+    public function qrCodePix(): array
+    {
+        $this->qrcode = Http::asaas()
+            ->get(str_replace('{id}', $this->invoice['id'], env('ASAAS_PAYMENT_QRCODE')))
+            ->json();
+
+        return $this->qrcode;
     }
 }
