@@ -2,7 +2,7 @@
 
 namespace PHPay\Gateways\Asaas\Enums;
 
-enum BillingType: string
+enum BillingTypeEnum: string
 {
     case UNDEFINED   = 'UNDEFINED';
     case BOLETO      = 'BOLETO';

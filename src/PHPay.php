@@ -12,28 +12,15 @@ use PHPay\Gateways\Gateway;
 class PHPay
 {
     /**
-     * @var Gateway
-     */
-    protected Gateway $gateway;
-
-    /**
-     * @var array
-     */
-    protected array $client;
-
-    /**
-     * @var array
-     */
-    protected array $invoice;
-
-    /**
      * construct
      *
      * @param Gateway $gateway
      */
-    public function __construct(Gateway $gateway)
-    {
-        $this->gateway = $gateway;
+    public function __construct(
+        protected Gateway $gateway,
+        protected array $client = [],
+        protected array $invoice = []
+    ) {
     }
 
     /**
@@ -75,9 +62,9 @@ class PHPay
      * @param array $client
      * @return object
      */
-    public function client(array $client = []): object
+    public function client(array $client = [], $createOnly = true): object
     {
-        return $this->gateway->client($client);
+        return $this->gateway->client($client, $createOnly);
     }
 
     /**
@@ -86,8 +73,8 @@ class PHPay
      * @param array $invoice
      * @return object
      */
-    public function invoice(array $invoice = []): object
+    public function invoice(array $invoice = [], $createOnly = true): object
     {
-        return $this->gateway->invoice($invoice);
+        return $this->gateway->invoice($invoice, $createOnly);
     }
 }
