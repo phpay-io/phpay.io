@@ -2,7 +2,7 @@
 
 namespace PHPay\Gateways\Asaas\Requests;
 
-use PHPay\Gateways\Asaas\Enums\BillingType;
+use PHPay\Gateways\Asaas\Enums\{BillingTypeEnum};
 use stdClass;
 
 class AsaasInvoiceRequest
@@ -28,7 +28,7 @@ class AsaasInvoiceRequest
             throw new \InvalidArgumentException(self::messages()->invoice->billingType);
         }
 
-        if (!BillingType::tryFrom($invoice['billingType'])) {
+        if (!BillingTypeEnum::tryFrom($invoice['billingType'])) {
             throw new \InvalidArgumentException(self::messages()->invoice->billingType);
         }
 

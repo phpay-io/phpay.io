@@ -18,7 +18,16 @@ $invoice = [
     'dueDate'     => date('Y-m-d', strtotime('+1 day')),
 ];
 
-$qrcode = PHPay::asaas(TOKEN_ASAAS_SANDBOX)
+$assas = PHPay::asaas(TOKEN_ASAAS_SANDBOX);
+
+$invoices = (array) $assas
+    ->invoice(createOnly: false)
+    ->with([])
+    ->all();
+
+print_r($invoices);
+
+$qrcode = $assas
     ->client($client)
     ->invoice($invoice, false)
     ->qrCodePix();
