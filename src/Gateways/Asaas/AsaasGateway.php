@@ -8,9 +8,8 @@ use PHPay\Exceptions\AsaasExceptions;
 use PHPay\Gateways\Asaas\Enums\BillingTypeEnum;
 use PHPay\Gateways\Asaas\Requests\AsaasPixRequest;
 use PHPay\Gateways\Asaas\Resources\{Auth, Client, Invoice};
-use PHPay\Gateways\Gateway;
 
-class AsaasGateway extends Gateway implements GatewayInterface
+class AsaasGateway implements GatewayInterface
 {
     /**
      * construct
@@ -21,9 +20,7 @@ class AsaasGateway extends Gateway implements GatewayInterface
     public function __construct(
         private string $token,
         private bool $sandbox = true,
-        public array $client = [],
-        public array $invoice = [],
-        public array $payment = [],
+        public ?array $customer = null,
     ) {
         new Auth($token, $sandbox);
     }
@@ -35,7 +32,7 @@ class AsaasGateway extends Gateway implements GatewayInterface
      * @param bool $createOnly
      * @return Client|self
      */
-    public function client(array $client = [], bool $createOnly = true): Client|self
+    public function customer(array $client = []): Client|self
     {
         $clientInstance = new Client($client, $this);
 

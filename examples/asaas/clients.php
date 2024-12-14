@@ -17,15 +17,19 @@ $client = [
  *
  * @return AsaasGateway
  */
-$phpay = PHPay::asaas(TOKEN_ASAAS_SANDBOX);
+$phpay = PHPay::getInstance(
+    new AsaasGateway(TOKEN_ASAAS_SANDBOX, settings: [])
+)->getGateway();
 
 /**
- *  store asaas cliente
+ *  store asaas customer
  *
- * @param array $client <name, cpf_cnpj>
- * @return string cliente id asaas
+ * @param array $customer <name, cpf_cnpj>
+ * @return string customer id asaas
  */
-$phpay->client($client);
+$phpay
+    ->customer($customer)
+    ->create();
 
 /**
  *  list all clients with filters

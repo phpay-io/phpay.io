@@ -9,11 +9,13 @@ O PHPay é uma biblioteca que ajuda desenvolvedores e empresas a integrarem faci
 ## 🚀 Principais Recursos
 
 Integração com o Asaas para:
-Gerenciamento de clientes.
-Criação e envio de cobranças.
-Consultas de pagamentos e QR Codes.
-Fácil de usar: configuração mínima para começar.
-Extensível: suporte para novos gateways será adicionado em breve.
+
+- Gerenciamento de clientes.
+- Criação e envio de cobranças.
+- Consultas de pagamentos e QR Codes.
+- Fácil de usar: configuração mínima para começar.
+- Extensível: suporte para novos gateways será adicionado em breve.
+
 📦 Instalação
 Instale via Composer:
 
@@ -28,8 +30,6 @@ require 'vendor/autoload.php';
 
 use PHPay\PHPay;
 
-$asaas = PHPay::asaas('SUA_CHAVE_API');
-
 $client = [
     'name' => 'João da Silva',
     'cpf_cnpj' => '99999999999' // valid
@@ -41,7 +41,7 @@ $invoice = [
     'description' => 'Pagamento de teste',
 ];
 
-$response = $asaas
+$response = PHPay::asaas('SUA_CHAVE_API')
     ->client($client)
     ->invoice($invoice)
     ->qrCodePix();
@@ -51,10 +51,9 @@ print_r($response);
 
 ## 📝 Roadmap
 
-- [] Integração com o Asaas.
-- [] Suporte para outros gateways (ex.: Mercado Pago, Stripe).
-- [] Melhorias na documentação.
-- [] Testes unitários e exemplos de uso avançado.
+- Integração com Asaas.
+- Integração com Efí.
+- Lançamento v1.0.0
 
 ## 🌟 Contribuindo
 
