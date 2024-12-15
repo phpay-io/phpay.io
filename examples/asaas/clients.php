@@ -43,9 +43,6 @@ $phpay = PHPay::getInstance(new AsaasGateway(TOKEN_ASAAS_SANDBOX))
 
 /**
  * get customer by cpf_cnpj
- *
- * @param array $customer <cpf_cnpj>
- * @return array customer
  */
 // $customersFiltred = $phpay
 //     ->customer()
@@ -58,9 +55,6 @@ $phpay = PHPay::getInstance(new AsaasGateway(TOKEN_ASAAS_SANDBOX))
 
 /**
  * get customer by id
- *
- * @param string $id
- * @return array customer
  */
 // $customerById = $phpay
 //     ->customer()
@@ -70,22 +64,22 @@ $phpay = PHPay::getInstance(new AsaasGateway(TOKEN_ASAAS_SANDBOX))
 
 /**
  * delete cliente no asaas
- *
- * @param array $client <cpf_cnpj>
  * @return bool
  */
-// $phpay
-//     ->client($client, false)
-//     ->delete();
+$customerDeleted = $phpay
+    ->customer()
+    ->delete('cus_000006399159');
+
+var_dump($customerDeleted);
 
 /**
  * restore cliente no asaas
  */
-// $response = $phpay
-//     ->client()
-//     ->restore('cus_000006376400');
+$customerRestored = $phpay
+    ->customer()
+    ->restore('cus_000006376400');
 
-// print_r($response);
+var_dump($customerRestored);
 
 /**
  * notifications cliente no asaas

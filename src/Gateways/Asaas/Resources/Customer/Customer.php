@@ -21,17 +21,17 @@ class Customer implements CustomerInterface
     /**
      * @var string
      */
-    public string $name;
+    private string $name;
 
     /**
      * @var string
      */
-    public string $cpfCnpj;
+    private string $cpfCnpj;
 
     /**
      * @var array
      */
-    public array $filter = [];
+    private array $filter = [];
 
     /**
      * construct
@@ -72,7 +72,7 @@ class Customer implements CustomerInterface
             return json_decode($content, true);
         } catch (\Exception $e) {
             return [
-                'error' => $e->getCode(),
+                'error'   => $e->getCode(),
                 'message' => $e->getMessage(),
             ];
         }
@@ -96,7 +96,7 @@ class Customer implements CustomerInterface
             return json_decode($content, true);
         } catch (\Exception $e) {
             return [
-                'error' => $e->getCode(),
+                'error'   => $e->getCode(),
                 'message' => $e->getMessage(),
             ];
         }
@@ -116,6 +116,40 @@ class Customer implements CustomerInterface
             ]);
         } catch (\Exception $e) {
             return $e->getMessage();
+        }
+    }
+
+    /**
+     * delete customer
+     *
+     * @param string $id
+     * @return bool
+     */
+    public function delete(string $id): bool
+    {
+        try {
+            $response = $this->client->delete("customers/{$id}");
+
+            return ($response->getStatusCode() === 200);
+        } catch (\Exception $e) {
+            return false;
+        }
+    }
+
+    /**
+     * restore customer deleted
+     *
+     * @param string $id
+     * @return bool
+     */
+    public function restore(string $id): bool
+    {
+        try {
+            $response = $this->client->post("customers/{$id}/restore");
+
+            return ($response->getStatusCode() === 200);
+        } catch (\Exception $e) {
+            return false;
         }
     }
 

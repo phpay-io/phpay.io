@@ -9,7 +9,7 @@ trait HasAsaasClient
     /**
      * boot client
      */
-    public function clientAsaasBoot(): Client
+    protected function clientAsaasBoot(): Client
     {
         $baseUrl = $this->sandbox ?
             'https://sandbox.asaas.com/api/v3/' :
@@ -69,6 +69,23 @@ trait HasAsaasClient
             return json_decode($content, true);
         } catch (\Exception $e) {
             return $e->getMessage();
+        }
+    }
+
+    /**
+     * delete data
+     *
+     * @param string $endpoint
+     * @return bool
+     */
+    public function delete(string $endpoint): bool
+    {
+        try {
+            $this->client->delete($endpoint);
+
+            return true;
+        } catch (\Exception $e) {
+            return false;
         }
     }
 }
