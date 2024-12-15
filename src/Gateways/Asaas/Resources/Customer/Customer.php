@@ -19,16 +19,6 @@ class Customer implements CustomerInterface
     private Client $client;
 
     /**
-     * @var string
-     */
-    private string $name;
-
-    /**
-     * @var string
-     */
-    private string $cpfCnpj;
-
-    /**
      * @var array
      */
     private array $filter = [];
@@ -46,8 +36,7 @@ class Customer implements CustomerInterface
         $this->client = $this->clientAsaasBoot();
 
         if (!empty($customer)) {
-            $this->name    = $customer['name'];
-            $this->cpfCnpj = $customer['cpfCnpj'];
+            $this->customer = $customer;
         }
 
         return $this;
@@ -106,16 +95,33 @@ class Customer implements CustomerInterface
      * create customer
      *
      * @return string
+     * @see available fields in https://docs.asaas.com/reference/criar-novo-cliente
      */
     public function create(): string
     {
         try {
-            return $this->post('customers', [
-                'name'    => $this->name,
-                'cpfCnpj' => $this->cpfCnpj,
-            ]);
+            return $this->post('customers', $this->customer);
         } catch (\Exception $e) {
             return $e->getMessage();
+        }
+    }
+
+    /**
+     * update customer
+     *
+     * @param string $id
+     * @return array
+     * @see available fields in https://docs.asaas.com/reference/criar-novo-cliente
+     */
+    public function update(string $id): array
+    {
+        try {
+            return $this->put("customers/{$id}", $this->customer);
+        } catch (\Exception $e) {
+            return [
+                'error'   => $e->getCode(),
+                'message' => $e->getMessage(),
+            ];
         }
     }
 

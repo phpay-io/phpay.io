@@ -9,7 +9,7 @@ require_once __DIR__ . '/credentials.php';
 
 $customer = [
     'name'    => 'Mário Lucas',
-    'cpfCnpj' => '09102295466',
+    'cpfCnpj' => '00000000000',
 ];
 
 /**
@@ -21,8 +21,9 @@ $phpay = PHPay::getInstance(new AsaasGateway(TOKEN_ASAAS_SANDBOX))
 /**
  *  store asaas customer
  *
- * @param array $customer <name, cpfCnpj>
+ * @param array $customer
  * @return string customer id
+ * @see available fields in https://docs.asaas.com/reference/criar-novo-cliente
  */
 $customerId = $phpay
     ->customer($customer)
@@ -40,12 +41,13 @@ $customers = $phpay
 /**
  * get customer with filter
  *
+ * @see available fields in https://docs.asaas.com/reference/criar-novo-cliente
  * @return array customers
  */
 $customersFiltred = $phpay
     ->customer()
     ->setFilter([
-        'cpfCnpj' => '09102295466',
+        'cpfCnpj' => '00000000000',
     ])
     ->getAll();
 
@@ -56,7 +58,19 @@ $customersFiltred = $phpay
  */
 $customerById = $phpay
     ->customer()
-    ->get('cus_000006399159');
+    ->get('cus_000000000000');
+
+/**
+ * update customer
+ *
+ * @return array customer
+ */
+$customerUpdate = $phpay
+    ->customer([
+        'name'    => 'Mário Lucas',
+        'cpfCnpj' => '00000000000',
+    ])
+    ->update($customerId);
 
 /**
  * delete cliente no asaas
@@ -65,7 +79,7 @@ $customerById = $phpay
  */
 $customerDeleted = $phpay
     ->customer()
-    ->delete('cus_000006399159');
+    ->delete('cus_000000000000');
 
 /**
  * restore customer deleted
@@ -74,13 +88,13 @@ $customerDeleted = $phpay
  */
 $customerRestored = $phpay
     ->customer()
-    ->restore('cus_000006376400');
+    ->restore('cus_000000000000');
 
 /**
  * customer notifications
+ *
+ * @return array notifications
  */
 $notifications = $phpay
     ->customer()
-    ->getNotifications('cus_000006376400');
-
-print_r($notifications);
+    ->getNotifications('cus_000000000000');

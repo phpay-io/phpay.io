@@ -26,6 +26,27 @@ trait HasAsaasClient
     }
 
     /**
+     * get data
+     *
+     * @param string $endpoint
+     * @return array
+     */
+    public function get(string $endpoint): array
+    {
+        try {
+            $reposonse = $this->client->get($endpoint);
+
+            $content = $reposonse
+                ->getBody()
+                ->getContents();
+
+            return json_decode($content, true);
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    /**
      * post data
      *
      * @param string $endpoint
@@ -52,23 +73,29 @@ trait HasAsaasClient
     }
 
     /**
-     * get data
+     * put data
      *
      * @param string $endpoint
+     * @param array $data
      * @return array
      */
-    public function get(string $endpoint): array
+    public function put(string $endpoint, array $data): array
     {
         try {
-            $reposonse = $this->client->get($endpoint);
+            $response = $this->client->put($endpoint, [
+                'json' => $data,
+            ]);
 
-            $content = $reposonse
+            $content = $response
                 ->getBody()
                 ->getContents();
 
             return json_decode($content, true);
         } catch (\Exception $e) {
-            return $e->getMessage();
+            return [
+                'error'   => $e->getCode(),
+                'message' => $e->getMessage(),
+            ];
         }
     }
 
