@@ -33,3 +33,5 @@ fi
 
 echo "🟢 Pest Ok!"
 echo "\n"
+
+exit 0
