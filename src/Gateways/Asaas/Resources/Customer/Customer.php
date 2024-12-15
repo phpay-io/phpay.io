@@ -29,6 +29,11 @@ class Customer implements CustomerInterface
     public string $cpfCnpj;
 
     /**
+     * @var array
+     */
+    public array $filter = [];
+
+    /**
      * construct
      *
      * @param array $customer
@@ -56,7 +61,9 @@ class Customer implements CustomerInterface
     public function getAll(): array
     {
         try {
-            $response = $this->client->get('customers');
+            $response = $this->client->get('customers', [
+                'query' => $this->filter,
+            ]);
 
             $content = $response
                 ->getBody()
@@ -64,7 +71,34 @@ class Customer implements CustomerInterface
 
             return json_decode($content, true);
         } catch (\Exception $e) {
-            return $e->getMessage();
+            return [
+                'error' => $e->getCode(),
+                'message' => $e->getMessage(),
+            ];
+        }
+    }
+
+    /**
+     * get customer by id
+     *
+     * @param string $id
+     * @return array
+     */
+    public function get(string $id): array
+    {
+        try {
+            $response = $this->client->get("customers/{$id}");
+
+            $content = $response
+                ->getBody()
+                ->getContents();
+
+            return json_decode($content, true);
+        } catch (\Exception $e) {
+            return [
+                'error' => $e->getCode(),
+                'message' => $e->getMessage(),
+            ];
         }
     }
 
@@ -83,5 +117,18 @@ class Customer implements CustomerInterface
         } catch (\Exception $e) {
             return $e->getMessage();
         }
+    }
+
+    /**
+     * set filter
+     *
+     * @param array $filter
+     * @return CustomerInterface
+     */
+    public function setFilter(array $filter = []): CustomerInterface
+    {
+        $this->filter = $filter;
+
+        return $this;
     }
 }

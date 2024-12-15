@@ -15,8 +15,7 @@ $customer = [
 /**
  * initialize phpay
  */
-$assas = new AsaasGateway(TOKEN_ASAAS_SANDBOX);
-$phpay = PHPay::getInstance($assas)
+$phpay = PHPay::getInstance(new AsaasGateway(TOKEN_ASAAS_SANDBOX))
     ->getGateway();
 
 /**
@@ -25,35 +24,49 @@ $phpay = PHPay::getInstance($assas)
  * @param array $customer <name, cpfCnpj>
  * @return string customer id asaas
  */
-$customerId = $phpay
-    ->customer($customer)
-    ->create();
+// $customerId = $phpay
+//     ->customer($customer)
+//     ->create();
 
-print_r($customerId);
+// print_r($customerId);
 
 /**
- *  list all clients with filters
+ *  list all clients without filters
  *
  * @return array clients
  */
-$response = $phpay
-    ->customer()
-    ->getAll();
+// $customers = $phpay
+//     ->customer()
+//     ->getAll();
 
-print_r($response);
+// print_r($customers);
 
 /**
- * get client by cpf_cnpj
+ * get customer by cpf_cnpj
  *
- * @param array $client <cpf_cnpj>
- * @return array client
+ * @param array $customer <cpf_cnpj>
+ * @return array customer
  */
-// $response = $phpay
-//     ->client()
-//     ->with(['cpfCnpj' => '09102295466'])
-//     ->get();
+// $customersFiltred = $phpay
+//     ->customer()
+//     ->setFilter([
+//         'cpfCnpj' => '09102295466',
+//     ])
+//     ->getAll();
 
-// print_r($response);
+// print_r($customersFiltred);
+
+/**
+ * get customer by id
+ *
+ * @param string $id
+ * @return array customer
+ */
+// $customerById = $phpay
+//     ->customer()
+//     ->get('cus_000006399159');
+
+// print_r($customerById);
 
 /**
  * delete cliente no asaas
