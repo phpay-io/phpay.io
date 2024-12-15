@@ -7,29 +7,29 @@ require_once __DIR__ . '/../../vendor/autoload.php';
 
 require_once __DIR__ . '/credentials.php';
 
-$client = [
-    'name'     => NAME,
-    'cpf_cnpj' => CPF_CNPJ,
+$customer = [
+    'name'    => 'Mário Lucas',
+    'cpfCnpj' => '09102295466',
 ];
 
 /**
  * initialize phpay
- *
- * @return AsaasGateway
  */
-$phpay = PHPay::getInstance(
-    new AsaasGateway(TOKEN_ASAAS_SANDBOX, settings: [])
-)->getGateway();
+$assas = new AsaasGateway(TOKEN_ASAAS_SANDBOX);
+$phpay = PHPay::getInstance($assas)
+    ->getGateway();
 
 /**
  *  store asaas customer
  *
- * @param array $customer <name, cpf_cnpj>
+ * @param array $customer <name, cpfCnpj>
  * @return string customer id asaas
  */
-$phpay
+$customerId = $phpay
     ->customer($customer)
     ->create();
+
+print_r($customerId);
 
 /**
  *  list all clients with filters
@@ -37,9 +37,8 @@ $phpay
  * @return array clients
  */
 $response = $phpay
-    ->client()
-    ->with(['cpfCnpj' => '09102295466', ])
-    ->all();
+    ->customer()
+    ->getAll();
 
 print_r($response);
 
@@ -49,12 +48,12 @@ print_r($response);
  * @param array $client <cpf_cnpj>
  * @return array client
  */
-$response = $phpay
-    ->client()
-    ->with(['cpfCnpj' => '09102295466'])
-    ->get();
+// $response = $phpay
+//     ->client()
+//     ->with(['cpfCnpj' => '09102295466'])
+//     ->get();
 
-print_r($response);
+// print_r($response);
 
 /**
  * delete cliente no asaas
@@ -62,24 +61,24 @@ print_r($response);
  * @param array $client <cpf_cnpj>
  * @return bool
  */
-$phpay
-    ->client($client, false)
-    ->delete();
+// $phpay
+//     ->client($client, false)
+//     ->delete();
 
 /**
  * restore cliente no asaas
  */
-$response = $phpay
-    ->client()
-    ->restore('cus_000006376400');
+// $response = $phpay
+//     ->client()
+//     ->restore('cus_000006376400');
 
-print_r($response);
+// print_r($response);
 
 /**
  * notifications cliente no asaas
  */
-$response = $phpay
-    ->client()
-    ->notifications('cus_000006376400');
+// $response = $phpay
+//     ->client()
+//     ->notifications('cus_000006376400');
 
-print_r($response);
+// print_r($response);

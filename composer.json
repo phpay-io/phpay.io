@@ -4,7 +4,8 @@
     "autoload": {
         "psr-4": {
             "PHPay\\": "src/",
-            "Asaas\\": "src/Gateways/Asaas/"
+            "Asaas\\": "src/Gateways/Asaas/",
+            "AsaasCustomer\\": "src/Gateways/Asaas/Resources/Customer/"
         }
     },
     "authors": [
@@ -24,7 +25,8 @@
     },
     "require": {
         "php": "^8.1",
-        "ext-curl": "*"
+        "ext-curl": "*",
+        "guzzlehttp/guzzle": "^7.0"
     },
     "scripts": {
         "test": "vendor/bin/pest"

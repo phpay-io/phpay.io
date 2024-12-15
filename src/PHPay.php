@@ -6,6 +6,11 @@ use PHPay\Contracts\GatewayInterface;
 
 class PHPay
 {
+    /**
+     * instance of PHPay.
+     *
+     * @var self|null
+     */
     private static ?self $instance = null;
 
     /**
