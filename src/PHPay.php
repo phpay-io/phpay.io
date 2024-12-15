@@ -2,79 +2,61 @@
 
 namespace PHPay;
 
-use Dotenv\Dotenv;
-use Illuminate\Container\Container;
-use Illuminate\Http\Client\Factory;
-use Illuminate\Support\Facades\{Facade, Http};
-use PHPay\Gateways\Asaas\AsaasGateway;
-use PHPay\Gateways\Gateway;
+use PHPay\Contracts\GatewayInterface;
 
 class PHPay
 {
     /**
-     * construct
+     * instance of PHPay.
      *
-     * @param Gateway $gateway
+     * @var self|null
      */
-    public function __construct(
-        protected Gateway $gateway,
-        protected array $client = [],
-        protected array $invoice = []
+    private static ?self $instance = null;
+
+    /**
+     * private constructor prevents new instances.
+     *
+     * @param GatewayInterface $gateway
+     */
+    private function __construct(
+        private GatewayInterface $gateway
     ) {
+        $this->gateway = $gateway;
     }
 
     /**
-     * boot laravel facade
+     * get instance of PHPay.
      *
-     * @return AsaasGateway
+     * @param GatewayInterface $gateway
+     * @return self
      */
-    private static function boot()
+    public static function getInstance(GatewayInterface $gateway): self
     {
-        $container = new Container();
+        if (self::$instance === null) {
+            self::$instance = new self($gateway);
+        }
 
-        Facade::setFacadeApplication($container);
-
-        $container->singleton('http', function () {
-            return new Factory();
-        });
-
-        $dotenv = Dotenv::createImmutable(__DIR__);
-        $dotenv->load();
-
-        class_alias(Http::class, 'Http');
+        return self::$instance;
     }
 
     /**
-     * call asaas gateway
+     * get current gateway.
      *
-     * @return AsaasGateway
+     * @return GatewayInterface
      */
-    public static function asaas(string $token, $sandbox = true): self
+    public function getGateway(): GatewayInterface
     {
-        self::boot();
-
-        return new self(new AsaasGateway($token, $sandbox));
+        return $this->gateway;
     }
 
     /**
-     * call gateway
+     * set a new gateway.
      *
-     * @param array $client
-     * @return object
+     * @param GatewayInterface $gateway
+     * @return void
      */
-    public function client(array $client = [], $createOnly = true): object
+    public function setGateway(GatewayInterface $gateway): void
     {
-        return $this->gateway->client($client, $createOnly);
-    }
-
-    /**
-     * call invoice
-     *
-     * @param array $invoice
-     * @return object
-     */
-    public function invoice(array $invoice = [], $createOnly = true): object
-    {
-        return $this->gateway->invoice($invoice, $createOnly);
+        $this->gateway = $gateway;
     }
 }

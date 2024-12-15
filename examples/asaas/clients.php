@@ -7,75 +7,94 @@ require_once __DIR__ . '/../../vendor/autoload.php';
 
 require_once __DIR__ . '/credentials.php';
 
-$client = [
-    'name'     => NAME,
-    'cpf_cnpj' => CPF_CNPJ,
+$customer = [
+    'name'    => 'Mário Lucas',
+    'cpfCnpj' => '00000000000',
 ];
 
 /**
  * initialize phpay
- *
- * @return AsaasGateway
  */
-$phpay = PHPay::asaas(TOKEN_ASAAS_SANDBOX);
+$phpay = PHPay::getInstance(new AsaasGateway(TOKEN_ASAAS_SANDBOX))
+    ->getGateway();
 
 /**
- *  store asaas cliente
+ *  store asaas customer
  *
- * @param array $client <name, cpf_cnpj>
- * @return string cliente id asaas
+ * @param array $customer
+ * @return string customer id
+ * @see available fields in https://docs.asaas.com/reference/criar-novo-cliente
  */
-$phpay->client($client);
+$customerId = $phpay
+    ->customer($customer)
+    ->create();
 
 /**
- *  list all clients with filters
+ *  list all clients without filters
  *
- * @return array clients
+ * @return array customers
  */
-$response = $phpay
-    ->client()
-    ->with(['cpfCnpj' => '09102295466', ])
-    ->all();
-
-print_r($response);
+$customers = $phpay
+    ->customer()
+    ->getAll();
 
 /**
- * get client by cpf_cnpj
+ * get customer with filter
  *
- * @param array $client <cpf_cnpj>
- * @return array client
+ * @see available fields in https://docs.asaas.com/reference/criar-novo-cliente
+ * @return array customers
  */
-$response = $phpay
-    ->client()
-    ->with(['cpfCnpj' => '09102295466'])
-    ->get();
+$customersFiltred = $phpay
+    ->customer()
+    ->setFilter([
+        'cpfCnpj' => '00000000000',
+    ])
+    ->getAll();
 
-print_r($response);
+/**
+ * get customer by id
+ *
+ * @return array customer
+ */
+$customerById = $phpay
+    ->customer()
+    ->get('cus_000000000000');
+
+/**
+ * update customer
+ *
+ * @return array customer
+ */
+$customerUpdate = $phpay
+    ->customer([
+        'name'    => 'Mário Lucas',
+        'cpfCnpj' => '00000000000',
+    ])
+    ->update($customerId);
 
 /**
  * delete cliente no asaas
  *
- * @param array $client <cpf_cnpj>
  * @return bool
  */
-$phpay
-    ->client($client, false)
-    ->delete();
+$customerDeleted = $phpay
+    ->customer()
+    ->delete('cus_000000000000');
 
 /**
- * restore cliente no asaas
+ * restore customer deleted
+ *
+ * @return bool
  */
-$response = $phpay
-    ->client()
-    ->restore('cus_000006376400');
-
-print_r($response);
+$customerRestored = $phpay
+    ->customer()
+    ->restore('cus_000000000000');
 
 /**
- * notifications cliente no asaas
+ * customer notifications
+ *
+ * @return array notifications
  */
-$response = $phpay
-    ->client()
-    ->notifications('cus_000006376400');
-
-print_r($response);
+$notifications = $phpay
+    ->customer()
+    ->getNotifications('cus_000000000000');

@@ -3,8 +3,7 @@
 use PHPay\PHPay;
 
 test('instance payhub class', function () {
-    $token = '';
-
+    $token = 'token';
     $phpay = PHPay::asaas($token);
 
     expect($phpay)

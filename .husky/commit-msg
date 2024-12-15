@@ -11,7 +11,7 @@ ISSUE_ID=$(echo "$BRANCH_NAME" | grep -o -E "$REGEX_ISSUE_ID")
 COMMIT_MESSAGE=$(cat "$1")
 
 if [ -z "$ISSUE_ID" ]; then
-    echo "${BRed}Branch name does not follow the expected pattern...${KN}"
+    echo "🛑 ${BRed} Branch name does not follow the expected pattern...${KN}"
     exit 1
 fi
 

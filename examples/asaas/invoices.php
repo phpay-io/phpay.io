@@ -20,7 +20,7 @@ $invoice = [
 
 $assas = PHPay::asaas(TOKEN_ASAAS_SANDBOX);
 
-$invoices = (array) $assas
+$invoices = $assas
     ->invoice(createOnly: false)
     ->with([])
     ->all();
