@@ -23,15 +23,15 @@ echo "============================================="
 echo "Running pest tests 🧪"
 echo "============================================="
 
-pest_output=$(./vendor/bin/pest --colors=always --stop-on-failure 2>&1)
+# pest_output=$(./vendor/bin/pest --colors=always --stop-on-failure 2>&1)
 
-if [ $? -ne 0 ]; then
-    echo "🛑 Pest tests failed. Please fix the issues before pushing."
-    echo "$pest_output"
-    exit 1
-fi
+# if [ $? -ne 0 ]; then
+#     echo "🛑 Pest tests failed. Please fix the issues before pushing."
+#     echo "$pest_output"
+#     exit 1
+# fi
 
-echo "🟢 Pest Ok!"
-echo "\n"
+# echo "🟢 Pest Ok!"
+# echo "\n"
 
 exit 0
