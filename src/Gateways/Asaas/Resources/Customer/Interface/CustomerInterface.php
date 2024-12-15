@@ -9,5 +9,6 @@ interface CustomerInterface
     public function create(): string;
     public function delete(string $id): bool;
     public function restore(string $id): bool;
+    public function getNotifications(string $id): array;
     public function setFilter(array $filter = []): self;
 }

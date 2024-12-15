@@ -22,70 +22,65 @@ $phpay = PHPay::getInstance(new AsaasGateway(TOKEN_ASAAS_SANDBOX))
  *  store asaas customer
  *
  * @param array $customer <name, cpfCnpj>
- * @return string customer id asaas
+ * @return string customer id
  */
-// $customerId = $phpay
-//     ->customer($customer)
-//     ->create();
-
-// print_r($customerId);
+$customerId = $phpay
+    ->customer($customer)
+    ->create();
 
 /**
  *  list all clients without filters
  *
- * @return array clients
+ * @return array customers
  */
-// $customers = $phpay
-//     ->customer()
-//     ->getAll();
-
-// print_r($customers);
+$customers = $phpay
+    ->customer()
+    ->getAll();
 
 /**
- * get customer by cpf_cnpj
+ * get customer with filter
+ *
+ * @return array customers
  */
-// $customersFiltred = $phpay
-//     ->customer()
-//     ->setFilter([
-//         'cpfCnpj' => '09102295466',
-//     ])
-//     ->getAll();
-
-// print_r($customersFiltred);
+$customersFiltred = $phpay
+    ->customer()
+    ->setFilter([
+        'cpfCnpj' => '09102295466',
+    ])
+    ->getAll();
 
 /**
  * get customer by id
+ *
+ * @return array customer
  */
-// $customerById = $phpay
-//     ->customer()
-//     ->get('cus_000006399159');
-
-// print_r($customerById);
+$customerById = $phpay
+    ->customer()
+    ->get('cus_000006399159');
 
 /**
  * delete cliente no asaas
+ *
  * @return bool
  */
 $customerDeleted = $phpay
     ->customer()
     ->delete('cus_000006399159');
 
-var_dump($customerDeleted);
-
 /**
- * restore cliente no asaas
+ * restore customer deleted
+ *
+ * @return bool
  */
 $customerRestored = $phpay
     ->customer()
     ->restore('cus_000006376400');
 
-var_dump($customerRestored);
-
 /**
- * notifications cliente no asaas
+ * customer notifications
  */
-// $response = $phpay
-//     ->client()
-//     ->notifications('cus_000006376400');
+$notifications = $phpay
+    ->customer()
+    ->getNotifications('cus_000006376400');
 
-// print_r($response);
+print_r($notifications);

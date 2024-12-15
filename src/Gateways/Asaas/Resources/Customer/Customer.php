@@ -154,6 +154,30 @@ class Customer implements CustomerInterface
     }
 
     /**
+     * get notifications
+     *
+     * @param string $id
+     * @return array
+     */
+    public function getNotifications(string $id): array
+    {
+        try {
+            $response = $this->client->get("customers/{$id}/notifications");
+
+            $content = $response
+                ->getBody()
+                ->getContents();
+
+            return json_decode($content, true);
+        } catch (\Exception $e) {
+            return [
+                'error'   => $e->getCode(),
+                'message' => $e->getMessage(),
+            ];
+        }
+    }
+
+    /**
      * set filter
      *
      * @param array $filter
