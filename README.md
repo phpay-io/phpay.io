@@ -28,32 +28,157 @@ composer require phpay-io/phpay
 ```php
 require 'vendor/autoload.php';
 
+use PHPay\Gateways\Asaas\AsaasGateway;
 use PHPay\PHPay;
 
-$client = [
-    'name' => 'João da Silva',
-    'cpf_cnpj' => '99999999999' // valid
-];
+$phpay = PHPay::getInstance(new AsaasGateway(TOKEN_ASAAS_SANDBOX))
+    ->getGateway();
+```
 
-$invoice = [
-    'value' => 100.00,
-    'dueDate' => '2024-12-01',
-    'description' => 'Pagamento de teste',
-];
+## Customer
 
-$response = PHPay::asaas('SUA_CHAVE_API')
-    ->client($client)
-    ->invoice($invoice)
-    ->qrCodePix();
+```php
+$customerCreated = $phpay
+    ->customer($customer)
+    ->create();
 
-print_r($response);
+$phpay
+    ->customer()
+    ->getAll();
+
+$phpay
+    ->customer()
+    ->setFilter([
+        'cpfCnpj' => $customerCreated['cpfCnpj'],
+    ])
+    ->getAll();
+
+$phpay
+    ->customer()
+    ->find($customerCreated['id']);
+
+$phpay
+    ->customer([
+        'name' => 'Mário Lucas Updated',
+    ])
+    ->update($customerCreated['id']);
+
+$phpay
+    ->customer()
+    ->destroy($customerCreated['id']);
+
+$phpay
+    ->customer()
+    ->restore($customerCreated['id']);
+
+$phpay
+    ->customer()
+    ->getNotifications($customerCreated['id']);
+```
+
+## 🤑 Charges
+
+```php
+$customerCreated = $phpay
+    ->customer($customer)
+    ->create();
+
+$phpay
+    ->charge($charge)
+    ->setCustomer($customerCreated['id'])
+    ->create();
+
+$phpay
+    ->charge()
+    ->find($chargeCreated['id']);
+
+$phpay
+    ->charge()
+    ->getAll();
+
+$phpay
+    ->charge()
+    ->update($chargeCreated['id'], [
+        'description' => 'Teste de fatura atualizado',
+    ]);
+
+$phpay
+    ->charge()
+    ->destroy($chargeCreated['id']);
+
+$phpay
+    ->charge()
+    ->restore($chargeCreated['id']);
+
+$phpay
+    ->charge()
+    ->getStatus($chargeCreated['id']);
+
+$phpay
+    ->charge()
+    ->getDigitableLine($chargeCreated['id']);
+
+$phpay
+    ->charge()
+    ->getQrCodePix($chargeCreated['id']);
+
+$phpay
+    ->charge()
+    ->confirmReceipt($chargeCreated['id'], [
+        'paymentDate'    => date('Y-m-d'),
+        'value'          => 100.00,
+        'notifyCustomer' => true,
+    ]);
+
+$phpay
+    ->charge()
+    ->undoConfirmReceipt($chargeCreated['id']);
+```
+
+## WebHooks
+
+```php
+$webhook = $phpay
+    ->webhook($webhook)
+    ->create();
+
+$phpay
+    ->webhook()
+    ->getAll();
+
+$phpay
+    ->webhook()
+    ->find($webhook['id']);
+
+$phpay
+    ->webhook()
+    ->update($webhook['id'], [
+        'name' => 'Webhook de Teste Atualizado',
+        'url'  => 'https://mariolucas.me/webhook/atualizado',
+    ]);
+
+$phpay
+    ->webhook()
+    ->destroy($webhook['id']);
 ```
 
 ## 📝 Roadmap
 
 - Integração com Asaas.
+
+  - Cobranças ✅
+  - Clientes ✅
+  - Webhook ✅
+  - Pix 🕥
+
 - Integração com Efí.
-- Lançamento v1.0.0
+
+  - Cobranças 🕥
+  - Clientes 🕥
+  - Webhook 🕥
+  - Pix 🕥
+
+- Lançamento v1.0.0 🚀
 
 ## 🌟 Contribuindo
 
