@@ -57,6 +57,18 @@ class Charge implements ChargeInterface
     }
 
     /**
+     * get all charges
+     *
+     * @return array
+     */
+    public function getAll(): array
+    {
+        return $this->get('payments', [
+            'query' => $this->filter,
+        ]);
+    }
+
+    /**
      * create charge
      *
      * @return string
