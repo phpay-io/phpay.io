@@ -126,8 +126,8 @@ $qrcode = $phpay
 $confirmed = $phpay
     ->charge()
     ->confirmReceipt($chargeCreated['id'], [
-        'paymentDate' => date('Y-m-d'),
-        'value'       => 100.00,
+        'paymentDate'    => date('Y-m-d'),
+        'value'          => 100.00,
         'notifyCustomer' => true,
     ]);
 
