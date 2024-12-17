@@ -2,6 +2,7 @@
 
 namespace Asaas\Resources\Customer;
 
+use Asaas\Requests\AsaasCustomerRequest;
 use Asaas\Resources\Customer\Interface\CustomerInterface;
 use Asaas\Traits\HasAsaasClient;
 use GuzzleHttp\Client;
@@ -49,22 +50,9 @@ class Customer implements CustomerInterface
      */
     public function getAll(): array
     {
-        try {
-            $response = $this->client->get('customers', [
-                'query' => $this->filter,
-            ]);
-
-            $content = $response
-                ->getBody()
-                ->getContents();
-
-            return json_decode($content, true);
-        } catch (\Exception $e) {
-            return [
-                'error'   => $e->getCode(),
-                'message' => $e->getMessage(),
-            ];
-        }
+        return $this->get('customers', [
+            'query' => $this->filter,
+        ]);
     }
 
     /**
@@ -73,37 +61,22 @@ class Customer implements CustomerInterface
      * @param string $id
      * @return array
      */
-    public function get(string $id): array
+    public function find(string $id): array
     {
-        try {
-            $response = $this->client->get("customers/{$id}");
-
-            $content = $response
-                ->getBody()
-                ->getContents();
-
-            return json_decode($content, true);
-        } catch (\Exception $e) {
-            return [
-                'error'   => $e->getCode(),
-                'message' => $e->getMessage(),
-            ];
-        }
+        return $this->get("customers/{$id}");
     }
 
     /**
      * create customer
      *
-     * @return string
+     * @return array
      * @see available fields in https://docs.asaas.com/reference/criar-novo-cliente
      */
-    public function create(): string
+    public function create(): array
     {
-        try {
-            return $this->post('customers', $this->customer);
-        } catch (\Exception $e) {
-            return $e->getMessage();
-        }
+        AsaasCustomerRequest::validate($this->customer);
+
+        return $this->post('customers', $this->customer);
     }
 
     /**
@@ -115,48 +88,29 @@ class Customer implements CustomerInterface
      */
     public function update(string $id): array
     {
-        try {
-            return $this->put("customers/{$id}", $this->customer);
-        } catch (\Exception $e) {
-            return [
-                'error'   => $e->getCode(),
-                'message' => $e->getMessage(),
-            ];
-        }
+        return $this->put("customers/{$id}", $this->customer);
     }
 
     /**
-     * delete customer
+     * destroy customer
      *
      * @param string $id
      * @return bool
      */
-    public function delete(string $id): bool
+    public function destroy(string $id): bool
     {
-        try {
-            $response = $this->client->delete("customers/{$id}");
-
-            return ($response->getStatusCode() === 200);
-        } catch (\Exception $e) {
-            return false;
-        }
+        return $this->delete("customers/{$id}");
     }
 
     /**
      * restore customer deleted
      *
      * @param string $id
-     * @return bool
+     * @return array
      */
-    public function restore(string $id): bool
+    public function restore(string $id): array
     {
-        try {
-            $response = $this->client->post("customers/{$id}/restore");
-
-            return ($response->getStatusCode() === 200);
-        } catch (\Exception $e) {
-            return false;
-        }
+        return $this->post("customers/{$id}/restore");
     }
 
     /**
@@ -167,20 +121,7 @@ class Customer implements CustomerInterface
      */
     public function getNotifications(string $id): array
     {
-        try {
-            $response = $this->client->get("customers/{$id}/notifications");
-
-            $content = $response
-                ->getBody()
-                ->getContents();
-
-            return json_decode($content, true);
-        } catch (\Exception $e) {
-            return [
-                'error'   => $e->getCode(),
-                'message' => $e->getMessage(),
-            ];
-        }
+        return $this->get("customers/{$id}/notifications");
     }
 
     /**
