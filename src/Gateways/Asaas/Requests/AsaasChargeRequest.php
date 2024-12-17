@@ -13,12 +13,8 @@ class AsaasChargeRequest
      * @param array $charge
      * @return void
      */
-    public static function validate(array $customer, array $charge): void
+    public static function validate(array $charge): void
     {
-        if (!isset($customer['id'])) {
-            throw new \InvalidArgumentException(self::messages()->customer->id, 400);
-        }
-
         if (!isset($charge['customer']) && !is_string($charge['customer'])) {
             throw new \InvalidArgumentException(self::messages()->charge->customer, 400);
         }

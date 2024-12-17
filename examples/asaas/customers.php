@@ -22,10 +22,10 @@ $phpay = PHPay::getInstance(new AsaasGateway(TOKEN_ASAAS_SANDBOX))
  *  store asaas customer
  *
  * @param array $customer
- * @return string customer id
+ * @return array
  * @see available fields in https://docs.asaas.com/reference/criar-novo-cliente
  */
-$customerId = $phpay
+$customerCreated = $phpay
     ->customer($customer)
     ->create();
 
@@ -70,7 +70,7 @@ $customerUpdate = $phpay
         'name'    => 'Mário Lucas Updated',
         'cpfCnpj' => '00000000000',
     ])
-    ->update($customerId);
+    ->update($customerCreated['id']);
 
 /**
  * delete cliente no asaas
@@ -79,7 +79,7 @@ $customerUpdate = $phpay
  */
 $customerDeleted = $phpay
     ->customer()
-    ->destroy('cus_000000000000');
+    ->destroy($customerCreated['id']);
 
 /**
  * restore customer deleted
@@ -88,7 +88,7 @@ $customerDeleted = $phpay
  */
 $customerIdRestored = $phpay
     ->customer()
-    ->restore('cus_000000000000');
+    ->restore($customerCreated['id']);
 
 /**
  * customer notifications
@@ -97,4 +97,4 @@ $customerIdRestored = $phpay
  */
 $notifications = $phpay
     ->customer()
-    ->getNotifications('cus_000000000000');
+    ->getNotifications($customerCreated['id']);

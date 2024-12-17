@@ -9,7 +9,7 @@ require_once __DIR__ . '/credentials.php';
 
 $customer = [
     'name'     => NAME,
-    'cpf_cnpj' => CPF_CNPJ,
+    'cpfCnpj' => CPF_CNPJ,
 ];
 
 $charge = [
@@ -26,17 +26,30 @@ $phpay = PHPay::getInstance(new AsaasGateway(TOKEN_ASAAS_SANDBOX))
     ->getGateway();
 
 /**
+ * create customer
+ *
+ * @return array customer
+ */
+$customerCreated = $phpay
+    ->customer($customer)
+    ->create();
+
+/**
  * create charge
  *
  * @return array charges
  */
-$customerId = $phpay
-    ->customer($customer)
-    ->create();
-
-$charge = $phpay
+$charges = $phpay
     ->charge($charge)
-    ->setCustomer($customerId)
+    ->setCustomer($customerCreated['id'])
     ->create();
 
-print_r($charges);
+/**
+ * create charge lean
+ *
+ * @return array charges
+ */
+$chargesLean = $phpay
+    ->charge($charge)
+    ->setCustomer($customerCreated['id'])
+    ->createLean();

@@ -31,7 +31,7 @@ trait HasAsaasClient
      * @param string $endpoint
      * @return array
      */
-    public function get(string $endpoint): array
+    protected function get(string $endpoint): array
     {
         try {
             $reposonse = $this->client->get($endpoint);
@@ -51,9 +51,9 @@ trait HasAsaasClient
      *
      * @param string $endpoint
      * @param array $data
-     * @return string
+     * @return array
      */
-    public function post(string $endpoint, array $data): string
+    protected function post(string $endpoint, array $data = []): array
     {
         try {
             $reposonse = $this->client->post($endpoint, [
@@ -64,11 +64,12 @@ trait HasAsaasClient
                 ->getBody()
                 ->getContents();
 
-            $reposonses = json_decode($content, true);
-
-            return $reposonses['id'];
+            return json_decode($content, true);
         } catch (\Exception $e) {
-            return $e->getMessage();
+            return [
+                'error'   => $e->getCode(),
+                'message' => $e->getMessage(),
+            ];
         }
     }
 
@@ -79,7 +80,7 @@ trait HasAsaasClient
      * @param array $data
      * @return array
      */
-    public function put(string $endpoint, array $data): array
+    protected function put(string $endpoint, array $data): array
     {
         try {
             $response = $this->client->put($endpoint, [
@@ -105,12 +106,10 @@ trait HasAsaasClient
      * @param string $endpoint
      * @return bool
      */
-    public function delete(string $endpoint): bool
+    protected function delete(string $endpoint): bool
     {
         try {
-            $this->client->delete($endpoint);
-
-            return true;
+            return ($this->client->delete($endpoint) == 200);
         } catch (\Exception $e) {
             return false;
         }

@@ -2,6 +2,7 @@
 
 namespace Asaas\Resources\Customer;
 
+use Asaas\Requests\AsaasCustomerRequest;
 use Asaas\Resources\Customer\Interface\CustomerInterface;
 use Asaas\Traits\HasAsaasClient;
 use GuzzleHttp\Client;
@@ -36,6 +37,8 @@ class Customer implements CustomerInterface
         $this->client = $this->clientAsaasBoot();
 
         if (!empty($customer)) {
+            AsaasCustomerRequest::validate($customer);
+
             $this->customer = $customer;
         }
 
@@ -94,16 +97,12 @@ class Customer implements CustomerInterface
     /**
      * create customer
      *
-     * @return string
+     * @return array
      * @see available fields in https://docs.asaas.com/reference/criar-novo-cliente
      */
-    public function create(): string
+    public function create(): array
     {
-        try {
-            return $this->post('customers', $this->customer);
-        } catch (\Exception $e) {
-            return $e->getMessage();
-        }
+        return $this->post('customers', $this->customer);
     }
 
     /**
@@ -126,17 +125,15 @@ class Customer implements CustomerInterface
     }
 
     /**
-     * delete customer
+     * destroy customer
      *
      * @param string $id
      * @return bool
      */
-    public function delete(string $id): bool
+    public function destroy(string $id): bool
     {
         try {
-            $response = $this->client->delete("customers/{$id}");
-
-            return ($response->getStatusCode() === 200);
+            return $this->delete("customers/{$id}");
         } catch (\Exception $e) {
             return false;
         }
@@ -151,9 +148,7 @@ class Customer implements CustomerInterface
     public function restore(string $id): bool
     {
         try {
-            $response = $this->client->post("customers/{$id}/restore");
-
-            return ($response->getStatusCode() === 200);
+            return $this->post("customers/{$id}/restore");
         } catch (\Exception $e) {
             return false;
         }
