@@ -50,11 +50,33 @@ class Webhook implements WebhookInterface
     /**
      * get all webhooks
      *
-     * @param string $id
      * @return array
      */
     public function getAll(): array
     {
         return $this->get("webhooks");
+    }
+
+    /**
+     * get webhook by id
+     *
+     * @param string $id
+     * @return array
+     */
+    public function find(string $id): array
+    {
+        return $this->get("webhooks/{$id}");
+    }
+
+    /**
+     * update webhook by id
+     *
+     * @param string $id
+     * @param array $webhook
+     * @return array
+     */
+    public function update(string $id, array $webhook = []): array
+    {
+        return $this->put("webhooks/{$id}", $webhook);
     }
 }

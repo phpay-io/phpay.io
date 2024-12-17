@@ -40,7 +40,6 @@ $phpay = PHPay::getInstance(new AsaasGateway(TOKEN_ASAAS_SANDBOX))
 /**
  *  store a new webhook
  *
- * @param array $webhook
  * @return array
  * @see available fields in https://docs.asaas.com/reference/criar-novo-webhook
  */
@@ -51,9 +50,32 @@ $webhook = $phpay
 /**
  *  get all webhooks
  *
- * @param array $customer
  * @return array
  */
 $webhooks = $phpay
     ->webhook()
     ->getAll();
+
+/**
+ *  find a webhook
+ *
+ * @return array
+ */
+$webhook = $phpay
+    ->webhook()
+    ->find('84c3c34b-9d23-44a3-95b2-d232c3f06dba');
+
+/**
+ *  update a webhook
+ *
+ * @return array
+ * @see available fields in https://docs.asaas.com/reference/atualizar-webhook-existente
+ */
+$webhookUpdated = $phpay
+    ->webhook()
+    ->update('84c3c34b-9d23-44a3-95b2-d232c3f06dba', [
+        'name' => 'Webhook de Teste Atualizado',
+        'url'  => 'https://sixtec.com.br/webhook/atualizado'
+    ]);
+
+print_r($webhookUpdated);
