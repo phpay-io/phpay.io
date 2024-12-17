@@ -79,4 +79,15 @@ class Webhook implements WebhookInterface
     {
         return $this->put("webhooks/{$id}", $webhook);
     }
+
+    /**
+     * delete webhook by id
+     *
+     * @param string $id
+     * @return array
+     */
+    public function destroy(string $id): bool
+    {
+        return $this->delete("webhooks/{$id}");
+    }
 }

@@ -78,4 +78,11 @@ $webhookUpdated = $phpay
         'url'  => 'https://sixtec.com.br/webhook/atualizado'
     ]);
 
-print_r($webhookUpdated);
+/**
+ *  delete a webhook
+ *
+ * @return bool
+ */
+$webhookDeleted = $phpay
+    ->webhook()
+    ->destroy('84c3c34b-9d23-44a3-95b2-d232c3f06dba');
