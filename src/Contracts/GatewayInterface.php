@@ -2,8 +2,8 @@
 
 namespace PHPay\Contracts;
 
-use Asaas\Resources\Customer\Customer as AsaasCustomer;
 use Asaas\Resources\Charge\Charge as AsaasCharge;
+use Asaas\Resources\Customer\Customer as AsaasCustomer;
 use Asaas\Resources\Webhook\Webhook as AsaasWebhook;
 
 interface GatewayInterface
