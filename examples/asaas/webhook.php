@@ -38,14 +38,22 @@ $phpay = PHPay::getInstance(new AsaasGateway(TOKEN_ASAAS_SANDBOX))
     ->getGateway();
 
 /**
- *  store asaas customer
+ *  store a new webhook
  *
- * @param array $customer
+ * @param array $webhook
  * @return array
- * @see available fields in https://docs.asaas.com/reference/criar-novo-cliente
+ * @see available fields in https://docs.asaas.com/reference/criar-novo-webhook
  */
 $webhook = $phpay
     ->webhook($webhook)
     ->create();
 
-print_r($webhook);
+/**
+ *  get all webhooks
+ *
+ * @param array $customer
+ * @return array
+ */
+$webhooks = $phpay
+    ->webhook()
+    ->getAll();

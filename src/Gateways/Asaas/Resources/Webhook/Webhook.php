@@ -46,4 +46,15 @@ class Webhook implements WebhookInterface
     {
         return $this->post('webhooks', $this->webhook);
     }
+
+    /**
+     * get all webhooks
+     *
+     * @param string $id
+     * @return array
+     */
+    public function getAll(): array
+    {
+        return $this->get("webhooks");
+    }
 }
