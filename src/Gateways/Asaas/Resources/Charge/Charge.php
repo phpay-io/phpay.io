@@ -44,14 +44,27 @@ class Charge implements ChargeInterface
     }
 
     /**
-     * set customer
+     * set filters
      *
-     * @param string $customer
+     * @param array $filters
      * @return ChargeInterface
      */
-    public function setCustomer(string $customer): ChargeInterface
+    public function setFilters(array $filters): ChargeInterface
     {
-        $this->charge['customer'] = $customer;
+        $this->filter = $filters;
+
+        return $this;
+    }
+
+    /**
+     * set customer
+     *
+     * @param string $customerId
+     * @return ChargeInterface
+     */
+    public function setCustomer(string $customerId): ChargeInterface
+    {
+        $this->charge['customer'] = $customerId;
 
         return $this;
     }
@@ -92,15 +105,86 @@ class Charge implements ChargeInterface
     }
 
     /**
-     * create charge lean
+     * update charge
      *
-     * @return string
-     * @see fields available in https://docs.asaas.com/reference/criar-nova-cobranca-com-dados-resumidos-na-resposta
+     * @param string $id
+     * @param array $data
+     * @return array
      */
-    public function createLean(): array
+    public function update(string $id, array $data): array
     {
-        AsaasChargeRequest::validate($this->charge);
+        return $this->put("payments/{$id}", $data);
+    }
 
-        return $this->post('lean/payments', $this->charge);
+    /**
+     * destroy charge
+     *
+     * @param string $id
+     * @return array
+     */
+    public function destroy(string $id): bool
+    {
+        return $this->delete("payments/{$id}");
+    }
+
+    /**
+     * restore charge
+     *
+     * @param string $id
+     * @return array
+     */
+    public function restore(string $id): array
+    {
+        return $this->post("payments/{$id}/restore");
+    }
+
+    /**
+     * get status charge
+     *
+     * @param string $id
+     * @return array
+     */
+    public function getStatus(string $id): array
+    {
+        return $this->get("payments/{$id}/status");
+    }
+
+    /**
+     * get digitable line
+     *
+     * @param string $id
+     * @return array
+     */
+    public function getDigitableLine(string $id): string
+    {
+        return $this->get("payments/{$id}/identificationField")['identificationField'];
+    }
+
+    /**
+     * get qrcode pix
+     *
+     * @param string $id
+     * @return array
+     */
+    public function getQrCodePix(string $id): array
+    {
+        return $this->get("payments/{$id}/pixQrCode");
+    }
+
+    /**
+     * confirm receipt
+     *
+     * @param string $id
+     * @param array $data
+     * @return array
+     */
+    public function confirmReceipt(string $id, array $data): array
+    {
+        return $this->post("payments/{$id}/receiveInCash", $data);
+    }
+
+    public function undoConfirmReceipt(string $id): array
+    {
+        return $this->post("payments/{$id}/undoReceivedInCash");
     }
 }

@@ -67,7 +67,7 @@ $customerById = $phpay
  */
 $customerUpdate = $phpay
     ->customer([
-        'name'    => 'Mário Lucas Updated',
+        'name' => 'Mário Lucas Updated',
     ])
     ->update($customerCreated['id']);
 

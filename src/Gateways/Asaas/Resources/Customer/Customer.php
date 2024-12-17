@@ -88,14 +88,7 @@ class Customer implements CustomerInterface
      */
     public function update(string $id): array
     {
-        try {
-            return $this->put("customers/{$id}", $this->customer);
-        } catch (\Exception $e) {
-            return [
-                'error'   => $e->getCode(),
-                'message' => $e->getMessage(),
-            ];
-        }
+        return $this->put("customers/{$id}", $this->customer);
     }
 
     /**
@@ -106,26 +99,18 @@ class Customer implements CustomerInterface
      */
     public function destroy(string $id): bool
     {
-        try {
-            return $this->delete("customers/{$id}");
-        } catch (\Exception $e) {
-            return false;
-        }
+        return $this->delete("customers/{$id}");
     }
 
     /**
      * restore customer deleted
      *
      * @param string $id
-     * @return bool
+     * @return array
      */
-    public function restore(string $id): bool
+    public function restore(string $id): array
     {
-        try {
-            return $this->post("customers/{$id}/restore");
-        } catch (\Exception $e) {
-            return false;
-        }
+        return $this->post("customers/{$id}/restore");
     }
 
     /**
@@ -136,20 +121,7 @@ class Customer implements CustomerInterface
      */
     public function getNotifications(string $id): array
     {
-        try {
-            $response = $this->client->get("customers/{$id}/notifications");
-
-            $content = $response
-                ->getBody()
-                ->getContents();
-
-            return json_decode($content, true);
-        } catch (\Exception $e) {
-            return [
-                'error'   => $e->getCode(),
-                'message' => $e->getMessage(),
-            ];
-        }
+        return $this->get("customers/{$id}/notifications");
     }
 
     /**

@@ -8,12 +8,12 @@ require_once __DIR__ . '/../../vendor/autoload.php';
 require_once __DIR__ . '/credentials.php';
 
 $customer = [
-    'name'     => NAME,
+    'name'    => NAME,
     'cpfCnpj' => CPF_CNPJ,
 ];
 
 $charge = [
-    'billingType' => 'BOLETO',
+    'billingType' => 'PIX',
     'value'       => 100.00,
     'description' => 'Teste de fatura',
     'dueDate'     => date('Y-m-d', strtotime('+1 day')),
@@ -39,38 +39,103 @@ $customerCreated = $phpay
  *
  * @return array charges
  */
-$charges = $phpay
+$chargeCreated = $phpay
     ->charge($charge)
     ->setCustomer($customerCreated['id'])
     ->create();
 
 /**
- * create charge lean
- *
- * @return array charges
- */
-$chargeLean = $phpay
-    ->charge($charge)
-    ->setCustomer($customerCreated['id'])
-    ->createLean();
-
-/**
  * get all charges
  *
  * @return array charges
  */
-$charge = $phpay
+$phpay
     ->charge()
-    ->find($chargeLean['id']);
-
-print_r($charge);
-
+    ->find($chargeCreated['id']);
 
 /**
  * get all charges
  *
  * @return array charges
  */
-$charges = $phpay
+$phpay
     ->charge()
     ->getAll();
+
+/**
+ * update charge
+ *
+ * @return array charge
+ */
+$phpay
+    ->charge()
+    ->update($chargeCreated['id'], [
+        'description' => 'Teste de fatura atualizado',
+    ]);
+
+/**
+ * destroy charge
+ *
+ * @return array bool
+ */
+$phpay
+    ->charge()
+    ->destroy($chargeCreated['id']);
+
+/**
+ * restore charge
+ *
+ * @return array charge
+ */
+$phpay
+    ->charge()
+    ->restore($chargeCreated['id']);
+
+/**
+ * get charge status
+ *
+ * @return array charge status
+ */
+$phpay
+    ->charge()
+    ->getStatus($chargeCreated['id']);
+
+/**
+ * get digitable line charge
+ *
+ * @return string
+ */
+$phpay
+    ->charge()
+    ->getDigitableLine($chargeCreated['id']);
+
+/**
+ * get qrcode charge
+ *
+ * @return string
+ */
+$qrcode = $phpay
+    ->charge()
+    ->getQrCodePix($chargeCreated['id']);
+
+/**
+ * confirm receipt charge
+ *
+ * @return array charges
+ */
+$confirmed = $phpay
+    ->charge()
+    ->confirmReceipt($chargeCreated['id'], [
+        'paymentDate' => date('Y-m-d'),
+        'value'       => 100.00,
+        'notifyCustomer' => true,
+    ]);
+
+/**
+ * undo confirm receipt
+ *
+ * @return array charges
+ */
+$phpay
+    ->charge()
+    ->undoConfirmReceipt($chargeCreated['id']);

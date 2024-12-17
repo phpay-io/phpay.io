@@ -114,7 +114,9 @@ trait HasAsaasClient
     protected function delete(string $endpoint): bool
     {
         try {
-            return ($this->client->delete($endpoint) == 200);
+            $response = $this->client->delete($endpoint);
+
+            return ($response->getStatusCode() == 200);
         } catch (\Exception $e) {
             return false;
         }
