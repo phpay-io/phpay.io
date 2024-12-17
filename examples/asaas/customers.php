@@ -67,7 +67,7 @@ $customerById = $phpay
  */
 $customerUpdate = $phpay
     ->customer([
-        'name'    => 'Mário Lucas',
+        'name'    => 'Mário Lucas Updated',
         'cpfCnpj' => '00000000000',
     ])
     ->update($customerId);
@@ -79,14 +79,14 @@ $customerUpdate = $phpay
  */
 $customerDeleted = $phpay
     ->customer()
-    ->delete('cus_000000000000');
+    ->destroy('cus_000000000000');
 
 /**
  * restore customer deleted
  *
  * @return bool
  */
-$customerRestored = $phpay
+$customerIdRestored = $phpay
     ->customer()
     ->restore('cus_000000000000');
 
