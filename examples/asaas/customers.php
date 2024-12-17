@@ -8,8 +8,8 @@ require_once __DIR__ . '/../../vendor/autoload.php';
 require_once __DIR__ . '/credentials.php';
 
 $customer = [
-    'name'    => 'Mário Lucas',
-    'cpfCnpj' => '00000000000',
+    'name'    => NAME,
+    'cpfCnpj' => CPF_CNPJ,
 ];
 
 /**
@@ -47,7 +47,7 @@ $customers = $phpay
 $customersFiltred = $phpay
     ->customer()
     ->setFilter([
-        'cpfCnpj' => '00000000000',
+        'cpfCnpj' => $customerCreated['cpfCnpj'],
     ])
     ->getAll();
 
@@ -58,7 +58,7 @@ $customersFiltred = $phpay
  */
 $customerById = $phpay
     ->customer()
-    ->get('cus_000000000000');
+    ->find($customerCreated['id']);
 
 /**
  * update customer
@@ -68,7 +68,6 @@ $customerById = $phpay
 $customerUpdate = $phpay
     ->customer([
         'name'    => 'Mário Lucas Updated',
-        'cpfCnpj' => '00000000000',
     ])
     ->update($customerCreated['id']);
 

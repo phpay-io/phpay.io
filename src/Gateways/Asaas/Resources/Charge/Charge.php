@@ -57,6 +57,16 @@ class Charge implements ChargeInterface
     }
 
     /**
+     * find charges by id
+     *
+     * @return array
+     */
+    public function find(string $id): array
+    {
+        return $this->get("payments/{$id}");
+    }
+
+    /**
      * get all charges
      *
      * @return array

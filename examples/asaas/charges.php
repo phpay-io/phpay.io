@@ -49,7 +49,7 @@ $charges = $phpay
  *
  * @return array charges
  */
-$chargesLean = $phpay
+$chargeLean = $phpay
     ->charge($charge)
     ->setCustomer($customerCreated['id'])
     ->createLean();
@@ -59,8 +59,18 @@ $chargesLean = $phpay
  *
  * @return array charges
  */
+$charge = $phpay
+    ->charge()
+    ->find($chargeLean['id']);
+
+print_r($charge);
+
+
+/**
+ * get all charges
+ *
+ * @return array charges
+ */
 $charges = $phpay
     ->charge()
     ->getAll();
-
-print_r($charges);

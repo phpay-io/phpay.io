@@ -37,8 +37,6 @@ class Customer implements CustomerInterface
         $this->client = $this->clientAsaasBoot();
 
         if (!empty($customer)) {
-            AsaasCustomerRequest::validate($customer);
-
             $this->customer = $customer;
         }
 
@@ -52,22 +50,9 @@ class Customer implements CustomerInterface
      */
     public function getAll(): array
     {
-        try {
-            $response = $this->client->get('customers', [
-                'query' => $this->filter,
-            ]);
-
-            $content = $response
-                ->getBody()
-                ->getContents();
-
-            return json_decode($content, true);
-        } catch (\Exception $e) {
-            return [
-                'error'   => $e->getCode(),
-                'message' => $e->getMessage(),
-            ];
-        }
+        return $this->get('customers', [
+            'query' => $this->filter,
+        ]);
     }
 
     /**
@@ -76,22 +61,9 @@ class Customer implements CustomerInterface
      * @param string $id
      * @return array
      */
-    public function get(string $id): array
+    public function find(string $id): array
     {
-        try {
-            $response = $this->client->get("customers/{$id}");
-
-            $content = $response
-                ->getBody()
-                ->getContents();
-
-            return json_decode($content, true);
-        } catch (\Exception $e) {
-            return [
-                'error'   => $e->getCode(),
-                'message' => $e->getMessage(),
-            ];
-        }
+        return $this->get("customers/{$id}");
     }
 
     /**
@@ -102,6 +74,8 @@ class Customer implements CustomerInterface
      */
     public function create(): array
     {
+        AsaasCustomerRequest::validate($this->customer);
+
         return $this->post('customers', $this->customer);
     }
 

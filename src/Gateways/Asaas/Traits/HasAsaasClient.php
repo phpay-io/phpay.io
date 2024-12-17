@@ -31,10 +31,12 @@ trait HasAsaasClient
      * @param string $endpoint
      * @return array
      */
-    protected function get(string $endpoint): array
+    protected function get(string $endpoint, array $filters = []): array
     {
         try {
-            $reposonse = $this->client->get($endpoint);
+            $reposonse = $this->client->get($endpoint, [
+                'query' => $filters,
+            ]);
 
             $content = $reposonse
                 ->getBody()
@@ -42,7 +44,10 @@ trait HasAsaasClient
 
             return json_decode($content, true);
         } catch (\Exception $e) {
-            return $e->getMessage();
+            return [
+                'error'   => $e->getCode(),
+                'message' => $e->getMessage(),
+            ];
         }
     }
 
