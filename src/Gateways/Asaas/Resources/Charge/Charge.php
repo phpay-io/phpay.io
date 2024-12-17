@@ -183,6 +183,12 @@ class Charge implements ChargeInterface
         return $this->post("payments/{$id}/receiveInCash", $data);
     }
 
+    /**
+     * undo confirm receipt
+     *
+     * @param string $id
+     * @return array
+     */
     public function undoConfirmReceipt(string $id): array
     {
         return $this->post("payments/{$id}/undoReceivedInCash");
