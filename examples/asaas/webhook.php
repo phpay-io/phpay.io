@@ -52,7 +52,7 @@ $webhook = $phpay
  *
  * @return array
  */
-$webhooks = $phpay
+$phpay
     ->webhook()
     ->getAll();
 
@@ -61,9 +61,9 @@ $webhooks = $phpay
  *
  * @return array
  */
-$webhook = $phpay
+$phpay
     ->webhook()
-    ->find('84c3c34b-9d23-44a3-95b2-d232c3f06dba');
+    ->find($webhook['id']);
 
 /**
  *  update a webhook
@@ -73,7 +73,7 @@ $webhook = $phpay
  */
 $webhookUpdated = $phpay
     ->webhook()
-    ->update('84c3c34b-9d23-44a3-95b2-d232c3f06dba', [
+    ->update($webhook['id'], [
         'name' => 'Webhook de Teste Atualizado',
         'url'  => 'https://sixtec.com.br/webhook/atualizado',
     ]);
@@ -85,4 +85,4 @@ $webhookUpdated = $phpay
  */
 $webhookDeleted = $phpay
     ->webhook()
-    ->destroy('84c3c34b-9d23-44a3-95b2-d232c3f06dba');
+    ->destroy($webhook['id']);
