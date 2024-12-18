@@ -2,13 +2,13 @@
 
 namespace PHPay\Gateways\Asaas;
 
+use Asaas\Interface\AsaasGatewayInterface;
 use Asaas\Resources\Charge\Charge;
 use Asaas\Resources\Customer\Customer;
 use Asaas\Resources\Webhook\Webhook;
 use GuzzleHttp\Client;
-use PHPay\Contracts\GatewayInterface;
 
-class AsaasGateway implements GatewayInterface
+class AsaasGateway implements AsaasGatewayInterface
 {
     /**
      * client guzzle
@@ -42,7 +42,7 @@ class AsaasGateway implements GatewayInterface
      */
     public function customer(array $customer = []): Customer
     {
-        $this->customer = new Customer($customer, $this->token, $this->sandbox);
+        $this->customer = new Customer($this->token, $customer, $this->sandbox);
 
         return $this->customer;
     }
@@ -55,11 +55,17 @@ class AsaasGateway implements GatewayInterface
      */
     public function charge(array $charge = []): Charge
     {
-        return new Charge($charge, $this->token, $this->sandbox);
+        return new Charge($this->token, $charge, $this->sandbox);
     }
 
+    /**
+     * webhook
+     *
+     * @param array $webhook
+     * @return Webhook
+     */
     public function webhook(array $webhook = []): Webhook
     {
-        return new Webhook($webhook, $this->token, $this->sandbox);
+        return new Webhook($this->token, $webhook, $this->sandbox);
     }
 }

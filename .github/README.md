@@ -199,4 +199,6 @@ Este projeto está licenciado sob a MIT License. Consulte o arquivo LICENSE para
 💻 GitHub: mariolucasdev
 📧 Email: mariolucasdev@gmail.com
 
+<iframe src="https://github.com/sponsors/mariolucasdev/button" title="Sponsor mariolucasdev" height="32" width="114" style="border: 0; border-radius: 6px;"></iframe>
+
 🎉 Comece a usar o PHPay e simplifique suas integrações com gateways de pagamento!

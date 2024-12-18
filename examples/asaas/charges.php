@@ -21,9 +21,10 @@ $charge = [
 
 /**
  * initialize phpay
+ *
+ * @var AsaasGateway $phpay
  */
-$phpay = PHPay::getInstance(new AsaasGateway(TOKEN_ASAAS_SANDBOX))
-    ->getGateway();
+$asaas = new PHPay(new AsaasGateway(TOKEN_ASAAS_SANDBOX));
 
 /**
  * create customer
@@ -31,8 +32,8 @@ $phpay = PHPay::getInstance(new AsaasGateway(TOKEN_ASAAS_SANDBOX))
  * @return array customer
  */
 $customerCreated = $phpay
-    ->customer($customer)
-    ->create();
+    ->customer()
+    ->create($customer);
 
 /**
  * create charge

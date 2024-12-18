@@ -24,8 +24,8 @@ class Webhook implements WebhookInterface
      * @param array $webhook
      */
     public function __construct(
-        private array $webhook = [],
         private string $token,
+        private array $webhook = [],
         private bool $sandbox = true
     ) {
         $this->client = $this->clientAsaasBoot();

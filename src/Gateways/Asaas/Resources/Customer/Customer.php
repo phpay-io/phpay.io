@@ -30,8 +30,8 @@ class Customer implements CustomerInterface
      * @param array $customer
      */
     public function __construct(
-        private array $customer = [],
         private string $token,
+        private array $customer = [],
         private bool $sandbox = true
     ) {
         $this->client = $this->clientAsaasBoot();
