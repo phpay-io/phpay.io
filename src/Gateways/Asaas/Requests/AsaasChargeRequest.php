@@ -9,29 +9,33 @@ class AsaasChargeRequest
     /**
      * validate customer and charge data
      *
-     * @param array $customer
-     * @param array $charge
+     * @param array<mixed> $charge
      * @return void
      */
     public static function validate(array $charge): void
     {
         if (!isset($charge['customer']) && !is_string($charge['customer'])) {
+            /** @phpstan-ignore property.notFound */
             throw new \InvalidArgumentException(self::messages()->charge->customer, 400);
         }
 
         if (!isset($charge['billingType'])) {
+            /** @phpstan-ignore property.notFound */
             throw new \InvalidArgumentException(self::messages()->charge->billingType, 400);
         }
 
         if (!BillingTypeEnum::tryFrom($charge['billingType'])) {
+            /** @phpstan-ignore property.notFound */
             throw new \InvalidArgumentException(self::messages()->charge->billingType, 400);
         }
 
         if (!isset($charge['value']) && !is_numeric($charge['value'])) {
+            /** @phpstan-ignore property.notFound */
             throw new \InvalidArgumentException(self::messages()->charge->value, 400);
         }
 
         if (!isset($charge['dueDate']) && !is_string($charge['dueDate'])) {
+            /** @phpstan-ignore property.notFound */
             throw new \InvalidArgumentException(self::messages()->charge->dueDate, 400);
         }
     }

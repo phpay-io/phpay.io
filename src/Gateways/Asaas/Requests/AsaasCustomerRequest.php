@@ -7,16 +7,20 @@ class AsaasCustomerRequest
     /**
      * validate customer
      *
-     * @param array $customer
+     * @param array<mixed> $customer
+     * @property-read string $name
+     * @property-read string $cpfCnpj
      * @return void
      */
     public static function validate(array $customer): void
     {
         if (!isset($customer['name'])) {
+            /** @phpstan-ignore property.notFound */
             throw new \InvalidArgumentException(self::messages()->name, 400);
         }
 
         if (!isset($customer['cpfCnpj'])) {
+            /** @phpstan-ignore property.notFound */
             throw new \InvalidArgumentException(self::messages()->cpfCnpj, 400);
         }
     }

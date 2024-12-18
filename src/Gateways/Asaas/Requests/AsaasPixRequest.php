@@ -2,30 +2,38 @@
 
 namespace PHPay\Gateways\Asaas\Requests;
 
-use stdClass;
-
 class AsaasPixRequest
 {
+    /**
+     * validate pix
+     *
+     * @param array<mixed> $pix
+     * @return void
+     */
     public static function validate(array $pix): void
     {
         if (!isset($pix['description'])) {
+            /** @phpstan-ignore property.notFound */
             throw new \InvalidArgumentException(self::messages()->description);
         }
 
         if (!isset($pix['amount'])) {
+            /** @phpstan-ignore property.notFound */
             throw new \InvalidArgumentException(self::messages()->amount);
         }
 
         if (!isset($pix['due_date'])) {
+            /** @phpstan-ignore property.notFound */
             throw new \InvalidArgumentException(self::messages()->due_date->required);
         }
 
         if ($pix['due_date'] < date('Y-m-d')) {
+            /** @phpstan-ignore property.notFound */
             throw new \InvalidArgumentException(self::messages()->due_date->date);
         }
     }
 
-    public static function messages(): stdClass
+    public static function messages(): object
     {
         return (object) [
             'description' => 'Asaas: Descrição do pagamento é obrigatório para o Asaas',

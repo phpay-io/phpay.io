@@ -4,17 +4,107 @@ namespace Asaas\Resources\Charge\Interface;
 
 interface ChargeInterface
 {
+    /**
+     * get all charges
+     *
+     * @return array<array|mixed>
+     */
     public function getAll(): array;
+
+    /**
+     * find charge by id
+     *
+     * @param string $id
+     * @return array<array|mixed>
+     */
     public function find(string $id): array;
+
+    /**
+     * create charge
+     *
+     * @return array<mixed>
+     */
     public function create(): array;
+
+    /**
+     * update charge by id
+     *
+     * @param string $id
+     * @param array<mixed> $data
+     * @return array<mixed>
+     */
     public function update(string $id, array $data): array;
+
+    /**
+     * delete charge by id
+     *
+     * @param string $id
+     * @return bool
+     */
     public function destroy(string $id): bool;
+
+    /**
+     * restore charge by id
+     *
+     * @param string $id
+     * @return array<mixed>
+     */
     public function restore(string $id): array;
+
+    /**
+     * get charge notifications by customer
+     *
+     * @param string $customer
+     * @return ChargeInterface
+     */
     public function setCustomer(string $customer): ChargeInterface;
+
+    /**
+     * set filter
+     *
+     * @param array<mixed> $filters
+     * @return ChargeInterface
+     */
     public function setFilters(array $filters): ChargeInterface;
+
+    /**
+     * get status charge by id
+     *
+     * @param string $id
+     * @return array<array|mixed>
+     */
     public function getStatus(string $id): array;
-    public function getDigitableLine(string $id): string;
+
+    /**
+     * get charge digit line by id
+     *
+     * @param string $id
+     * @return mixed
+     */
+    public function getDigitableLine(string $id): mixed;
+
+    /**
+     * get charge qr code pix by id
+     *
+     * @param string $id
+     * @return array<array|mixed>
+     */
     public function getQrCodePix(string $id): array;
+
+    /**
+     * confirm receipt charge by id
+     *
+     * @param string $id
+     * @param array<mixed> $data
+     * @return array<array|mixed>
+     */
     public function confirmReceipt(string $id, array $data): array;
+
+    /**
+     * undo confirm receipt charge by id
+     *
+     * @param string $id
+     * @return array<array|mixed>
+     */
     public function undoConfirmReceipt(string $id): array;
 }

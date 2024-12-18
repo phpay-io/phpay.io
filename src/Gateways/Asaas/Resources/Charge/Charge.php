@@ -20,14 +20,14 @@ class Charge implements ChargeInterface
     private Client $client;
 
     /**
-     * @var array
+     * @var array<mixed>
      */
     private array $filter = [];
 
     /**
      * construct
      *
-     * @param array $charge
+     * @param array<mixed> $charge
      */
     public function __construct(
         private string $token,
@@ -39,14 +39,12 @@ class Charge implements ChargeInterface
         if (!empty($charge)) {
             $this->charge = $charge;
         }
-
-        return $this;
     }
 
     /**
      * set filters
      *
-     * @param array $filters
+     * @param array<mixed> $filters
      * @return ChargeInterface
      */
     public function setFilters(array $filters): ChargeInterface
@@ -72,7 +70,7 @@ class Charge implements ChargeInterface
     /**
      * find charges by id
      *
-     * @return array
+     * @return array<array|mixed>
      */
     public function find(string $id): array
     {
@@ -82,7 +80,7 @@ class Charge implements ChargeInterface
     /**
      * get all charges
      *
-     * @return array
+     * @return array<array|mixed>
      */
     public function getAll(): array
     {
@@ -95,6 +93,7 @@ class Charge implements ChargeInterface
      * create charge
      *
      * @return string
+     * @return array<mixed>
      * @see fields available in https://docs.asaas.com/reference/criar-nova-cobranca
      */
     public function create(): array
@@ -108,8 +107,8 @@ class Charge implements ChargeInterface
      * update charge
      *
      * @param string $id
-     * @param array $data
-     * @return array
+     * @param array<mixed> $data
+     * @return array<mixed>
      */
     public function update(string $id, array $data): array
     {
@@ -120,7 +119,7 @@ class Charge implements ChargeInterface
      * destroy charge
      *
      * @param string $id
-     * @return array
+     * @return bool
      */
     public function destroy(string $id): bool
     {
@@ -131,7 +130,7 @@ class Charge implements ChargeInterface
      * restore charge
      *
      * @param string $id
-     * @return array
+     * @return array<mixed>
      */
     public function restore(string $id): array
     {
@@ -142,7 +141,7 @@ class Charge implements ChargeInterface
      * get status charge
      *
      * @param string $id
-     * @return array
+     * @return array<array|mixed>
      */
     public function getStatus(string $id): array
     {
@@ -153,9 +152,9 @@ class Charge implements ChargeInterface
      * get digitable line
      *
      * @param string $id
-     * @return array
+     * @return mixed
      */
-    public function getDigitableLine(string $id): string
+    public function getDigitableLine(string $id): mixed
     {
         return $this->get("payments/{$id}/identificationField")['identificationField'];
     }
@@ -164,7 +163,7 @@ class Charge implements ChargeInterface
      * get qrcode pix
      *
      * @param string $id
-     * @return array
+     * @return array<array|mixed>
      */
     public function getQrCodePix(string $id): array
     {
@@ -175,8 +174,8 @@ class Charge implements ChargeInterface
      * confirm receipt
      *
      * @param string $id
-     * @param array $data
-     * @return array
+     * @param array<mixed> $data
+     * @return array<mixed>
      */
     public function confirmReceipt(string $id, array $data): array
     {
@@ -187,7 +186,7 @@ class Charge implements ChargeInterface
      * undo confirm receipt
      *
      * @param string $id
-     * @return array
+     * @return array<mixed>
      */
     public function undoConfirmReceipt(string $id): array
     {
