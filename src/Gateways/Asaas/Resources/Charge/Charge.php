@@ -30,9 +30,9 @@ class Charge implements ChargeInterface
      * @param array $charge
      */
     public function __construct(
-        private array $charge = [],
         private string $token,
-        private bool $sandbox = true
+        private array $charge = [],
+        private bool $sandbox = true,
     ) {
         $this->client = $this->clientAsaasBoot();
 

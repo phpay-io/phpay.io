@@ -4,59 +4,49 @@ namespace PHPay;
 
 use PHPay\Contracts\GatewayInterface;
 
-class PHPay
+class PHPay implements GatewayInterface
 {
     /**
      * instance of PHPay.
      *
-     * @var self|null
-     */
-    private static ?self $instance = null;
-
-    /**
-     * private constructor prevents new instances.
-     *
      * @param GatewayInterface $gateway
      */
-    private function __construct(
-        private GatewayInterface $gateway
+    public function __construct(
+        protected GatewayInterface $gateway
     ) {
         $this->gateway = $gateway;
     }
 
     /**
-     * get instance of PHPay.
+     * get resource customer from gateway.
      *
-     * @param GatewayInterface $gateway
-     * @return self
+     * @param array $customer
+     * @return object
      */
-    public static function getInstance(GatewayInterface $gateway): self
+    public function customer(array $customer = []): object
     {
-        if (self::$instance === null) {
-            self::$instance = new self($gateway);
-        }
-
-        return self::$instance;
+        return $this->gateway->customer($customer);
     }
 
     /**
-     * get current gateway.
+     * get resource charge from gateway.
      *
-     * @return GatewayInterface
+     * @param array $charge
+     * @return object
      */
-    public function getGateway(): GatewayInterface
+    public function charge(array $charge = []): object
     {
-        return $this->gateway;
+        return $this->gateway->charge($charge);
     }
 
     /**
-     * set a new gateway.
+     * get resource webhook from gateway.
      *
-     * @param GatewayInterface $gateway
-     * @return void
+     * @param array $webhook
+     * @return object
      */
-    public function setGateway(GatewayInterface $gateway): void
+    public function webhook(array $webhook = []): object
     {
-        $this->gateway = $gateway;
+        return $this->gateway->webhook($webhook);
     }
 }

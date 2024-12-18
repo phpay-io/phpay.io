@@ -33,9 +33,10 @@ $webhook = [
 
 /**
  * initialize phpay
+ *
+ * @var AsaasGateway $phpay
  */
-$phpay = PHPay::getInstance(new AsaasGateway(TOKEN_ASAAS_SANDBOX))
-    ->getGateway();
+$phpay = new PHPay(new AsaasGateway(TOKEN_ASAAS_SANDBOX));
 
 /**
  *  store a new webhook
