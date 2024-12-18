@@ -22,10 +22,12 @@ echo "============================================="
 pint_output=$(./vendor/bin/phpstan analyse -l 9 src tests 2>&1)
 
 if [ $? -ne 0 ]; then
-    echo "PHPStan tests failed. Please fix the issues before pushing."
+    echo "PHPStan tests failed. Please fix the issues before commit."
     exit 1
 fi
 
 echo "🟢 PHPStan Ok!"
 
 echo "\n"
+
+
