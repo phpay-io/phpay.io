@@ -20,7 +20,7 @@ class PHPay implements GatewayInterface
     /**
      * get resource customer from gateway.
      *
-     * @param array $customer
+     * @param array<mixed> $customer
      * @return object
      */
     public function customer(array $customer = []): object
@@ -31,7 +31,7 @@ class PHPay implements GatewayInterface
     /**
      * get resource charge from gateway.
      *
-     * @param array $charge
+     * @param array<mixed> $charge
      * @return object
      */
     public function charge(array $charge = []): object
@@ -42,7 +42,7 @@ class PHPay implements GatewayInterface
     /**
      * get resource webhook from gateway.
      *
-     * @param array $webhook
+     * @param array<mixed> $webhook
      * @return object
      */
     public function webhook(array $webhook = []): object

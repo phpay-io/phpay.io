@@ -37,7 +37,7 @@ class AsaasGateway implements AsaasGatewayInterface
     /**
      * customer
      *
-     * @param array $customer
+     * @param array<mixed> $customer
      * @return Customer
      */
     public function customer(array $customer = []): Customer
@@ -50,7 +50,7 @@ class AsaasGateway implements AsaasGatewayInterface
     /**
      * charge
      *
-     * @param array $charge
+     * @param array<mixed> $charge
      * @return Charge
      */
     public function charge(array $charge = []): Charge
@@ -61,7 +61,7 @@ class AsaasGateway implements AsaasGatewayInterface
     /**
      * webhook
      *
-     * @param array $webhook
+     * @param array<mixed> $webhook
      * @return Webhook
      */
     public function webhook(array $webhook = []): Webhook

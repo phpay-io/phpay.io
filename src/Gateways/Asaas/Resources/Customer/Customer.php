@@ -20,14 +20,14 @@ class Customer implements CustomerInterface
     private Client $client;
 
     /**
-     * @var array
+     * @var array<mixed>
      */
     private array $filter = [];
 
     /**
      * construct
      *
-     * @param array $customer
+     * @param array<mixed> $customer
      */
     public function __construct(
         private string $token,
@@ -39,14 +39,12 @@ class Customer implements CustomerInterface
         if (!empty($customer)) {
             $this->customer = $customer;
         }
-
-        return $this;
     }
 
     /**
      * get all customers
      *
-     * @return array
+     * @return array<array|mixed>
      */
     public function getAll(): array
     {
@@ -59,7 +57,7 @@ class Customer implements CustomerInterface
      * get customer by id
      *
      * @param string $id
-     * @return array
+     * @return array<array|mixed>
      */
     public function find(string $id): array
     {
@@ -69,7 +67,7 @@ class Customer implements CustomerInterface
     /**
      * create customer
      *
-     * @return array
+     * @return array<array|mixed>
      * @see available fields in https://docs.asaas.com/reference/criar-novo-cliente
      */
     public function create(): array
@@ -83,7 +81,7 @@ class Customer implements CustomerInterface
      * update customer
      *
      * @param string $id
-     * @return array
+     * @return array<mixed>
      * @see available fields in https://docs.asaas.com/reference/criar-novo-cliente
      */
     public function update(string $id): array
@@ -106,7 +104,7 @@ class Customer implements CustomerInterface
      * restore customer deleted
      *
      * @param string $id
-     * @return array
+     * @return array<mixed>
      */
     public function restore(string $id): array
     {
@@ -117,7 +115,7 @@ class Customer implements CustomerInterface
      * get notifications
      *
      * @param string $id
-     * @return array
+     * @return array<array|mixed>
      */
     public function getNotifications(string $id): array
     {
@@ -127,7 +125,7 @@ class Customer implements CustomerInterface
     /**
      * set filter
      *
-     * @param array $filter
+     * @param array<mixed> $filter
      * @return CustomerInterface
      */
     public function setFilter(array $filter = []): CustomerInterface

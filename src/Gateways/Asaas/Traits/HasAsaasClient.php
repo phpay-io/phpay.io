@@ -8,6 +8,8 @@ trait HasAsaasClient
 {
     /**
      * boot client
+     *
+     * @return Client
      */
     protected function clientAsaasBoot(): Client
     {
@@ -29,7 +31,8 @@ trait HasAsaasClient
      * get data
      *
      * @param string $endpoint
-     * @return array
+     * @param array<mixed> $filters
+     * @return array<array|mixed>
      */
     protected function get(string $endpoint, array $filters = []): array
     {
@@ -42,7 +45,7 @@ trait HasAsaasClient
                 ->getBody()
                 ->getContents();
 
-            return json_decode($content, true);
+            return (array) json_decode($content, true);
         } catch (\Exception $e) {
             return [
                 'error'   => $e->getCode(),
@@ -55,8 +58,8 @@ trait HasAsaasClient
      * post data
      *
      * @param string $endpoint
-     * @param array $data
-     * @return array
+     * @param array<mixed> $data
+     * @return array<iterable|mixed>
      */
     protected function post(string $endpoint, array $data = []): array
     {
@@ -69,7 +72,7 @@ trait HasAsaasClient
                 ->getBody()
                 ->getContents();
 
-            return json_decode($content, true);
+            return (array) json_decode($content, true);
         } catch (\Exception $e) {
             return [
                 'error'   => $e->getCode(),
@@ -82,8 +85,8 @@ trait HasAsaasClient
      * put data
      *
      * @param string $endpoint
-     * @param array $data
-     * @return array
+     * @param array<mixed> $data
+     * @return array<mixed>
      */
     protected function put(string $endpoint, array $data): array
     {
@@ -96,7 +99,7 @@ trait HasAsaasClient
                 ->getBody()
                 ->getContents();
 
-            return json_decode($content, true);
+            return (array) json_decode($content, true);
         } catch (\Exception $e) {
             return [
                 'error'   => $e->getCode(),

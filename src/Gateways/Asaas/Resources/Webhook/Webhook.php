@@ -21,7 +21,7 @@ class Webhook implements WebhookInterface
     /**
      * construct
      *
-     * @param array $webhook
+     * @param array<mixed> $webhook
      */
     public function __construct(
         private string $token,
@@ -33,14 +33,13 @@ class Webhook implements WebhookInterface
         if (!empty($webhook)) {
             $this->webhook = $webhook;
         }
-
-        return $this;
     }
 
     /**
      * construct
      *
-     * @param array $webhook
+     * @param array<mixed> $webhook
+     * @return array<mixed>
      */
     public function create(array $webhook = []): array
     {
@@ -50,7 +49,7 @@ class Webhook implements WebhookInterface
     /**
      * get all webhooks
      *
-     * @return array
+     * @return array<array|mixed>
      */
     public function getAll(): array
     {
@@ -61,7 +60,7 @@ class Webhook implements WebhookInterface
      * get webhook by id
      *
      * @param string $id
-     * @return array
+     * @return array<array|mixed>
      */
     public function find(string $id): array
     {
@@ -72,8 +71,8 @@ class Webhook implements WebhookInterface
      * update webhook by id
      *
      * @param string $id
-     * @param array $webhook
-     * @return array
+     * @param array<mixed> $webhook
+     * @return array<mixed>
      */
     public function update(string $id, array $webhook = []): array
     {
@@ -84,7 +83,7 @@ class Webhook implements WebhookInterface
      * delete webhook by id
      *
      * @param string $id
-     * @return array
+     * @return bool
      */
     public function destroy(string $id): bool
     {
