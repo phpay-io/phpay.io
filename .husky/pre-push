@@ -1,41 +1,7 @@
 #!/usr/bin/env sh
 
-echo "============================================="
-echo "Running pre-push hook 🚀"
-echo "============================================="
-echo "\n"
-echo "============================================="
-echo "Running pint tests 🧪"
-echo "============================================="
-
-pint_output=$(./vendor/bin/pint --test 2>&1)
-
-if [ $? -ne 0 ]; then
-    echo "Pint tests failed. Please fix the issues before pushing."
-    exit 1
-fi
-
-echo "🟢 Pint Ok!"
-
-echo "\n"
-
-echo "============================================="
-echo "Running PHPStan tests 🧪"
-echo "============================================="
-
-pint_output=$(./vendor/bin/phpstan analyse -l 9 src tests 2>&1)
-
-if [ $? -ne 0 ]; then
-    echo "PHPStan tests failed. Please fix the issues before pushing."
-    exit 1
-fi
-
-echo "🟢 PHPStan Ok!"
-
-echo "\n"
-
 # echo "============================================="
-# echo "Running pest tests 🧪"
+# echo "Pre Push Hook - Running pest tests 🧪" 
 # echo "============================================="
 
 # pest_output=$(./vendor/bin/pest --colors=always --stop-on-failure 2>&1)

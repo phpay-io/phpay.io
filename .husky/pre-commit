@@ -1,0 +1,31 @@
+#!/usr/bin/env sh
+
+echo "============================================="
+echo "Pre Commit Hook - Running pint tests 🧪"
+echo "============================================="
+
+pint_output=$(./vendor/bin/pint --test 2>&1)
+
+if [ $? -ne 0 ]; then
+    echo "Pint tests failed. Please fix the issues before pushing."
+    exit 1
+fi
+
+echo "🟢 Pint Ok!"
+
+echo "\n"
+
+echo "============================================="
+echo "Pre Commit Hook - Running PHPStan tests 🧪"
+echo "============================================="
+
+pint_output=$(./vendor/bin/phpstan analyse -l 9 src tests 2>&1)
+
+if [ $? -ne 0 ]; then
+    echo "PHPStan tests failed. Please fix the issues before pushing."
+    exit 1
+fi
+
+echo "🟢 PHPStan Ok!"
+
+echo "\n"
