@@ -30,10 +30,6 @@ $token = $phpay
     ->authorization(CLIENT_ID, CLIENT_SECRET)
     ->getToken();
 
-print_r($token);
-
-die();
-
 /**
  * create charge
  *

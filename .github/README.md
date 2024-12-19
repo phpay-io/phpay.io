@@ -25,141 +25,52 @@ composer require phpay-io/phpay
 
 ## ⚙️ Como usar o PHPay?
 
+### Asaas
+
 ```php
 require 'vendor/autoload.php';
 
 use PHPay\Gateways\Asaas\AsaasGateway;
 use PHPay\PHPay;
 
-$phpay = PHPay::getInstance(new AsaasGateway(TOKEN_ASAAS_SANDBOX))
-    ->getGateway();
+/**
+ * initialize phpay with asaas
+ *
+ * @var AsaasGateway $phpay
+ */
+$asaas = new PHPay(new AsaasGateway(TOKEN_ASAAS_SANDBOX));
 ```
 
-## Customer
+### Efí
 
 ```php
-$customerCreated = $phpay
-    ->customer($customer)
-    ->create();
-
-$phpay
-    ->customer()
-    ->getAll();
-
-$phpay
-    ->customer()
-    ->setFilter([
-        'cpfCnpj' => $customerCreated['cpfCnpj'],
-    ])
-    ->getAll();
-
-$phpay
-    ->customer()
-    ->find($customerCreated['id']);
-
-$phpay
-    ->customer([
-        'name' => 'Mário Lucas Updated',
-    ])
-    ->update($customerCreated['id']);
-
-$phpay
-    ->customer()
-    ->destroy($customerCreated['id']);
-
-$phpay
-    ->customer()
-    ->restore($customerCreated['id']);
-
-$phpay
-    ->customer()
-    ->getNotifications($customerCreated['id']);
+/**
+ * initialize phpay
+ *
+ * @var EfiGateway $phpay
+ */
+$phpay = new PHPay(new EfiGateway());
 ```
 
-## 🤑 Charges
+### Observação
+
+O Efí exige um token do tipo Bearer que é gerado com o
+envio do client_id e client_secret, passa isso utilizar o
+método a baixo:
 
 ```php
-$customerCreated = $phpay
-    ->customer($customer)
-    ->create();
+$token = $phpay
+    ->authorization(CLIENT_ID, CLIENT_SECRET)
+    ->getToken();
+```
 
+## Gerando uma Cobrança
+
+```php
 $phpay
     ->charge($charge)
-    ->setCustomer($customerCreated['id'])
+    ->setCustomer($customer)
     ->create();
-
-$phpay
-    ->charge()
-    ->find($chargeCreated['id']);
-
-$phpay
-    ->charge()
-    ->getAll();
-
-$phpay
-    ->charge()
-    ->update($chargeCreated['id'], [
-        'description' => 'Teste de fatura atualizado',
-    ]);
-
-$phpay
-    ->charge()
-    ->destroy($chargeCreated['id']);
-
-$phpay
-    ->charge()
-    ->restore($chargeCreated['id']);
-
-$phpay
-    ->charge()
-    ->getStatus($chargeCreated['id']);
-
-$phpay
-    ->charge()
-    ->getDigitableLine($chargeCreated['id']);
-
-$phpay
-    ->charge()
-    ->getQrCodePix($chargeCreated['id']);
-
-$phpay
-    ->charge()
-    ->confirmReceipt($chargeCreated['id'], [
-        'paymentDate'    => date('Y-m-d'),
-        'value'          => 100.00,
-        'notifyCustomer' => true,
-    ]);
-
-$phpay
-    ->charge()
-    ->undoConfirmReceipt($chargeCreated['id']);
-```
-
-## WebHooks
-
-```php
-$webhook = $phpay
-    ->webhook($webhook)
-    ->create();
-
-$phpay
-    ->webhook()
-    ->getAll();
-
-$phpay
-    ->webhook()
-    ->find($webhook['id']);
-
-$phpay
-    ->webhook()
-    ->update($webhook['id'], [
-        'name' => 'Webhook de Teste Atualizado',
-        'url'  => 'https://mariolucas.me/webhook/atualizado',
-    ]);
-
-$phpay
-    ->webhook()
-    ->destroy($webhook['id']);
 ```
 
 ## 📝 Roadmap
@@ -173,6 +84,7 @@ $phpay
 
 - Integração com Efí.
 
+  - Autorização ✅
   - Cobranças 🕥
   - Clientes 🕥
   - Webhook 🕥
