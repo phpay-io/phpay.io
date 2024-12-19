@@ -2,6 +2,7 @@
 
 namespace PHPay;
 
+use Efi\Interface\EfiGatewayInterface;
 use PHPay\Contracts\GatewayInterface;
 
 class PHPay implements GatewayInterface
@@ -15,6 +16,24 @@ class PHPay implements GatewayInterface
         protected GatewayInterface $gateway
     ) {
         $this->gateway = $gateway;
+    }
+
+    /**
+     * ATTENTION!!! ONLY EFÍ GATEWAY
+     * get resource authorize from gateway.
+     *
+     * @param string $clientId
+     * @param string $clientSecret
+     * @return object
+     */
+    public function authorization(string $clientId, string $clientSecret): object
+    {
+        /**
+         * @var EfiGatewayInterface $gateway
+         */
+        $gateway = $this->gateway;
+
+        return $gateway->authorization($clientId, $clientSecret);
     }
 
     /**
