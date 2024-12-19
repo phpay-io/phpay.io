@@ -28,8 +28,6 @@ composer require phpay-io/phpay
 ### Asaas
 
 ```php
-require 'vendor/autoload.php';
-
 use PHPay\Gateways\Asaas\AsaasGateway;
 use PHPay\PHPay;
 
