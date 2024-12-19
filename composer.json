@@ -5,6 +5,7 @@
         "psr-4": {
             "PHPay\\": "src/",
             "Asaas\\": "src/Gateways/Asaas/",
+            "Efi\\": "src/Gateways/Efi/",
             "AsaasCustomer\\": "src/Gateways/Asaas/Resources/Customer/"
         }
     },
