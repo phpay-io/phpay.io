@@ -34,8 +34,6 @@ use PHPay\Gateways\Asaas\AsaasGateway;
 use PHPay\PHPay;
 
 /**
- * initialize phpay with asaas
- *
  * @var AsaasGateway $phpay
  */
 $asaas = new PHPay(new AsaasGateway(TOKEN_ASAAS_SANDBOX));
@@ -43,22 +41,18 @@ $asaas = new PHPay(new AsaasGateway(TOKEN_ASAAS_SANDBOX));
 
 ### Efí
 
+O Efí exige um token do tipo Bearer que é gerado com o
+envio do client_id e client_secret, para isso, basta utilizar o método do phpay de autorização.
+
 ```php
+use PHPay\Gateways\Efi\EfiGateway;
+use PHPay\PHPay;
+
 /**
- * initialize phpay
- *
  * @var EfiGateway $phpay
  */
 $phpay = new PHPay(new EfiGateway());
-```
 
-### Observação
-
-O Efí exige um token do tipo Bearer que é gerado com o
-envio do client_id e client_secret, passa isso utilizar o
-método a baixo:
-
-```php
 $token = $phpay
     ->authorization(CLIENT_ID, CLIENT_SECRET)
     ->getToken();
