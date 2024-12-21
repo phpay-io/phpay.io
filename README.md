@@ -76,7 +76,7 @@ leia nosso manual de contribuição. [MANUAL DE CONTRIBUIÇÃO PHPAY](./CONTRIBU
 
 ## 📄 Licença
 
-Este projeto está licenciado sob a MIT License. Consulte o arquivo [LICENSE](./LICENSE) para mais detalhes.
+Este projeto está licenciado sob a MIT License. Consulte o arquivo [LICENSE](./LICENSE.md) para mais detalhes.
 
 ## 🤝 Contato
 
