@@ -20,15 +20,11 @@ $charge = [
 ];
 
 /**
- * initialize phpay
- *
  * @var EfiGateway $phpay
  */
 $phpay = new PHPay(new EfiGateway(CLIENT_ID, CLIENT_SECRET));
 
-$charge = $phpay
+$phpay
     ->charge($charge)
     ->setCustomer($customer)
     ->create();
-
-print_r($charge);

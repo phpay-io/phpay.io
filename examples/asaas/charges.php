@@ -20,8 +20,6 @@ $charge = [
 ];
 
 /**
- * initialize phpay
- *
  * @var AsaasGateway $phpay
  */
 $phpay = new PHPay(new AsaasGateway(TOKEN_ASAAS_SANDBOX));
