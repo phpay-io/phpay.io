@@ -19,7 +19,7 @@ Se você encontrar problemas, dúvidas ou precisa de ajuda, siga estas etapas:
    - Se não encontrar resposta, crie uma nova issue descrevendo o problema de forma clara e detalhada.
 
 4. **Entre em contato diretamente** (para questões críticas ou vulnerabilidades de segurança):
-   - Email: [fale@phpay.io](mailto:support@phpay.io)
+   - Email: fale@phpay.io
 
 ## Política de Resposta
 

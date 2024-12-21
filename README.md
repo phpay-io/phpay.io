@@ -82,6 +82,6 @@ Este projeto está licenciado sob a MIT License. Consulte o arquivo [LICENSE](./
 
 💻 GitHub: [Mário Lucas](https://github.com/mariolucasdev)
 
-📧 Email: hi@phpay.io
+📧 Email: fale@phpay.io
 
 🎉 Comece a usar o PHPay e simplifique suas integrações com gateways de pagamento!
