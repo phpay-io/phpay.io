@@ -4,6 +4,7 @@ namespace Asaas\Resources\Charge;
 
 use Asaas\Requests\AsaasChargeRequest;
 use Asaas\Resources\Charge\Interface\ChargeInterface;
+use Asaas\Resources\Customer\Customer;
 use Asaas\Traits\HasAsaasClient;
 use GuzzleHttp\Client;
 
@@ -57,12 +58,18 @@ class Charge implements ChargeInterface
     /**
      * set customer
      *
-     * @param string $customerId
+     * @param array<mixed> $customer
      * @return ChargeInterface
      */
-    public function setCustomer(string $customerId): ChargeInterface
+    public function setCustomer(array $customer): ChargeInterface
     {
-        $this->charge['customer'] = $customerId;
+        $customer = (new Customer(
+            $this->token,
+            $customer,
+            $this->sandbox
+        ))->create();
+
+        $this->charge['customer'] = $customer['id'];
 
         return $this;
     }

@@ -32,14 +32,19 @@ class Authorization implements AuthorizationInterface
     /**
      * get token
      *
-     * @return array<mixed>
+     * @return array<string>
      */
     public function getToken(): array
     {
         $this->client = $this->clientEfiAuthorize($this->clientId, $this->clientSecret);
 
-        return $this->post("v1/authorize", [
+        /**
+         * @var array<string> $response
+         */
+        $response = $this->post("v1/authorize", [
             'grant_type' => 'client_credentials',
         ]);
+
+        return $response;
     }
 }

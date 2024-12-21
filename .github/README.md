@@ -28,13 +28,10 @@ composer require phpay-io/phpay
 ### Asaas
 
 ```php
-use PHPay\Gateways\Asaas\AsaasGateway;
-use PHPay\PHPay;
-
 /**
  * @var AsaasGateway $phpay
  */
-$asaas = new PHPay(new AsaasGateway(TOKEN_ASAAS_SANDBOX));
+$phpay = new PHPay(new AsaasGateway(TOKEN_ASAAS_SANDBOX));
 ```
 
 ### Efí
@@ -43,9 +40,6 @@ O Efí exige um token do tipo Bearer que é gerado com o
 envio do client_id e client_secret, para isso, basta utilizar o método do phpay de autorização.
 
 ```php
-use PHPay\Gateways\Efi\EfiGateway;
-use PHPay\PHPay;
-
 /**
  * @var EfiGateway $phpay
  */

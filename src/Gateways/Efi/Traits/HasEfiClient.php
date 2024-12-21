@@ -33,9 +33,11 @@ trait HasEfiClient
     /**
      * boot client
      *
+     * @param string $token
+     * @param string $type
      * @return Client
      */
-    protected function clientEfiBoot(): Client
+    protected function clientEfiBoot(string $token, string $type): Client
     {
         $baseUrl = $this->sandbox ?
             'https://cobrancas-h.api.efipay.com.br/' :
@@ -44,9 +46,8 @@ trait HasEfiClient
         return new Client([
             'base_uri' => $baseUrl,
             'headers'  => [
-                'content-type' => 'application/json',
-                'user-agent'   => 'PHPay',
-                'access_token' => '',
+                'Authorization' => "{$type} {$token}",
+                'content-type'  => 'application/json',
             ],
         ]);
     }

@@ -24,16 +24,7 @@ $charge = [
  *
  * @var AsaasGateway $phpay
  */
-$asaas = new PHPay(new AsaasGateway(TOKEN_ASAAS_SANDBOX));
-
-/**
- * create customer
- *
- * @return array customer
- */
-$customerCreated = $phpay
-    ->customer()
-    ->create($customer);
+$phpay = new PHPay(new AsaasGateway(TOKEN_ASAAS_SANDBOX));
 
 /**
  * create charge
@@ -42,7 +33,7 @@ $customerCreated = $phpay
  */
 $chargeCreated = $phpay
     ->charge($charge)
-    ->setCustomer($customerCreated['id'])
+    ->setCustomer($customer)
     ->create();
 
 /**
