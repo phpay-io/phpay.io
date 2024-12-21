@@ -36,18 +36,11 @@ $phpay = new PHPay(new AsaasGateway(TOKEN_ASAAS_SANDBOX));
 
 ### Efí
 
-O Efí exige um token do tipo Bearer que é gerado com o
-envio do client_id e client_secret, para isso, basta utilizar o método do phpay de autorização.
-
 ```php
 /**
  * @var EfiGateway $phpay
  */
-$phpay = new PHPay(new EfiGateway());
-
-$token = $phpay
-    ->authorization(CLIENT_ID, CLIENT_SECRET)
-    ->getToken();
+$phpay = new PHPay(new EfiGateway(CLIENT_ID, CLIENT_SECRET));
 ```
 
 ## Gerando uma Cobrança
@@ -61,17 +54,21 @@ $phpay
 
 ## 📝 Roadmap
 
-- Integração com Asaas.
+- Definições de Arquitetura ✅
+- Domínios ✅
+- Documentação 🕑
+- Site 🕛
+- Asaas.
 
   - Cobranças ✅
   - Clientes ✅
   - Webhook ✅
   - Pix 🕥
 
-- Integração com Efí.
+- Efí.
 
   - Autorização ✅
-  - Cobranças 🕥
+  - Cobranças ✅
   - Clientes 🕥
   - Webhook 🕥
   - Pix 🕥
@@ -83,18 +80,18 @@ $phpay
 Contribuições são muito bem-vindas!
 Para começar:
 
-- Faça um fork do projeto.
-- Crie uma branch para sua feature (git checkout -b feature/nova-feature).
-- Faça commit das alterações (git commit -m 'Adicionei nova feature').
-- Envie sua branch (git push origin feature/nova-feature).
-- Abra um pull request para análise.
+- 🍴 Faça um fork do projeto.
+- 🎋 Crie uma branch para sua feature (git checkout -b feature/nova-feature).
+- 🗒️ Faça commit das alterações (git commit -m 'Adicionei nova feature').
+- ✏️ Envie sua branch (git push origin feature/nova-feature).
+- ✈️ Abra um pull request para análise.
 
 ## 📄 Licença
 
-Este projeto está licenciado sob a MIT License. Consulte o arquivo LICENSE para mais detalhes.
+Este projeto está licenciado sob a MIT License. Consulte o arquivo [LICENSE](./LICENSE) para mais detalhes.
 
 🤝 Contato
-💻 GitHub: mariolucasdev
+💻 GitHub: [Mário Lucas](https://github.com/mariolucasdev)
 📧 Email: mariolucasdev@gmail.com
 
 🎉 Comece a usar o PHPay e simplifique suas integrações com gateways de pagamento!
