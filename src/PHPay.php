@@ -20,20 +20,18 @@ class PHPay implements GatewayInterface
 
     /**
      * ATTENTION!!! ONLY EFÍ GATEWAY
-     * get resource authorize from gateway.
+     * get token.
      *
-     * @param string $clientId
-     * @param string $clientSecret
-     * @return object
+     * @return array<mixed>
      */
-    public function authorization(string $clientId, string $clientSecret): object
+    public function getToken(): array
     {
         /**
          * @var EfiGatewayInterface $gateway
          */
         $gateway = $this->gateway;
 
-        return $gateway->authorization($clientId, $clientSecret);
+        return $gateway->getToken();
     }
 
     /**

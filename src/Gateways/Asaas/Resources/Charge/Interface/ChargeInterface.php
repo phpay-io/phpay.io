@@ -52,12 +52,12 @@ interface ChargeInterface
     public function restore(string $id): array;
 
     /**
-     * get charge notifications by customer
+     * set customer
      *
-     * @param string $customer
+     * @param array<mixed> $customer
      * @return ChargeInterface
      */
-    public function setCustomer(string $customer): ChargeInterface;
+    public function setCustomer(array $customer): ChargeInterface;
 
     /**
      * set filter

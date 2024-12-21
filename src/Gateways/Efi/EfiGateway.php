@@ -4,6 +4,7 @@ namespace PHPay\Gateways\Efi;
 
 use Efi\Interface\EfiGatewayInterface;
 use Efi\Resources\Authorization\Authorization;
+use Efi\Resources\Charge\Charge;
 use Efi\Traits\HasEfiClient;
 use GuzzleHttp\Client;
 use stdClass;
@@ -18,36 +19,48 @@ class EfiGateway implements EfiGatewayInterface
     public Client $client;
 
     /**
-     * construct
-     *
-     * @param bool $sandbox
+     * @var array<string> $token
      */
-    public function __construct(
-        private bool $sandbox = true
-    ) {
-    }
+    private array $token;
 
     /**
-     * autorization
+     * construct
      *
      * @param string $clientId
      * @param string $clientSecret
-     * @return Authorization
+     * @param bool $sandbox
      */
-    public function authorization(string $clientId, string $clientSecret): Authorization
+    public function __construct(
+        private string $clientId,
+        private string $clientSecret,
+        private bool $sandbox = true,
+    ) {
+        $this->authorization();
+    }
+
+    /**
+     * get token
+     *
+     * @return array<mixed> token
+     */
+    public function getToken(): array
     {
-        return new Authorization($clientId, $clientSecret, $this->sandbox);
+        return $this->token;
     }
 
     /**
      * create charge
      *
      * @param array<string> $charge
-     * @return object charge
+     * @return Charge
      */
-    public function charge(array $charge = []): object
+    public function charge(array $charge = []): Charge
     {
-        return new stdClass();
+        return new Charge(
+            $this->token,
+            $charge,
+            $this->sandbox
+        );
     }
 
     /**
@@ -70,5 +83,25 @@ class EfiGateway implements EfiGatewayInterface
     public function webhook(array $webhook = []): object
     {
         return new stdClass();
+    }
+
+    /**
+     * authorization
+     *
+     * @return void
+     */
+    private function authorization(): void
+    {
+        $authorization = new Authorization(
+            $this->clientId,
+            $this->clientSecret,
+            $this->sandbox
+        );
+
+        $this->token = $authorization->getToken();
+
+        if (!isset($this->token['access_token'])) {
+            throw new \Exception('Token not generated');
+        }
     }
 }
