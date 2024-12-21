@@ -50,14 +50,16 @@ $phpay
 - Domínios ✅
 - Documentação 🕑
 - Site 🕛
-- Asaas.
+- Gateways ✍️
+
+  - Asaas.
 
   - Cobranças ✅
   - Clientes ✅
   - Webhook ✅
   - Pix 🕥
 
-- Efí.
+  - Efí.
 
   - Autorização ✅
   - Cobranças ✅
@@ -69,21 +71,17 @@ $phpay
 
 ## 🌟 Contribuindo
 
-Contribuições são muito bem-vindas!
-Para começar:
-
-- 🍴 Faça um fork do projeto.
-- 🎋 Crie uma branch para sua feature (git checkout -b feature/nova-feature).
-- 🗒️ Faça commit das alterações (git commit -m 'Adicionei nova feature').
-- ✏️ Envie sua branch (git push origin feature/nova-feature).
-- ✈️ Abra um pull request para análise.
+Para contribuir com o PHPay, implementando melhorias e novos gateways de pagamento,
+leia nosso manual de contribuição. [MANUAL DE CONTRIBUIÇÃO PHPAY](./CONTRIBUTING.md)
 
 ## 📄 Licença
 
 Este projeto está licenciado sob a MIT License. Consulte o arquivo [LICENSE](./LICENSE) para mais detalhes.
 
-🤝 Contato
+## 🤝 Contato
+
 💻 GitHub: [Mário Lucas](https://github.com/mariolucasdev)
-📧 Email: mariolucasdev@gmail.com
+
+📧 Email: hi@phpay.io
 
 🎉 Comece a usar o PHPay e simplifique suas integrações com gateways de pagamento!
