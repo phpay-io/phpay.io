@@ -1,22 +1,14 @@
 # 💳 PHPay
 
-Uma biblioteca PHP para integração simplificada com gateways de pagamento. Atualmente com suporte para o Asaas, com novas integrações em desenvolvimento.
+O PHPay é uma biblioteca PHP que tem o objetivo tornar o trabalho de integrações com gateways de pagamento mais simples e descomplicadas, facilitando a conexão entre tecnologia e negócios em produtos de software.
 
-## 🛠️ O que é o PHPay?
+## 💸 Gateways
 
-O PHPay é uma biblioteca que ajuda desenvolvedores e empresas a integrarem facilmente gateways de pagamento em suas aplicações PHP. Com foco na simplicidade e flexibilidade, o PHPay oferece uma interface unificada para realizar operações como emissão de cobranças, gestão de clientes e mais.
+- Asaas (cobranças, gestão de clientes e webhooks)
+- Efí (cobranças)
 
-## 🚀 Principais Recursos
+## 📦 Instalação
 
-Integração com o Asaas para:
-
-- Gerenciamento de clientes.
-- Criação e envio de cobranças.
-- Consultas de pagamentos e QR Codes.
-- Fácil de usar: configuração mínima para começar.
-- Extensível: suporte para novos gateways será adicionado em breve.
-
-📦 Instalação
 Instale via Composer:
 
 ```php
