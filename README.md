@@ -76,12 +76,12 @@ leia nosso manual de contribuição. [MANUAL DE CONTRIBUIÇÃO PHPAY](./CONTRIBU
 
 ## 📄 Licença
 
-Este projeto está licenciado sob a MIT License. Consulte o arquivo [LICENSE](./LICENSE) para mais detalhes.
+Este projeto está licenciado sob a MIT License. Consulte o arquivo [LICENSE](./LICENSE.md) para mais detalhes.
 
 ## 🤝 Contato
 
 💻 GitHub: [Mário Lucas](https://github.com/mariolucasdev)
 
-📧 Email: hi@phpay.io
+📧 Email: fale@phpay.io
 
 🎉 Comece a usar o PHPay e simplifique suas integrações com gateways de pagamento!
