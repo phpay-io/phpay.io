@@ -4,7 +4,7 @@ KN='\033[0m'
 BBlue='\033[1;34m'
 BRed='\033[1;31m'
 
-REGEX_ISSUE_ID="[a-zA-Z0-9,._-]+-[0-9]+"
+REGEX_ISSUE_ID="[0-9]+"
 
 BRANCH_NAME=$(git symbolic-ref --short HEAD)
 ISSUE_ID=$(echo "$BRANCH_NAME" | grep -o -E "$REGEX_ISSUE_ID")
@@ -16,7 +16,7 @@ if [ -z "$ISSUE_ID" ]; then
 fi
 
 case "$COMMIT_MESSAGE" in
-    "$ISSUE_ID"*)
+    "PHPAY-$ISSUE_ID"*)
         exit 0
         ;;
 esac
