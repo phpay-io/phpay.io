@@ -31,6 +31,11 @@ class Charge implements ChargeInterface
     /**
      * @var array<mixed>
      */
+    private array $queryParams = [];
+
+    /**
+     * @var array<mixed>
+     */
     private array $configuration = [];
 
     /**
@@ -66,6 +71,30 @@ class Charge implements ChargeInterface
         $this->customer = $this->bootCustomer($customer);
 
         return $this;
+    }
+
+    /**
+     * set filters
+     *
+     * @param array<mixed> $queryParams
+     * @return ChargeInterface
+     * @deprecated
+     */
+    public function setQueryParams(array $queryParams): ChargeInterface
+    {
+        $this->queryParams = $queryParams;
+
+        return $this;
+    }
+
+    /**
+     * find all charges
+     *
+     * @return array<array|mixed>
+     */
+    public function getAll(): array
+    {
+        return $this->get('v1/charges', $this->queryParams);
     }
 
     /**
