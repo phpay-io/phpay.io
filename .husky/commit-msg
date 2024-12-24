@@ -16,9 +16,9 @@ if [ -z "$ISSUE_ID" ]; then
 fi
 
 case "$COMMIT_MESSAGE" in
-    "PHPAY-$ISSUE_ID"*)
+    "$ISSUE_ID"*)
         exit 0
         ;;
 esac
 
-echo "$ISSUE_ID: $COMMIT_MESSAGE" > "$1"
+echo "PHPAY-$ISSUE_ID: $COMMIT_MESSAGE" > "$1"
