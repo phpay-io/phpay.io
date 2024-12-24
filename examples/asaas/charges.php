@@ -29,7 +29,7 @@ $phpay = new PHPay(new AsaasGateway(TOKEN_ASAAS_SANDBOX));
  *
  * @return array charges
  */
-$chargeCreated = $phpay
+$phpay
     ->charge($charge)
     ->setCustomer($customer)
     ->create();
@@ -50,6 +50,16 @@ $phpay
  */
 $phpay
     ->charge()
+    ->getAll();
+
+/**
+ * get all charges with filters
+ *
+ * @return array charges
+ */
+$phpay
+    ->charge()
+    ->setFilters(['limit' => 5])
     ->getAll();
 
 /**

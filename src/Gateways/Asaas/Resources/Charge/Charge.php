@@ -91,9 +91,7 @@ class Charge implements ChargeInterface
      */
     public function getAll(): array
     {
-        return $this->get('payments', [
-            'query' => $this->filter,
-        ]);
+        return $this->get('payments', $this->filter);
     }
 
     /**
