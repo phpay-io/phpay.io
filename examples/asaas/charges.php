@@ -1,6 +1,6 @@
 <?php
 
-use PHPay\Gateways\Asaas\AsaasGateway;
+use PHPay\Asaas\AsaasGateway;
 use PHPay\PHPay;
 
 require_once __DIR__ . '/../../vendor/autoload.php';

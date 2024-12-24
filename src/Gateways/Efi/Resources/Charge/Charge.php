@@ -78,7 +78,6 @@ class Charge implements ChargeInterface
      *
      * @param array<mixed> $queryParams
      * @return ChargeInterface
-     * @deprecated
      */
     public function setQueryParams(array $queryParams): ChargeInterface
     {

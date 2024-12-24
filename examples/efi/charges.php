@@ -1,6 +1,6 @@
 <?php
 
-use PHPay\Gateways\Efi\EfiGateway;
+use PHPay\Efi\EfiGateway;
 use PHPay\PHPay;
 
 require_once __DIR__ . '/../../vendor/autoload.php';
@@ -31,6 +31,7 @@ $phpay
 
 /**
  * get all charges
+ *
  * @return array charges
  */
 $phpay

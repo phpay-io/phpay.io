@@ -1,6 +1,6 @@
 <?php
 
-namespace PHPay\Gateways\Efi;
+namespace PHPay\Efi;
 
 use Efi\Interface\EfiGatewayInterface;
 use Efi\Resources\Authorization\Authorization;

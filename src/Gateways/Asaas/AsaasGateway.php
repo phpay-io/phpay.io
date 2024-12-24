@@ -1,6 +1,6 @@
 <?php
 
-namespace PHPay\Gateways\Asaas;
+namespace PHPay\Asaas;
 
 use Asaas\Interface\AsaasGatewayInterface;
 use Asaas\Resources\Charge\Charge;
