@@ -28,3 +28,18 @@ $phpay
     ->charge($charge)
     ->setCustomer($customer)
     ->create();
+
+
+/**
+ * get all charges
+ * @return array charges
+ */
+$phpay
+    ->charge()
+    ->setQueryParams([
+        'charge_type' => 'billet',
+        'begin_date' => '2024-11-01',
+        'end_date' => '2024-11-30',
+        'status' => 'unpaid'
+    ])
+    ->getAll();
