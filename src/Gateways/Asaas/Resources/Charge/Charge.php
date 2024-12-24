@@ -23,7 +23,7 @@ class Charge implements ChargeInterface
     /**
      * @var array<mixed>
      */
-    private array $filter = [];
+    private array $queryParams = [];
 
     /**
      * construct
@@ -43,14 +43,14 @@ class Charge implements ChargeInterface
     }
 
     /**
-     * set filters
+     * set query params
      *
-     * @param array<mixed> $filters
+     * @param array<mixed> $queryParams
      * @return ChargeInterface
      */
-    public function setFilters(array $filters): ChargeInterface
+    public function setQueryParams(array $queryParams): ChargeInterface
     {
-        $this->filter = $filters;
+        $this->queryParams = $queryParams;
 
         return $this;
     }
@@ -91,7 +91,7 @@ class Charge implements ChargeInterface
      */
     public function getAll(): array
     {
-        return $this->get('payments', $this->filter);
+        return $this->get('payments', $this->queryParams);
     }
 
     /**
@@ -161,7 +161,13 @@ class Charge implements ChargeInterface
      */
     public function getDigitableLine(string $id): mixed
     {
-        return $this->get("payments/{$id}/identificationField")['identificationField'];
+        $charge = $this->get("payments/{$id}/identificationField");
+
+        if (isset($charge['identificationField'])) {
+            return $charge['identificationField'];
+        }
+
+        return null;
     }
 
     /**
