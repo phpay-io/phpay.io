@@ -59,7 +59,7 @@ $phpay
  */
 $phpay
     ->charge()
-    ->setFilters(['limit' => 5])
+    ->setQueryParams(['limit' => 5])
     ->getAll();
 
 /**
@@ -69,7 +69,7 @@ $phpay
  */
 $phpay
     ->charge()
-    ->update($chargeCreated['id'], [
+    ->update($chargeId, [
         'description' => 'Teste de fatura atualizado',
     ]);
 
@@ -80,7 +80,7 @@ $phpay
  */
 $phpay
     ->charge()
-    ->destroy($chargeCreated['id']);
+    ->destroy($chargeId);
 
 /**
  * restore charge
@@ -89,7 +89,7 @@ $phpay
  */
 $phpay
     ->charge()
-    ->restore($chargeCreated['id']);
+    ->restore($chargeId);
 
 /**
  * get charge status
@@ -98,7 +98,7 @@ $phpay
  */
 $phpay
     ->charge()
-    ->getStatus($chargeCreated['id']);
+    ->getStatus($chargeId);
 
 /**
  * get digitable line charge
@@ -107,7 +107,7 @@ $phpay
  */
 $phpay
     ->charge()
-    ->getDigitableLine($chargeCreated['id']);
+    ->getDigitableLine($chargeId);
 
 /**
  * get qrcode charge
@@ -116,7 +116,7 @@ $phpay
  */
 $qrcode = $phpay
     ->charge()
-    ->getQrCodePix($chargeCreated['id']);
+    ->getQrCodePix($chargeId);
 
 /**
  * confirm receipt charge
@@ -125,7 +125,7 @@ $qrcode = $phpay
  */
 $confirmed = $phpay
     ->charge()
-    ->confirmReceipt($chargeCreated['id'], [
+    ->confirmReceipt($chargeId, [
         'paymentDate'    => date('Y-m-d'),
         'value'          => 100.00,
         'notifyCustomer' => true,
@@ -138,4 +138,4 @@ $confirmed = $phpay
  */
 $phpay
     ->charge()
-    ->undoConfirmReceipt($chargeCreated['id']);
+    ->undoConfirmReceipt($chargeId);

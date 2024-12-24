@@ -60,12 +60,12 @@ interface ChargeInterface
     public function setCustomer(array $customer): ChargeInterface;
 
     /**
-     * set filter
+     * set query params
      *
-     * @param array<mixed> $filters
+     * @param array<mixed> $queryParams
      * @return ChargeInterface
      */
-    public function setFilters(array $filters): ChargeInterface;
+    public function setQueryParams(array $queryParams): ChargeInterface;
 
     /**
      * get status charge by id
