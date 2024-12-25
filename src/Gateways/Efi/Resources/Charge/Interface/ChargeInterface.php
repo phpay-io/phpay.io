@@ -14,6 +14,14 @@ interface ChargeInterface
     public function getAll(): array;
 
     /**
+     * find charge by id
+     *
+     * @param string  $id
+     * @return array<array|mixed>
+     */
+    public function find(string $id): array;
+
+    /**
      * set customer
      *
      * @param array<mixed> $customer
