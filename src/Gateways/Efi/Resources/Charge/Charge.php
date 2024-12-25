@@ -97,6 +97,16 @@ class Charge implements ChargeInterface
     }
 
     /**
+     * find charge by id
+     *
+     * @return array<array|mixed>
+     */
+    public function find(string $id): array
+    {
+        return $this->get("v1/charge/{$id}");
+    }
+
+    /**
      * create charge
      *
      * @return array<mixed>

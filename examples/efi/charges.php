@@ -43,3 +43,12 @@ $phpay
         'status'      => 'unpaid',
     ])
     ->getAll();
+
+/**
+ * find charge by id
+ *
+ * @return array charge
+ */
+$phpay
+    ->charge()
+    ->find($chargeId);
