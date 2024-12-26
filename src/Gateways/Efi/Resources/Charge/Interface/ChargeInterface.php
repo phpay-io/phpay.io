@@ -36,4 +36,11 @@ interface ChargeInterface
      * @return ChargeInterface
      */
     public function setQueryParams(array $queryParams): ChargeInterface;
+
+    /**
+     * @param string $id
+     * @param array<mixed> $data
+     * @return array<array|mixed>
+     */
+    public function confirmReceipt(string $id, array $data): array;
 }

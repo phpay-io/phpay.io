@@ -52,3 +52,12 @@ $phpay
 $phpay
     ->charge()
     ->find($chargeId);
+
+/**
+ * confirm receipt
+ *
+ * @return array charge
+ */
+$phpay
+    ->charge()
+    ->confirmReceipt($chargeId, []);

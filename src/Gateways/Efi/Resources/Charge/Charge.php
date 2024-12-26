@@ -196,7 +196,7 @@ class Charge implements ChargeInterface
      */
     public function confirmReceipt(string $id, array $data): array
     {
-        return $this->post("payments/{$id}/receiveInCash", $data);
+        return $this->put("v1/charge/{$id}/settle", $data);
     }
 
     /**
