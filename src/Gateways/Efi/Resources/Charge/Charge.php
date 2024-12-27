@@ -195,7 +195,7 @@ class Charge implements ChargeInterface
      */
     public function confirmReceipt(string $id): array
     {
-        return $this->put("v1/charge/{$id}/settle");
+        return $this->put("v1/charge/{$id}/settle", []);
     }
 
     /**
