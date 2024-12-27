@@ -60,4 +60,4 @@ $phpay
  */
 $phpay
     ->charge()
-    ->confirmReceipt($chargeId, []);
+    ->confirmReceipt($chargeId);

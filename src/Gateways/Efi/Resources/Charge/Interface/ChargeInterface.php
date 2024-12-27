@@ -39,8 +39,7 @@ interface ChargeInterface
 
     /**
      * @param string $id
-     * @param array<mixed> $data
      * @return array<array|mixed>
      */
-    public function confirmReceipt(string $id, array $data): array;
+    public function confirmReceipt(string $id): array;
 }
