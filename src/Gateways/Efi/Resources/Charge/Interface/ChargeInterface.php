@@ -42,4 +42,12 @@ interface ChargeInterface
      * @return array<array|mixed>
      */
     public function confirmReceipt(string $id): array;
+
+    /**
+     * delete charge by id
+     *
+     * @param string $id
+     * @return array<array|mixed>
+     */
+    public function destroy(string $id): array;
 }

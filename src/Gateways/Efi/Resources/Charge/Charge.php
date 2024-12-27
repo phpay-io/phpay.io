@@ -147,11 +147,11 @@ class Charge implements ChargeInterface
      * destroy charge
      *
      * @param string $id
-     * @return bool
+     * @return array<array|mixed>
      */
-    public function destroy(string $id): bool
+    public function destroy(string $id): array
     {
-        return $this->delete("payments/{$id}");
+        return $this->put("v1/charge/{$id}/cancel", []);
     }
 
     /**

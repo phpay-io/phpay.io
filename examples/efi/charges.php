@@ -61,3 +61,10 @@ $phpay
 $phpay
     ->charge()
     ->confirmReceipt($chargeId);
+
+/**
+ * destroy charge
+ */
+$phpay
+    ->charge()
+    ->destroy($chargeId);
