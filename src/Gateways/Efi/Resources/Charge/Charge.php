@@ -147,11 +147,22 @@ class Charge implements ChargeInterface
      * destroy charge
      *
      * @param string $id
-     * @return bool
+     * @return array<array|mixed>
      */
-    public function destroy(string $id): bool
+    public function destroy(string $id): array
     {
-        return $this->delete("payments/{$id}");
+        return $this->put("v1/charge/{$id}/cancel", []);
+    }
+
+    /**
+     * cancel charge
+     *
+     * @param string $id
+     * @return array<array|mixed>
+     */
+    public function cancel(string $id): array
+    {
+        return $this->put("v1/charge/{$id}/cancel", []);
     }
 
     /**
@@ -191,12 +202,11 @@ class Charge implements ChargeInterface
      * confirm receipt
      *
      * @param string $id
-     * @param array<mixed> $data
      * @return array<mixed>
      */
-    public function confirmReceipt(string $id, array $data): array
+    public function confirmReceipt(string $id): array
     {
-        return $this->put("v1/charge/{$id}/settle", $data);
+        return $this->put("v1/charge/{$id}/settle", []);
     }
 
     /**
