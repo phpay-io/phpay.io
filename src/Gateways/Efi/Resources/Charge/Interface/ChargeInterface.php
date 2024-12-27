@@ -50,4 +50,12 @@ interface ChargeInterface
      * @return array<array|mixed>
      */
     public function destroy(string $id): array;
+
+    /**
+     * cancel charge by id
+     *
+     * @param string $id
+     * @return array<array|mixed>
+     */
+    public function cancel(string $id): array;
 }

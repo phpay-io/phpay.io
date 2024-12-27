@@ -155,6 +155,17 @@ class Charge implements ChargeInterface
     }
 
     /**
+     * cancel charge
+     *
+     * @param string $id
+     * @return array<array|mixed>
+     */
+    public function cancel(string $id): array
+    {
+        return $this->put("v1/charge/{$id}/cancel", []);
+    }
+
+    /**
      * get status charge
      *
      * @param string $id

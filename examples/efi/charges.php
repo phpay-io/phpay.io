@@ -68,3 +68,10 @@ $phpay
 $phpay
     ->charge()
     ->destroy($chargeId);
+
+/**
+ * cancel charge
+ */
+$phpay
+    ->charge()
+    ->cancel($chargeId);
