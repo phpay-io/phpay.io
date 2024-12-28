@@ -50,4 +50,11 @@ interface ChargeInterface
      * @return array<array|mixed>
      */
     public function cancel(string $id): array;
+
+    /**
+     * @param string $id
+     * @param array<array|mixed> $data
+     * @return array<array|mixed>
+     */
+    public function updateDueDate(string $id, array $data): array;
 }

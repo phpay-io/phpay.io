@@ -68,3 +68,12 @@ $phpay
 $phpay
     ->charge()
     ->cancel($chargeId);
+
+/**
+ * update due date
+ */
+$c = $phpay
+    ->charge()
+    ->updateDueDate($chargeId, [
+        'expire_at' => '2024-12-30',
+    ]);
