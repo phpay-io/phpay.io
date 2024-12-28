@@ -74,9 +74,7 @@ $phpay
  */
 $phpay
     ->charge()
-    ->updateDueDate($chargeId, [
-        'expire_at' => '2024-12-30',
-    ]);
+    ->updateDueDate($chargeId, $dueDate);
 
 /**
  * update billet metadata

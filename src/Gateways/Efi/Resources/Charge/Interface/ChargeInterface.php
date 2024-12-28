@@ -53,10 +53,10 @@ interface ChargeInterface
 
     /**
      * @param string $id
-     * @param array<array|mixed> $data
+     * @param string $dueDate
      * @return array<array|mixed>
      */
-    public function updateDueDate(string $id, array $data): array;
+    public function updateDueDate(string $id, string $dueDate): array;
 
     /**
      * update billet metadata

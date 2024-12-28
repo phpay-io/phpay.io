@@ -159,12 +159,14 @@ class Charge implements ChargeInterface
      * update due date
      *
      * @param string $id
-     * @param array<array|mixed> $data
+     * @param string $dueDate
      * @return array<array|mixed>
      */
-    public function updateDueDate(string $id, array $data): array
+    public function updateDueDate(string $id, string $dueDate): array
     {
-        return $this->put("v1/charge/{$id}/billet", $data);
+        return $this->put("v1/charge/{$id}/billet", [
+            'expire_at' => $dueDate,
+        ]);
     }
 
     /**
