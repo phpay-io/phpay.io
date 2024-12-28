@@ -144,17 +144,6 @@ class Charge implements ChargeInterface
     }
 
     /**
-     * destroy charge
-     *
-     * @param string $id
-     * @return array<array|mixed>
-     */
-    public function destroy(string $id): array
-    {
-        return $this->put("v1/charge/{$id}/cancel", []);
-    }
-
-    /**
      * cancel charge
      *
      * @param string $id
