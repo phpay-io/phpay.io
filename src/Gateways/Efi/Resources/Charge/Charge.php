@@ -178,28 +178,6 @@ class Charge implements ChargeInterface
     }
 
     /**
-     * get digitable line
-     *
-     * @param string $id
-     * @return mixed
-     */
-    public function getDigitableLine(string $id): mixed
-    {
-        return $this->get("payments/{$id}/identificationField")['identificationField'];
-    }
-
-    /**
-     * get qrcode pix
-     *
-     * @param string $id
-     * @return array<array|mixed>
-     */
-    public function getQrCodePix(string $id): array
-    {
-        return $this->get("payments/{$id}/pixQrCode");
-    }
-
-    /**
      * confirm receipt
      *
      * @param string $id
