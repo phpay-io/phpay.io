@@ -132,26 +132,16 @@ class Charge implements ChargeInterface
     }
 
     /**
-     * update charge
+     * update billet metadata
+     * notification_url and custom_id
      *
      * @param string $id
      * @param array<mixed> $data
      * @return array<mixed>
      */
-    public function update(string $id, array $data): array
+    public function updateMetadata(string $id, array $data): array
     {
-        return $this->put("payments/{$id}", $data);
-    }
-
-    /**
-     * destroy charge
-     *
-     * @param string $id
-     * @return array<array|mixed>
-     */
-    public function destroy(string $id): array
-    {
-        return $this->put("v1/charge/{$id}/cancel", []);
+        return $this->put("v1/charge/{$id}/metadata", $data);
     }
 
     /**
@@ -166,6 +156,20 @@ class Charge implements ChargeInterface
     }
 
     /**
+     * update due date
+     *
+     * @param string $id
+     * @param string $dueDate
+     * @return array<array|mixed>
+     */
+    public function updateDueDate(string $id, string $dueDate): array
+    {
+        return $this->put("v1/charge/{$id}/billet", [
+            'expire_at' => $dueDate,
+        ]);
+    }
+
+    /**
      * get status charge
      *
      * @param string $id
@@ -174,28 +178,6 @@ class Charge implements ChargeInterface
     public function getStatus(string $id): array
     {
         return $this->get("payments/{$id}/status");
-    }
-
-    /**
-     * get digitable line
-     *
-     * @param string $id
-     * @return mixed
-     */
-    public function getDigitableLine(string $id): mixed
-    {
-        return $this->get("payments/{$id}/identificationField")['identificationField'];
-    }
-
-    /**
-     * get qrcode pix
-     *
-     * @param string $id
-     * @return array<array|mixed>
-     */
-    public function getQrCodePix(string $id): array
-    {
-        return $this->get("payments/{$id}/pixQrCode");
     }
 
     /**

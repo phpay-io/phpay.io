@@ -44,18 +44,27 @@ interface ChargeInterface
     public function confirmReceipt(string $id): array;
 
     /**
-     * delete charge by id
-     *
-     * @param string $id
-     * @return array<array|mixed>
-     */
-    public function destroy(string $id): array;
-
-    /**
      * cancel charge by id
      *
      * @param string $id
      * @return array<array|mixed>
      */
     public function cancel(string $id): array;
+
+    /**
+     * @param string $id
+     * @param string $dueDate
+     * @return array<array|mixed>
+     */
+    public function updateDueDate(string $id, string $dueDate): array;
+
+    /**
+     * update billet metadata
+     * notification_url and custom_id
+     *
+     * @param string $id
+     * @param array<mixed> $data
+     * @return array<mixed>
+     */
+    public function updateMetadata(string $id, array $data): array;
 }
