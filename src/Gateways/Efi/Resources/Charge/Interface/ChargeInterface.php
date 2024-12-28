@@ -57,4 +57,14 @@ interface ChargeInterface
      * @return array<array|mixed>
      */
     public function updateDueDate(string $id, array $data): array;
+
+    /**
+     * update billet metadata
+     * notification_url and custom_id
+     *
+     * @param string $id
+     * @param array<mixed> $data
+     * @return array<mixed>
+     */
+    public function updateMetadata(string $id, array $data): array;
 }

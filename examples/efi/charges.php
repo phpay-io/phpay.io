@@ -72,8 +72,19 @@ $phpay
 /**
  * update due date
  */
-$c = $phpay
+$phpay
     ->charge()
     ->updateDueDate($chargeId, [
         'expire_at' => '2024-12-30',
+    ]);
+
+/**
+ * update billet metadata
+ * notification_url and custom_id
+ */
+$phpay
+    ->charge()
+    ->updateMetadata($chargeId, [
+        'notification_url' => $notificationUrl,
+        'custom_id'        => $customId,
     ]);

@@ -132,15 +132,16 @@ class Charge implements ChargeInterface
     }
 
     /**
-     * update charge
+     * update billet metadata
+     * notification_url and custom_id
      *
      * @param string $id
      * @param array<mixed> $data
      * @return array<mixed>
      */
-    public function update(string $id, array $data): array
+    public function updateMetadata(string $id, array $data): array
     {
-        return $this->put("payments/{$id}", $data);
+        return $this->put("v1/charge/{$id}/metadata", $data);
     }
 
     /**
