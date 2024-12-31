@@ -1,6 +1,6 @@
 <?php
 
-namespace Asaas\Resources\Customer\Interface;
+namespace PHPay\Asaas\Resources\Customer\Interface;
 
 interface CustomerInterface
 {

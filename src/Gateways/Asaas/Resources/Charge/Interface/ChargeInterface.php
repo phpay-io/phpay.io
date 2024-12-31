@@ -1,6 +1,6 @@
 <?php
 
-namespace Asaas\Resources\Charge\Interface;
+namespace PHPay\Asaas\Resources\Charge\Interface;
 
 interface ChargeInterface
 {

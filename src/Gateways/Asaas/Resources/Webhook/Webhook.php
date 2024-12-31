@@ -1,10 +1,10 @@
 <?php
 
-namespace Asaas\Resources\Webhook;
+namespace PHPay\Asaas\Resources\Webhook;
 
-use Asaas\Resources\Webhook\Interface\WebhookInterface;
-use Asaas\Traits\HasAsaasClient;
 use GuzzleHttp\Client;
+use PHPay\Asaas\Resources\Webhook\Interface\WebhookInterface;
+use PHPay\Asaas\Traits\HasAsaasClient;
 
 class Webhook implements WebhookInterface
 {

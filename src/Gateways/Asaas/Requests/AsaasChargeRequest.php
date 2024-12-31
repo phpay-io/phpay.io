@@ -1,6 +1,6 @@
 <?php
 
-namespace Asaas\Requests;
+namespace PHPay\Asaas\Requests;
 
 use PHPay\Gateways\Asaas\Enums\{BillingTypeEnum};
 

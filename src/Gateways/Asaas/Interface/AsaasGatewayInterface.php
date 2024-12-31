@@ -1,10 +1,10 @@
 <?php
 
-namespace Asaas\Interface;
+namespace PHPay\Asaas\Interface;
 
-use Asaas\Resources\Charge\Charge;
-use Asaas\Resources\Customer\Customer;
-use Asaas\Resources\Webhook\Webhook;
+use PHPay\Asaas\Resources\Charge\Charge;
+use PHPay\Asaas\Resources\Customer\Customer;
+use PHPay\Asaas\Resources\Webhook\Webhook;
 use PHPay\Contracts\GatewayInterface;
 
 interface AsaasGatewayInterface extends GatewayInterface

@@ -57,4 +57,5 @@
     },
     "window.zoomLevel": 1,
     "editor.fontVariations": false,
+    "phpunit.phpunit": "vendor/bin/pest",
 }

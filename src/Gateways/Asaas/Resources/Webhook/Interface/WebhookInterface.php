@@ -1,6 +1,6 @@
 <?php
 
-namespace Asaas\Resources\Webhook\Interface;
+namespace PHPay\Asaas\Resources\Webhook\Interface;
 
 interface WebhookInterface
 {
