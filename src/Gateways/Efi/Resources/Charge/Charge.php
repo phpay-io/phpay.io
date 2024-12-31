@@ -97,6 +97,16 @@ class Charge implements ChargeInterface
     }
 
     /**
+     * find charge by id
+     *
+     * @return array<array|mixed>
+     */
+    public function find(string $id): array
+    {
+        return $this->get("v1/charge/{$id}");
+    }
+
+    /**
      * create charge
      *
      * @return array<mixed>
@@ -122,26 +132,41 @@ class Charge implements ChargeInterface
     }
 
     /**
-     * update charge
+     * update billet metadata
+     * notification_url and custom_id
      *
      * @param string $id
      * @param array<mixed> $data
      * @return array<mixed>
      */
-    public function update(string $id, array $data): array
+    public function updateMetadata(string $id, array $data): array
     {
-        return $this->put("payments/{$id}", $data);
+        return $this->put("v1/charge/{$id}/metadata", $data);
     }
 
     /**
-     * destroy charge
+     * cancel charge
      *
      * @param string $id
-     * @return bool
+     * @return array<array|mixed>
      */
-    public function destroy(string $id): bool
+    public function cancel(string $id): array
     {
-        return $this->delete("payments/{$id}");
+        return $this->put("v1/charge/{$id}/cancel", []);
+    }
+
+    /**
+     * update due date
+     *
+     * @param string $id
+     * @param string $dueDate
+     * @return array<array|mixed>
+     */
+    public function updateDueDate(string $id, string $dueDate): array
+    {
+        return $this->put("v1/charge/{$id}/billet", [
+            'expire_at' => $dueDate,
+        ]);
     }
 
     /**
@@ -156,37 +181,14 @@ class Charge implements ChargeInterface
     }
 
     /**
-     * get digitable line
-     *
-     * @param string $id
-     * @return mixed
-     */
-    public function getDigitableLine(string $id): mixed
-    {
-        return $this->get("payments/{$id}/identificationField")['identificationField'];
-    }
-
-    /**
-     * get qrcode pix
-     *
-     * @param string $id
-     * @return array<array|mixed>
-     */
-    public function getQrCodePix(string $id): array
-    {
-        return $this->get("payments/{$id}/pixQrCode");
-    }
-
-    /**
      * confirm receipt
      *
      * @param string $id
-     * @param array<mixed> $data
      * @return array<mixed>
      */
-    public function confirmReceipt(string $id, array $data): array
+    public function confirmReceipt(string $id): array
     {
-        return $this->post("payments/{$id}/receiveInCash", $data);
+        return $this->put("v1/charge/{$id}/settle", []);
     }
 
     /**

@@ -43,3 +43,46 @@ $phpay
         'status'      => 'unpaid',
     ])
     ->getAll();
+
+/**
+ * find charge by id
+ *
+ * @return array charge
+ */
+$phpay
+    ->charge()
+    ->find($chargeId);
+
+/**
+ * confirm receipt
+ *
+ * @return array charge
+ */
+$phpay
+    ->charge()
+    ->confirmReceipt($chargeId);
+
+/**
+ * cancel charge
+ */
+$phpay
+    ->charge()
+    ->cancel($chargeId);
+
+/**
+ * update due date
+ */
+$phpay
+    ->charge()
+    ->updateDueDate($chargeId, $dueDate);
+
+/**
+ * update billet metadata
+ * notification_url and custom_id
+ */
+$phpay
+    ->charge()
+    ->updateMetadata($chargeId, [
+        'notification_url' => $notificationUrl,
+        'custom_id'        => $customId,
+    ]);
