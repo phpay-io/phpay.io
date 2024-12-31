@@ -2,11 +2,11 @@
 
 namespace PHPay\Asaas;
 
-use Asaas\Interface\AsaasGatewayInterface;
-use Asaas\Resources\Charge\Charge;
-use Asaas\Resources\Customer\Customer;
-use Asaas\Resources\Webhook\Webhook;
 use GuzzleHttp\Client;
+use PHPay\Asaas\Interface\AsaasGatewayInterface;
+use PHPay\Asaas\Resources\Charge\Charge;
+use PHPay\Asaas\Resources\Customer\Customer;
+use PHPay\Asaas\Resources\Webhook\Webhook;
 
 class AsaasGateway implements AsaasGatewayInterface
 {

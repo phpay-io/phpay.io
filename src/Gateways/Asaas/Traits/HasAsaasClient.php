@@ -1,6 +1,6 @@
 <?php
 
-namespace Asaas\Traits;
+namespace PHPay\Asaas\Traits;
 
 use GuzzleHttp\Client;
 

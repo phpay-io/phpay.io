@@ -1,11 +1,11 @@
 <?php
 
-namespace Asaas\Resources\Customer;
+namespace PHPay\Asaas\Resources\Customer;
 
-use Asaas\Requests\AsaasCustomerRequest;
-use Asaas\Resources\Customer\Interface\CustomerInterface;
-use Asaas\Traits\HasAsaasClient;
 use GuzzleHttp\Client;
+use PHPay\Asaas\Requests\AsaasCustomerRequest;
+use PHPay\Asaas\Resources\Customer\Interface\CustomerInterface;
+use PHPay\Asaas\Traits\HasAsaasClient;
 
 class Customer implements CustomerInterface
 {

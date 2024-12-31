@@ -1,6 +1,6 @@
 <?php
 
-namespace Asaas\Requests;
+namespace PHPay\Asaas\Requests;
 
 class AsaasCustomerRequest
 {

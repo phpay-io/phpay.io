@@ -1,12 +1,12 @@
 <?php
 
-namespace Asaas\Resources\Charge;
+namespace PHPay\Asaas\Resources\Charge;
 
-use Asaas\Requests\AsaasChargeRequest;
-use Asaas\Resources\Charge\Interface\ChargeInterface;
-use Asaas\Resources\Customer\Customer;
-use Asaas\Traits\HasAsaasClient;
 use GuzzleHttp\Client;
+use PHPay\Asaas\Requests\AsaasChargeRequest;
+use PHPay\Asaas\Resources\Charge\Interface\ChargeInterface;
+use PHPay\Asaas\Resources\Customer\Customer;
+use PHPay\Asaas\Traits\HasAsaasClient;
 
 class Charge implements ChargeInterface
 {
