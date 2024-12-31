@@ -22,7 +22,7 @@ $charge = [
 /**
  * @var EfiGateway $phpay
  */
-$phpay = new PHPay(new EfiGatewaY(CLIENT_ID, CLIENT_SECRET));
+$phpay = new PHPay(new EfiGateway(CLIENT_ID, CLIENT_SECRET));
 
 $phpay
     ->charge($charge)
