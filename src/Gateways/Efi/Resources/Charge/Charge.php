@@ -93,6 +93,15 @@ class Charge implements ChargeInterface
      */
     public function getAll(): array
     {
+        if (empty($this->queryParams)) {
+            $this->setQueryParams([
+                'charge_type' => 'billet',
+                'begin_date'  => date('Y-m-d', strtotime('-30 days')),
+                'end_date'    => date('Y-m-d'),
+                'status'      => 'unpaid',
+            ]);
+        }
+
         return $this->get('v1/charges', $this->queryParams);
     }
 
