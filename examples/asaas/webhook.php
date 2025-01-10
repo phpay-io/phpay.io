@@ -1,6 +1,6 @@
 <?php
 
-use PHPay\Gateways\Asaas\AsaasGateway;
+use PHPay\Asaas\AsaasGateway;
 use PHPay\PHPay;
 
 require_once __DIR__ . '/../../vendor/autoload.php';
@@ -44,7 +44,7 @@ $phpay = new PHPay(new AsaasGateway(TOKEN_ASAAS_SANDBOX));
  * @return array
  * @see available fields in https://docs.asaas.com/reference/criar-novo-webhook
  */
-$webhook = $phpay
+$phpay
     ->webhook($webhook)
     ->create();
 
@@ -64,7 +64,7 @@ $phpay
  */
 $phpay
     ->webhook()
-    ->find($webhook['id']);
+    ->find($webhookId);
 
 /**
  *  update a webhook
@@ -72,10 +72,10 @@ $phpay
  * @return array
  * @see available fields in https://docs.asaas.com/reference/atualizar-webhook-existente
  */
-$webhookUpdated = $phpay
+$phpay
     ->webhook()
-    ->update($webhook['id'], [
-        'name' => 'Webhook de Teste Atualizado',
+    ->update($webhookId, [
+        'name' => 'Update webhook with PHPay is awesome',
         'url'  => 'https://sixtec.com.br/webhook/atualizado',
     ]);
 
@@ -84,6 +84,6 @@ $webhookUpdated = $phpay
  *
  * @return bool
  */
-$webhookDeleted = $phpay
+$phpay
     ->webhook()
-    ->destroy($webhook['id']);
+    ->destroy($webhookId);
