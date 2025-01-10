@@ -27,4 +27,12 @@ interface GatewayInterface
      * @return object
      */
     public function webhook(array $webhook = []): object;
+
+    /**
+     * get resource pix from gateway.
+     *
+     * @param array<mixed> $pix
+     * @return object
+     */
+    public function pix(array $pix = []): object;
 }

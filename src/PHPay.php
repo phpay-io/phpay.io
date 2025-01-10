@@ -20,11 +20,10 @@ class PHPay implements GatewayInterface
 
     /**
      * ATTENTION!!! ONLY EFÍ GATEWAY
-     * get token.
      *
      * @return array<mixed>
      */
-    public function getToken(): array
+    protected function getToken(): array
     {
         /**
          * @var EfiGatewayInterface $gateway
@@ -65,5 +64,16 @@ class PHPay implements GatewayInterface
     public function webhook(array $webhook = []): object
     {
         return $this->gateway->webhook($webhook);
+    }
+
+    /**
+     * get resource pix from gateway.
+     *
+     * @param array<mixed> $pix
+     * @return object
+     */
+    public function pix(array $pix = []): object
+    {
+        return $this->gateway->pix($pix);
     }
 }

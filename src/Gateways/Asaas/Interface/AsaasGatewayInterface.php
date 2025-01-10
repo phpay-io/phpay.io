@@ -4,6 +4,7 @@ namespace PHPay\Asaas\Interface;
 
 use PHPay\Asaas\Resources\Charge\Charge;
 use PHPay\Asaas\Resources\Customer\Customer;
+use PHPay\Asaas\Resources\Pix\Pix;
 use PHPay\Asaas\Resources\Webhook\Webhook;
 use PHPay\Contracts\GatewayInterface;
 
@@ -32,4 +33,12 @@ interface AsaasGatewayInterface extends GatewayInterface
      * @return Webhook
      */
     public function webhook(array $webhook = []): Webhook;
+
+    /**
+     * get resource pix from gateway.
+     *
+     * @param array<mixed> $pix
+     * @return Pix
+     */
+    public function pix(array $pix = []): Pix;
 }
