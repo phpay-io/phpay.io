@@ -12,20 +12,14 @@ require_once __DIR__ . '/credentials.php';
  */
 $phpay = new PHPay(new AsaasGateway(TOKEN_ASAAS_SANDBOX));
 
-/**
- * create pix key
- *
- * @return string $pixKey
- */
 $phpay
     ->pix()
     ->createKey();
 
-/**
- * get all pix keys
- *
- * @return array $pixKeys
- */
+$phpay
+    ->pix()
+    ->find(ID_PIX_KEY);
+
 $phpay
     ->pix()
     ->getAll();

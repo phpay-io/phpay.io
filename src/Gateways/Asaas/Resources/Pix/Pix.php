@@ -64,6 +64,17 @@ class Pix implements PixInterface
     }
 
     /**
+     * find pix key
+     *
+     * @param string $id
+     * @return array<mixed>
+     */
+    public function find(string $id): array
+    {
+        return $this->get("pix/addressKeys/{$id}");
+    }
+
+    /**
      * get all pix keys
      *
      * @return array<mixed>
