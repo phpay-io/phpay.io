@@ -23,3 +23,7 @@ $phpay
 $phpay
     ->pix()
     ->getAll();
+
+$phpay
+    ->pix()
+    ->destroy(ID_PIX_KEY);

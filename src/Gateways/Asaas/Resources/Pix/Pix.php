@@ -94,4 +94,15 @@ class Pix implements PixInterface
 
         return $this->get('pix/addressKeys', $params);
     }
+
+    /**
+     * destroy pix key
+     *
+     * @param string $id
+     * @return bool
+     */
+    public function destroy(string $id): bool
+    {
+        return $this->delete("pix/addressKeys/{$id}");
+    }
 }
