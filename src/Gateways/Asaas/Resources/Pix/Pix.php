@@ -19,6 +19,11 @@ class Pix implements PixInterface
     private Client $client;
 
     /**
+     * @var array<mixed>
+     */
+    private array $queryParams = [];
+
+    /**
      * construct
      *
      * @param string $token
@@ -28,6 +33,19 @@ class Pix implements PixInterface
         private bool $sandbox = true,
     ) {
         $this->client = $this->clientAsaasBoot();
+    }
+
+    /**
+    * set query params
+    *
+    * @param array<mixed> $queryParams
+    * @return PixInterface
+    */
+    public function setQueryParams(array $queryParams): PixInterface
+    {
+        $this->queryParams = $queryParams;
+
+        return $this;
     }
 
     /**
@@ -43,5 +61,26 @@ class Pix implements PixInterface
         return $this->post('pix/addressKeys', [
             'type' => 'EVP',
         ]);
+    }
+
+    /**
+     * get all pix keys
+     *
+     * @return array<mixed>
+     * @see params in https://docs.asaas.com/reference/list-keys
+     */
+    public function getAll(): array
+    {
+        $params = $this->queryParams;
+
+        if (empty($params)) {
+            $params = [
+                'offset' => 0,
+                'limit'  => 100,
+                'status' => 'ACTIVE',
+            ];
+        }
+
+        return $this->get('pix/addressKeys', $params);
     }
 }

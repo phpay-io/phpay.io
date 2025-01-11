@@ -17,8 +17,15 @@ $phpay = new PHPay(new AsaasGateway(TOKEN_ASAAS_SANDBOX));
  *
  * @return string $pixKey
  */
-$pixKey = $phpay
+$phpay
     ->pix()
     ->createKey();
 
-print_r($pixKey);
+/**
+ * get all pix keys
+ *
+ * @return array $pixKeys
+ */
+$phpay
+    ->pix()
+    ->getAll();
