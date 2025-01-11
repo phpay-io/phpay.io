@@ -21,4 +21,12 @@ interface EfiGatewayInterface extends GatewayInterface
      * @return Charge charge
      */
     public function charge(array $charge = []): Charge;
+
+    /**
+     * get resource customer from gateway.
+     *
+     * @param array<mixed> $pix
+     * @return object
+     */
+    public function pix(array $pix = []): object;
 }

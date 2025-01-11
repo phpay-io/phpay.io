@@ -6,6 +6,7 @@ use GuzzleHttp\Client;
 use PHPay\Asaas\Interface\AsaasGatewayInterface;
 use PHPay\Asaas\Resources\Charge\Charge;
 use PHPay\Asaas\Resources\Customer\Customer;
+use PHPay\Asaas\Resources\Pix\Pix;
 use PHPay\Asaas\Resources\Webhook\Webhook;
 
 class AsaasGateway implements AsaasGatewayInterface
@@ -67,5 +68,16 @@ class AsaasGateway implements AsaasGatewayInterface
     public function webhook(array $webhook = []): Webhook
     {
         return new Webhook($this->token, $webhook, $this->sandbox);
+    }
+
+    /**
+     * pix
+     *
+     * @param array<mixed> $pix
+     * @return Pix
+     */
+    public function pix(array $pix = []): Pix
+    {
+        return new Pix($this->token, $this->sandbox);
     }
 }

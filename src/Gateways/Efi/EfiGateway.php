@@ -6,6 +6,7 @@ use Efi\Interface\EfiGatewayInterface;
 use Efi\Resources\Authorization\Authorization;
 use Efi\Resources\Charge\Charge;
 use Efi\Traits\HasEfiClient;
+use Exception;
 use GuzzleHttp\Client;
 use stdClass;
 
@@ -103,5 +104,16 @@ class EfiGateway implements EfiGatewayInterface
         if (!isset($this->token['access_token'])) {
             throw new \Exception('Token not generated');
         }
+    }
+
+    /**
+     * create pix
+     *
+     * @param array<string> $pix
+     * @return object pix
+     */
+    public function pix(array $pix = []): object
+    {
+        throw new Exception('Not implemented');
     }
 }
