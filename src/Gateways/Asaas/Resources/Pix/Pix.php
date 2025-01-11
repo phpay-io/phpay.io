@@ -88,7 +88,6 @@ class Pix implements PixInterface
             $params = [
                 'offset' => 0,
                 'limit'  => 100,
-                'status' => 'ACTIVE',
             ];
         }
 
@@ -104,5 +103,28 @@ class Pix implements PixInterface
     public function destroy(string $id): bool
     {
         return $this->delete("pix/addressKeys/{$id}");
+    }
+
+    /**
+     * static qr code
+     *
+     * @param array<mixed> $params
+     * @return array<mixed>
+     * @see params in https://docs.asaas.com/reference/create-static-qrcode
+     */
+    public function staticQrCode(array $params): array
+    {
+        return $this->post('pix/qrCodes/static', $params);
+    }
+
+    /**
+     * destroy static qr code
+     *
+     * @param string $id
+     * @return bool
+     */
+    public function destroyStaticQrCode(string $id): bool
+    {
+        return $this->delete("pix/qrCodes/static/{$id}");
     }
 }

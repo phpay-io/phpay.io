@@ -27,3 +27,11 @@ $phpay
 $phpay
     ->pix()
     ->destroy(ID_PIX_KEY);
+
+$phpay
+    ->pix()
+    ->staticQrCode($staticQrCodeParams);
+
+$phpay
+    ->pix()
+    ->destroyStaticQrCode($statiQrCodeId);

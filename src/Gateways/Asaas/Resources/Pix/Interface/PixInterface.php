@@ -42,4 +42,20 @@ interface PixInterface
      * @return bool
      */
     public function destroy(string $id): bool;
+
+    /**
+     * static qr code
+     *
+     * @param array<mixed> $params
+     * @return array<mixed>
+     */
+    public function staticQrCode(array $params): array;
+
+    /**
+     * destroy static qr code
+     *
+     * @param string $id
+     * @return bool
+     */
+    public function destroyStaticQrCode(string $id): bool;
 }
