@@ -3,3 +3,6 @@ node_modules/
 examples/asaas/credentials.php
 examples/efi/credentials.php
 .idea/
+
+# Lando Development Environment
+public/

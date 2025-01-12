@@ -1,0 +1,34 @@
+name: phpay
+recipe: lamp
+config:
+  webroot: public
+  php: 8.2
+  database: mariadb:10.6
+  xdebug: true
+  config:
+    php: lando-scripts/php.ini
+
+services:
+  appserver:
+    overrides:
+      extra_hosts:
+        - "host.docker.internal:host-gateway"
+  node:
+    type: node:18
+    scanner: false
+
+events:
+  pre-start:
+    - appserver: composer dump-autoload && composer lando
+  post-start:
+    - appserver: composer install
+
+tooling:
+  prepare:
+    service: node
+    cmd: npm run prepare
+  postinstall:
+    service: node
+    cmd: npm run postinstall
+
+

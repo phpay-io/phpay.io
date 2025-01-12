@@ -86,6 +86,21 @@ Requisitos básicos:
 composer install
 ```
 
+## 💻 Ambiente de Desenvolvimento com Lando
+
+Para desenvolvimento com Lando, siga os passos abaixo:
+
+Requisitos básicos:
+
+- Docker Engine ou Desktop
+- Lando (https://lando.dev/).
+
+## 🏗️ Gerando os containers usando o Lando:
+
+```bash
+lando start
+```
+
 ## 🖥️ Configuração do ambiente:
 
 Renomeie o arquivo credentials.example.php para credentials.php e configure suas chaves de do seu gateways.

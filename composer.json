@@ -32,6 +32,10 @@
         "guzzlehttp/guzzle": "^7.0"
     },
     "scripts": {
-        "test": "vendor/bin/pest"
+        "test": "vendor/bin/pest",
+        "lando": [
+            "mkdir -p public",
+            "cp -u lando-scripts/index.php public/index.php"
+        ]
     }
 }
