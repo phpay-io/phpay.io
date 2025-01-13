@@ -75,9 +75,6 @@ $phpay
 
 - Lançamento v1.0.0 🚀
 
-## Contribuidores
-<img alt="GitHub contributors" src="https://img.shields.io/github/:metric/:user/:repo">
-
 ## 🌟 Contribuindo
 
 Para contribuir com o PHPay, implementando melhorias e novos gateways de pagamento,
