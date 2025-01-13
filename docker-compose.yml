@@ -1,0 +1,11 @@
+services:
+  app:
+    image: phpay-docker
+    container_name: phpay-docker
+    stdin_open: true
+    tty: true
+    build:
+      context: .
+      dockerfile: .docker/php/Dockerfile
+    volumes:
+      - .:/usr/src/app
