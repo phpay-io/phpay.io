@@ -8,6 +8,11 @@
             "PHPay\\Efi\\": "src/Gateways/Efi/",
             "Efi\\": "src/Gateways/Efi/",
             "AsaasCustomer\\": "src/Gateways/Asaas/Resources/Customer/"
+        },
+        "autoload-dev": {
+            "psr-4": {
+                "Tests\\": "tests/"
+            }
         }
     },
     "authors": [
@@ -19,7 +24,8 @@
     "require-dev": {
         "pestphp/pest": "3.5",
         "laravel/pint": "^1.18",
-        "phpstan/phpstan": "^2.0"
+        "phpstan/phpstan": "^2.0",
+        "nunomaduro/termwind": "^2.3"
     },
     "config": {
         "allow-plugins": {
@@ -32,6 +38,14 @@
         "guzzlehttp/guzzle": "^7.0"
     },
     "scripts": {
-        "test": "vendor/bin/pest"
+        "lint": "pint -v",
+        "test:lint": "pint --test -v",
+        "test:unit": "pest --colors=always",
+        "test:types": "phpstan analyse --level=9",
+        "test": [
+            "@test:lint",
+            "@test:unit",
+            "@test:types"
+        ]
     }
 }
