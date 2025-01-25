@@ -1,141 +1,83 @@
 <?php
 
 use PHPay\Asaas\AsaasGateway;
+use PHPay\Asaas\Resources\Charge\Charge;
 use PHPay\PHPay;
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 
 require_once __DIR__ . '/credentials.php';
 
-$customer = [
-    'name'    => NAME,
-    'cpfCnpj' => CPF_CNPJ,
-];
-
-$charge = [
-    'billingType' => 'PIX',
-    'value'       => 100.00,
-    'description' => 'Teste de fatura',
-    'dueDate'     => date('Y-m-d', strtotime('+1 day')),
-];
-
 /**
- * @var AsaasGateway $phpay
+ * @var Charge $phpay
  */
-$phpay = new PHPay(new AsaasGateway(TOKEN_ASAAS_SANDBOX));
+$phpay = (new PHPay(new AsaasGateway(TOKEN_ASAAS_SANDBOX)))->charge();
 
 /**
  * create charge
- *
- * @return array charges
  */
 $phpay
-    ->charge($charge)
+    ->setCharge($charge)
     ->setCustomer($customer)
     ->create();
 
 /**
- * get all charges
- *
- * @return array charges
+ * find charge
  */
-$phpay
-    ->charge()
-    ->find($chargeCreated['id']);
+$phpay->find($chargeId);
 
 /**
  * get all charges
- *
- * @return array charges
  */
-$phpay
-    ->charge()
-    ->getAll();
+$phpay->getAll();
 
 /**
  * get all charges with filters
- *
- * @return array charges
  */
 $phpay
-    ->charge()
-    ->setQueryParams(['limit' => 5])
+    ->setQueryParams(['limit' => 2])
     ->getAll();
 
 /**
  * update charge
- *
- * @return array charge
  */
-$phpay
-    ->charge()
-    ->update($chargeId, [
-        'description' => 'Teste de fatura atualizado',
-    ]);
+$phpay->update($chargeId, $data);
 
 /**
  * destroy charge
- *
- * @return array bool
  */
-$phpay
-    ->charge()
-    ->destroy($chargeId);
+$phpay->destroy($chargeId);
 
 /**
  * restore charge
- *
- * @return array charge
  */
-$phpay
-    ->charge()
-    ->restore($chargeId);
+$phpay->restore($chargeId);
 
 /**
- * get charge status
- *
- * @return array charge status
+ * get status charge
  */
-$phpay
-    ->charge()
-    ->getStatus($chargeId);
+$phpay->getStatus($chargeId);
 
 /**
  * get digitable line charge
- *
- * @return string
  */
-$phpay
-    ->charge()
-    ->getDigitableLine($chargeId);
+$phpay->getDigitableLine($chargeId);
 
 /**
  * get qrcode charge
- *
- * @return string
  */
-$qrcode = $phpay
-    ->charge()
-    ->getQrCodePix($chargeId);
+$phpay->getQrCodePix($chargeId);
 
 /**
  * confirm receipt charge
- *
- * @return array charges
  */
-$confirmed = $phpay
-    ->charge()
-    ->confirmReceipt($chargeId, [
-        'paymentDate'    => date('Y-m-d'),
-        'value'          => 100.00,
-        'notifyCustomer' => true,
-    ]);
+$phpay->confirmReceipt($chargeId, [
+    'paymentDate'    => date('Y-m-d'),
+    'value'          => 100.00,
+    'notifyCustomer' => true,
+]);
 
 /**
  * undo confirm receipt
- *
- * @return array charges
  */
-$phpay
-    ->charge()
-    ->undoConfirmReceipt($chargeId);
+$phpay->undoConfirmReceipt($chargeId);

@@ -47,12 +47,11 @@ class PHPay implements GatewayInterface
     /**
      * get resource charge from gateway.
      *
-     * @param array<mixed> $charge
      * @return object
      */
-    public function charge(array $charge = []): object
+    public function charge(): object
     {
-        return $this->gateway->charge($charge);
+        return $this->gateway->charge();
     }
 
     /**

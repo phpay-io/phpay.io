@@ -1,18 +1,11 @@
-#!/usr/bin/env sh
+pest_output=$(./vendor/bin/pest --colors=always --stop-on-failure 2>&1)
 
-# echo "============================================="
-# echo "Pre Push Hook - Running pest tests 🧪" 
-# echo "============================================="
+if [ $? -ne 0 ]; then
+    php examples/helper/termwind-cli.php error "Pest tests failed." "$pest_output"
 
-# pest_output=$(./vendor/bin/pest --colors=always --stop-on-failure 2>&1)
+    exit 1
+fi
 
-# if [ $? -ne 0 ]; then
-#     echo "🛑 Pest tests failed. Please fix the issues before pushing."
-#     echo "$pest_output"
-#     exit 1
-# fi
-
-# echo "🟢 Pest Ok!"
-# echo "\n"
+php examples/helper/termwind-cli.php success "Pest Ok!"
 
 exit 0
