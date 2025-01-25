@@ -17,31 +17,93 @@ composer require phpay-io/phpay
 
 ## ⚙️ Como usar o PHPay?
 
-### Asaas
-
 ```php
 /**
+ * instance with gateway inject
  * @var AsaasGateway $phpay
  */
-$phpay = new PHPay(new AsaasGateway(TOKEN_ASAAS_SANDBOX));
+$phpay = (new PHPay(new AsaasGateway(TOKEN_ASAAS_SANDBOX)));
 ```
 
-### Efí
+### Cobranças
 
 ```php
 /**
- * @var EfiGateway $phpay
+ * instance with gateway inject and resource call
+ *
+ * @var Charge $phpay
  */
-$phpay = new PHPay(new EfiGateway(CLIENT_ID, CLIENT_SECRET));
-```
+$phpay = (new PHPay(new AsaasGateway(TOKEN_ASAAS_SANDBOX)))->charge();
 
-## Gerando uma Cobrança
-
-```php
+/**
+ * create charge
+ */
 $phpay
-    ->charge($charge)
+    ->setCharge($charge)
     ->setCustomer($customer)
     ->create();
+
+/**
+ * find charge
+ */
+$phpay->find($chargeId);
+
+/**
+ * get all charges
+ */
+$phpay->getAll();
+
+/**
+ * get all charges with filters
+ */
+$phpay
+    ->setQueryParams(['limit' => 2])
+    ->getAll();
+
+/**
+ * update charge
+ */
+$phpay->update($chargeId, $data);
+
+/**
+ * destroy charge
+ */
+$phpay->destroy($chargeId);
+
+/**
+ * restore charge
+ */
+$phpay->restore($chargeId);
+
+/**
+ * get status charge
+ */
+$phpay->getStatus($chargeId);
+
+/**
+ * get digitable line charge
+ */
+$phpay->getDigitableLine($chargeId);
+
+/**
+ * get qrcode charge
+ */
+$phpay->getQrCodePix($chargeId);
+
+/**
+ * confirm receipt charge
+ */
+$phpay->confirmReceipt($chargeId, [
+    'paymentDate'    => date('Y-m-d'),
+    'value'          => 100.00,
+    'notifyCustomer' => true,
+]);
+
+/**
+ * undo confirm receipt
+ */
+$phpay->undoConfirmReceipt($chargeId);
+
 ```
 
 ## 📝 Roadmap
