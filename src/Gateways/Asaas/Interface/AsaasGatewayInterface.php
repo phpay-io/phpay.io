@@ -21,10 +21,9 @@ interface AsaasGatewayInterface extends GatewayInterface
     /**
      * get resource charge from gateway.
      *
-     * @param array<mixed> $charge
      * @return Charge
      */
-    public function charge(array $charge = []): Charge;
+    public function charge(): Charge;
 
     /**
      * get resource webhook from gateway.

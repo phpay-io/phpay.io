@@ -15,10 +15,9 @@ interface GatewayInterface
     /**
      * get resource charge from gateway.
      *
-     * @param array<mixed> $charge
      * @return object
      */
-    public function charge(array $charge = []): object;
+    public function charge(): object;
 
     /**
      * get resource webhook from gateway.

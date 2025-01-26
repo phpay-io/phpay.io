@@ -12,25 +12,6 @@ $customer = [
     'cpfCnpj' => CPF_CNPJ,
 ];
 
-$webhook = [
-    'name'        => 'Webhook de Teste',
-    'url'         => 'https://sixtec.com.br/webhook',
-    'email'       => 'mariolucasdev@gmail.com',
-    'enabled'     => true,
-    'interrupted' => false,
-    'apiVersion'  => 3,
-    'authToken'   => '123456',
-    'sendType'    => 'SEQUENTIALLY',
-    'events'      => [
-        'PAYMENT_CREATED',
-        'PAYMENT_UPDATED',
-        'PAYMENT_CONFIRMED',
-        'PAYMENT_RECEIVED',
-        'PAYMENT_OVERDUE',
-        'PAYMENT_DELETED',
-    ],
-];
-
 /**
  * initialize phpay
  *
@@ -45,7 +26,7 @@ $phpay = new PHPay(new AsaasGateway(TOKEN_ASAAS_SANDBOX));
  * @see available fields in https://docs.asaas.com/reference/criar-novo-webhook
  */
 $phpay
-    ->webhook($webhook)
+    ->webhook(WEBHOOK)
     ->create();
 
 /**

@@ -60,6 +60,14 @@ interface ChargeInterface
     public function setCustomer(array $customer): ChargeInterface;
 
     /**
+     * set charge
+     *
+     * @param array<mixed> $charge
+     * @return ChargeInterface
+     */
+    public function setCharge(array $charge): ChargeInterface;
+
+    /**
      * set query params
      *
      * @param array<mixed> $queryParams

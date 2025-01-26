@@ -51,12 +51,11 @@ class AsaasGateway implements AsaasGatewayInterface
     /**
      * charge
      *
-     * @param array<mixed> $charge
      * @return Charge
      */
-    public function charge(array $charge = []): Charge
+    public function charge(): Charge
     {
-        return new Charge($this->token, $charge, $this->sandbox);
+        return new Charge($this->token, $this->sandbox);
     }
 
     /**

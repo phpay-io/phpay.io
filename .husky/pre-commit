@@ -1,33 +1,20 @@
-#!/usr/bin/env sh
-
-echo "============================================="
-echo "Pre Commit Hook - Running pint tests 🧪"
-echo "============================================="
-
-pint_output=$(./vendor/bin/pint --test 2>&1)
+pint_output=$(vendor/bin/pint --test -v 2>&1)
 
 if [ $? -ne 0 ]; then
-    echo "Pint tests failed. Please fix the issues before pushing."
+    php examples/helper/termwind-cli.php error "Pint tests failed." "$pint_output"
+
     exit 1
 fi
 
-echo "🟢 Pint Ok!"
+php examples/helper/termwind-cli.php success "Pint Ok!"
 
-echo "\n"
-
-echo "============================================="
-echo "Pre Commit Hook - Running PHPStan tests 🧪"
-echo "============================================="
-
-pint_output=$(./vendor/bin/phpstan analyse -l 9 src tests 2>&1)
+phpstan=$(vendor/bin/phpstan analyse --level=9 2>&1)
 
 if [ $? -ne 0 ]; then
-    echo "PHPStan tests failed. Please fix the issues before commit."
+    php examples/helper/termwind-cli.php error "PHPStan tests failed." "$phpstan"
     exit 1
 fi
 
-echo "🟢 PHPStan Ok!"
+php examples/helper/termwind-cli.php success "PHPStan Ok!"
 
-echo "\n"
-
-
+exit 0

@@ -26,20 +26,31 @@ class Charge implements ChargeInterface
     private array $queryParams = [];
 
     /**
+     * @var array<mixed>
+     */
+    private array $charge = [];
+
+    /**
      * construct
-     *
-     * @param array<mixed> $charge
      */
     public function __construct(
         private string $token,
-        private array $charge = [],
         private bool $sandbox = true,
     ) {
         $this->client = $this->clientAsaasBoot();
+    }
 
-        if (!empty($charge)) {
-            $this->charge = $charge;
-        }
+    /**
+     * set charge
+     *
+     * @param array<mixed> $charge
+     * @return ChargeInterface
+     */
+    public function setCharge(array $charge): ChargeInterface
+    {
+        $this->charge = $charge;
+
+        return $this;
     }
 
     /**
