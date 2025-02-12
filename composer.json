@@ -1,6 +1,22 @@
 {
     "name": "phpay-io/phpay",
     "type": "library",
+    "funding": [
+        {
+            "url": "https://github.com/sponsors/mariolucasdev",
+            "type": "github"
+        }
+    ],
+    "keywords": [
+        "efi",
+        "asaas",
+        "gateways de pagamento",
+        "gateways",
+        "sdk asaas",
+        "sdk efi",
+        "phpay"
+    ],
+    "license": "MIT",
     "autoload": {
         "psr-4": {
             "PHPay\\": "src/",
