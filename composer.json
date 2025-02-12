@@ -8,11 +8,11 @@
             "PHPay\\Efi\\": "src/Gateways/Efi/",
             "Efi\\": "src/Gateways/Efi/",
             "AsaasCustomer\\": "src/Gateways/Asaas/Resources/Customer/"
-        },
-        "autoload-dev": {
-            "psr-4": {
-                "Tests\\": "tests/"
-            }
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
         }
     },
     "authors": [
